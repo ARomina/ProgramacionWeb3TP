@@ -94,6 +94,8 @@
     <Content Include="Content\customStyles.css" />
     <Content Include="Content\customTheme.css" />
     <Content Include="Content\customTheme.min.css" />
+    <Content Include="Content\Images\domenico-loia-310197-unsplash-copia.png" />
+    <Content Include="Content\Images\domenico-loia-310197-unsplash.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
