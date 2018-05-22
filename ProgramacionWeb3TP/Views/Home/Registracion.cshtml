@@ -2,6 +2,77 @@
 @{
     ViewBag.Title = "Registro";
 }
-
 <h2>Registro</h2>
+<form action="/Home/RegistrarUsuario/" method="POST">
+
+    <br />
+    <div class="container">
+        <div class="row">
+
+            <!-- Example row of columns -->
+            <div class="col col-md-6">
+                <div class="col-md-12">
+                    <h2>En todo momento</h2>
+                    <p>Desde la web o desde tu celular, tu información siempre disponible para que accedas cuando quieras</p>
+                    <!--<p><a class="btn btn-default" href="#" role="button">View details »</a></p>-->
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <h2>Rápido y fácil</h2>
+                    <p>Sistema fácil de utilizar y simple, para organizar tus tareas de forma óptima</p>
+                    <!--<p><a class="btn btn-default" href="#" role="button">View details »</a></p>-->
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <h2>Cada cosa en su lugar</h2>
+                    <p>En sistema de carpetas de Taskie te ayudará a separar y ordenar mejor tus tareas, siendo también más fáciles de encontrar</p>
+                    <!--<p><a class="btn btn-default" href="#" role="button">View details »</a></p>-->
+                </div>
+            </div>
+
+            <div class="col col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Crear una cuenta</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="Nombre completo">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" class="form-control" id="apellido" name="Apellido" placeholder="Apellido completo">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="Email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="contrasenia">Contraseña</label>
+                                <input type="password" class="form-control" id="contrasenia" name="Contrasenia" placeholder="Contraseña">
+                            </div>
+                            <div class="form-group">
+                                <label for="repetircontrasenia">Repetir contraseña</label>
+                                <input type="password" class="form-control" id="repetircontrasenia" name="repetircontrasenia" placeholder=" Repetir contraseña">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="remember" type="checkbox" value="Remember Me"> Acepto los <strong>Términos y Condiciones </strong>
+                                </label>
+                            </div>
+                            <hr />
+                            <input class="btn btn-lg btn-success btn-block" type="submit" value="Continuar">
+                            <hr />
+
+                            @Html.ActionLink("¿Ya tenés cuenta? Ingresa acá", "Login", "Home", new { area = "" }, new { @class = "btn btn-lg btn-info btn-block" })<!--Modificar estilo-->
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
