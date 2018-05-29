@@ -36,8 +36,12 @@ namespace ProgramacionWeb3TP.Controllers{
                 return RedirectToAction("Login", "Home");
             }else {
                 return RedirectToAction("Registracion", "Home");
-            }
-            
+            } 
+        }
+
+        //Estando logueados --> Listado de tareas
+        public ActionResult MisTareas() {
+            return View();
         }
     }
 }
