@@ -1,0 +1,15 @@
+﻿/* Index */
+.navbar {
+    margin-bottom: 0px !important;
+    border-radius: 0px !important;
+}
+
+.jumbotron {
+    background-image: url('Images/domenico-loia-310197-unsplash-copia.png');
+    background-size: cover;
+}
+
+.footer {
+    text-align: center;
+}
+
