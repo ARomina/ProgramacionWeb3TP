@@ -23,11 +23,6 @@ namespace ProgramacionWeb3TP.Controllers{
             return View();
         }
 
-        //IndexLogeado
-        public ActionResult IndexLogeado()
-        {
-            return View();
-        }
         //Registro
         public ActionResult Registracion() {
             return View();
@@ -41,8 +36,12 @@ namespace ProgramacionWeb3TP.Controllers{
                 return RedirectToAction("Login", "Home");
             }else {
                 return RedirectToAction("Registracion", "Home");
-            }
-            
+            } 
+        }
+
+        //Estando logueados --> Listado de tareas
+        public ActionResult MisTareas() {
+            return View();
         }
     }
 }
