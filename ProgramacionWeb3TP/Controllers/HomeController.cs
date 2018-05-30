@@ -18,9 +18,28 @@ namespace ProgramacionWeb3TP.Controllers{
             return View();
         }
 
-        //Login
+        //Login dirige a página principal
+        [HttpGet]
         public ActionResult Login() {
+
+            Usuario usuario = new Usuario();
+
+            return RedirectToAction("Login", "Home");
+        }
+
+        //Validar Login
+        [HttpPost]
+        public ActionResult ValidarLogin(string Email, string Contrasenia)
+        {            
+            if(usuarioRepository.obtenerEmail != null)
+            {
+                if(usuarioRepository.obtenerUsuario != null){
+
+                }
+            }
+
             return View();
+                
         }
 
         //Registro
