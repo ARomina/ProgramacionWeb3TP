@@ -13,5 +13,9 @@ namespace ProgramacionWeb3TP.Controllers {
         public ActionResult MisTareas() {
             return View();
         }
+
+        public ActionResult NuevaTarea() {
+            return View();
+        }
     }
 }

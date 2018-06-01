@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgramacionWeb3TP.Models.Repositories {
-    public interface UsuarioRepositoryInterface {
-      
+namespace ProgramacionWeb3TP.Models.Repositories.TareaRepository {
+    interface TareaRepositoryInterface {
+
     }
 }

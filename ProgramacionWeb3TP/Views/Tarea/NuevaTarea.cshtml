@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "NuevaTarea";
+}
+
+<h1 class="col-md-12 col-sm-12">Nueva Tarea</h1>
+<hr />
+
+<div class="col-md-12 col-sm-12">
+    <div class="col-md-6 col-sm-12">
+        <label>Carpeta</label>
+        <select>
+            <option>Carpeta 1</option>
+            <option>Carpeta 2</option>
+        </select><br />
+        <label>Nombre</label>
+        <input type="text" name="Nombre" placeholder="Nombre" /><br />
+        <label>Prioridad</label>
+        <input type="number" name="Prioridad" placeholder="Prioridad" />
+        <label>Fecha límite</label>
+        <input type="text" name="Fecha límite" placeholder="Fecha límite" />
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <label>Descripción</label>
+        <textarea cols="6" rows="4" name="Descripcion"></textarea><br />
+        <label>¿Completada?</label>
+        <input type="number" name="Completada" placeholder="¿Completada?" /><br />
+        <label>Adjuntos</label>
+        <input type="file" name="RutaArchivo" /><br />
+        <label>Comentarios</label>
+        <input type="text" name="Texto" placeholder="Comentario" /><br />
+        <input type="submit" class="btn-primary" value="Crear nueva tarea"/>
+    </div>
+</div>
+

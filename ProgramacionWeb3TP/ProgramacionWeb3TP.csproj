@@ -122,12 +122,12 @@
     <Compile Include="Models\Entities\Carpeta.cs" />
     <Compile Include="Models\Entities\ComentarioTarea.cs" />
     <Compile Include="Models\Entities\Tarea.cs" />
-    <Compile Include="Models\Repositories\CarpetaRepository\CarpetaRepository.cs" />
-    <Compile Include="Models\Repositories\CarpetaRepository\CarpetaRepositoryInterface.cs" />
-    <Compile Include="Models\Repositories\TareaRepository\TareaRepository.cs" />
-    <Compile Include="Models\Repositories\TareaRepository\TareaRepositoryInterface.cs" />
-    <Compile Include="Models\Repositories\UsuarioRepository\UsuarioRepository.cs" />
-    <Compile Include="Models\Repositories\UsuarioRepository\UsuarioRepositoryInterface.cs" />
+    <Compile Include="Models\Repositories\Carpeta\CarpetaRepository.cs" />
+    <Compile Include="Models\Repositories\Carpeta\CarpetaRepositoryInterface.cs" />
+    <Compile Include="Models\Repositories\Tarea\TareaRepository.cs" />
+    <Compile Include="Models\Repositories\Tarea\TareaRepositoryInterface.cs" />
+    <Compile Include="Models\Repositories\Usuario\UsuarioRepository.cs" />
+    <Compile Include="Models\Repositories\Usuario\UsuarioRepositoryInterface.cs" />
     <Compile Include="Models\Entities\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -141,8 +141,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\MisTareas.cshtml" />
+    <Content Include="Views\Tarea\MisTareas.cshtml" />
     <Content Include="Views\Usuario\Home.cshtml" />
+    <Content Include="Views\Tarea\NuevaTarea.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -153,7 +154,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Carpeta\" />
-    <Folder Include="Views\Tarea\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
