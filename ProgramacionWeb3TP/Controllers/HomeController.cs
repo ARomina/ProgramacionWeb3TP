@@ -31,17 +31,11 @@ namespace ProgramacionWeb3TP.Controllers{
         //Registrar Usuario
         [HttpPost]
         public ActionResult RegistrarUsuario(Usuario usuario) {
-            Usuario usuarioNuevo = usuarioRepository.registrarUsuario(usuario);
-            if (usuarioNuevo != null) {
-                return RedirectToAction("Login", "Home");
+            if (usuarioRepository.registrarUsuario(usuario) != null) {
+                return RedirectToAction("Home", "Usuario");
             }else {
                 return RedirectToAction("Registracion", "Home");
             } 
-        }
-
-        //Estando logueados --> Listado de tareas
-        public ActionResult MisTareas() {
-            return View();
         }
     }
 }
