@@ -118,8 +118,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repositories\UsuarioRepository.cs" />
-    <Compile Include="Models\Repositories\RepositoryInterface.cs" />
+    <Compile Include="Models\Entities\ArchivoTarea.cs" />
+    <Compile Include="Models\Entities\Carpeta.cs" />
+    <Compile Include="Models\Entities\ComentarioTarea.cs" />
+    <Compile Include="Models\Entities\Tarea.cs" />
+    <Compile Include="Models\Repositories\CarpetaRepository\CarpetaRepository.cs" />
+    <Compile Include="Models\Repositories\CarpetaRepository\CarpetaRepositoryInterface.cs" />
+    <Compile Include="Models\Repositories\TareaRepository\TareaRepository.cs" />
+    <Compile Include="Models\Repositories\TareaRepository\TareaRepositoryInterface.cs" />
+    <Compile Include="Models\Repositories\UsuarioRepository\UsuarioRepository.cs" />
+    <Compile Include="Models\Repositories\UsuarioRepository\UsuarioRepositoryInterface.cs" />
     <Compile Include="Models\Entities\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

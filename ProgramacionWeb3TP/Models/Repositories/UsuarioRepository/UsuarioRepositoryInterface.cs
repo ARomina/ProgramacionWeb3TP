@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProgramacionWeb3TP.Models.Repositories {
-    public interface RepositoryInterface {
+    public interface UsuarioRepositoryInterface {
       
     }
 }
