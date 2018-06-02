@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Tarea - Modificar";
+}
+
+<!-- EN LOS PLACEHOLDER SE DEBERIA TRAER LOS DATOS REALES -->
+<h1 class="col-md-12 col-sm-12">Modificar - Tarea "Mi Tarea"</h1>
+<hr />
+<div class="col-md-12 col-sm-12">
+    <div class="col-md-3 col-sm-12">
+        <label>Nombre</label>
+        <input type="text" name="Nombre" placeholder="Nombre" /><br />
+        <label>Carpeta</label>
+        <select>
+            <option>Carpeta 1</option>
+            <option>Carpeta 2</option>
+        </select><br />
+    </div>
+    <div class="col-md-3 col-sm-12">
+        <label>¿Completada?</label>
+        <input type="number" name="Completada" placeholder="¿Completada?" /><br />
+        <label>Fecha límite</label>
+        <input type="text" name="Fecha límite" placeholder="Fecha límite" />
+        <label>Prioridad</label>
+        <input type="number" name="Prioridad" placeholder="Prioridad" />
+    </div>
+</div>
+<hr />
+
+<div class="col-md-12 col-sm-12">
+    <div class="col-md-6 col-sm-12">
+        <label>Descripción</label>
+        <textarea cols="6" rows="4" name="Descripcion"></textarea><br />
+        <label>Adjuntos (5)</label>
+        <!-- NO SE COMO MOSTRAR LOS ADJUNTOS !? -->
+        <div>
+            <p>Adjunto 1</p>
+            <!-- ESTO CON UN ICONITO -->
+            <a href="#">Eliminar</a>
+        </div>
+        <div>
+            <p>Adjunto 1</p>
+            <!-- ESTO CON UN ICONITO -->
+            <a href="#">Eliminar</a>
+        </div>
+        <input type="file" name="RutaArchivo" value="Agregar adjunto"/><br />
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <label>Comentarios (2)</label>
+        <hr />
+        <div class="col-md-12 col-sm-12">
+            <p>Comentario 1</p><br />
+            <hr />
+            <p>Creado el 12/04/2018</p><br />
+            <!-- ESTO CON UN ICONITO -->
+            <a href="#">Eliminar</a>
+        </div>
+        <div class="col-md-12 col-sm-12">
+            <p>Comentario 2</p><br />
+            <hr />
+            <p>Creado el 12/04/2018</p><br />
+            <!-- ESTO CON UN ICONITO -->
+            <a href="#">Eliminar</a>
+        </div>
+        <input type="text" name="Texto" placeholder="Escribir comentario..." /><br />
+    </div>
+    <a class="col-md-2 col-sm-12 btn-primary" href="#" onclick="history.go(-1); return false;">Volver</a>
+</div>
+

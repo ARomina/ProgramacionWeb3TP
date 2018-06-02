@@ -144,6 +144,9 @@
     <Content Include="Views\Tarea\MisTareas.cshtml" />
     <Content Include="Views\Usuario\Home.cshtml" />
     <Content Include="Views\Tarea\NuevaTarea.cshtml" />
+    <Content Include="Views\Tarea\VerDetalleTarea.cshtml" />
+    <Content Include="Views\Tarea\ModificarTarea.cshtml" />
+    <Content Include="Views\Tarea\EliminarTarea.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

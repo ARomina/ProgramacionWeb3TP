@@ -15,6 +15,18 @@ namespace ProgramacionWeb3TP.Controllers {
         }
 
         public ActionResult NuevaTarea() {
+            return RedirectToAction("MisTareas", "Tarea");
+        }
+
+        public ActionResult VerDetalleTarea() {
+            return View();
+        }
+
+        public ActionResult ModificarTarea() {
+            return View();
+        }
+
+        public ActionResult EliminarTarea() {
             return View();
         }
     }
