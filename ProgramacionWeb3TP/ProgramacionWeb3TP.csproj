@@ -106,10 +106,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ModelEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelEntity.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="ModelEntityOk.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelEntityOk.edmx</DependentUpon>
@@ -128,13 +124,6 @@
     </EntityDeploy>
     <Content Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="ModelEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="ModelEntity.edmx.diagram">
-      <DependentUpon>ModelEntity.edmx</DependentUpon>
     </Content>
     <EntityDeploy Include="ModelEntityOk.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -176,16 +165,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="ModelEntity.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelEntity.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ModelEntity.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelEntity.edmx</DependentUpon>
-    </Compile>
     <Compile Include="ModelEntityOk.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -204,6 +183,7 @@
     <Compile Include="Models\Repositories\UsuarioRepository.cs" />
     <Compile Include="Models\Repositories\RepositoryInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\sUsuario.cs" />
     <Compile Include="Tarea.cs">
       <DependentUpon>ModelEntityOk.tt</DependentUpon>
     </Compile>

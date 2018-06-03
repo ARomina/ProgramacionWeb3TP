@@ -12,14 +12,15 @@ namespace ProgramacionWeb3TP
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
-    public partial class PW3TP_20181C_TareasEntities : DbContext
+
+    public partial class ContextoPractico : DbContext
     {
-        public PW3TP_20181C_TareasEntities()
-            : base("name=PW3TP_20181C_TareasEntities")
+        public ContextoPractico()
+            : base("name=ContextoPractico")
         {
+
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
