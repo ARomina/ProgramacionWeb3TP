@@ -30,16 +30,6 @@ namespace ProgramacionWeb3TP.Controllers {
         }
 
         //Vista
-        public ActionResult ModificarCarpeta() {
-            return View();
-        }
-
-        //Procesar modificación de carpeta
-        public ActionResult ModificacionCarpeta() {
-            return RedirectToAction("Index", "Carpetas");
-        }
-
-        //Vista
         public ActionResult Eliminar() {
             return View();
         }

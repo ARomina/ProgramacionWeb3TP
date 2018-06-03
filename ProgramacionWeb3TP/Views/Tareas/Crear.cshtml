@@ -12,30 +12,37 @@
     </div>
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            <form action="/Tarea/CreacionNuevaTarea/" method="POST">
+            <form action="/Tareas/CreacionNuevaTarea/" method="POST">
                 <div class="col-md-6 col-sm-12">
                     <label>Carpeta</label>
                     <select>
-                        <option>Carpeta 1</option>
-                        <option>Carpeta 2</option>
+                        <option selected>Seleccione una carpeta</option>
+                        <option>Carpeta A</option>
+                        <option>Carpeta Z</option>
                     </select><br />
                     <label>Nombre</label>
-                    <input type="text" name="Nombre" placeholder="Nombre" /><br />
+                    <input type="text" name="Nombre" placeholder="Nombre" max="50" /><br />
                     <label>Prioridad</label>
-                    <input type="number" name="Prioridad" placeholder="Prioridad" />
+                    <select>
+                        <option selected>Baja</option>
+                        <option>Media</option>
+                        <option>Alta</option>
+                        <option>Urgente</option>
+                    </select><br />
                     <label>Fecha límite</label>
                     <input type="text" name="Fecha límite" placeholder="Fecha límite" />
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label>Descripción</label>
-                    <textarea cols="6" rows="4" name="Descripcion"></textarea><br />
+                    <textarea cols="6" rows="4" name="Descripcion" maxlength="200"></textarea><br />
                     <label>¿Completada?</label>
-                    <input type="number" name="Completada" placeholder="¿Completada?" /><br />
+                    <input type="radio" name="Completada" value="1" /> Sí<br />
+                    <input type="radio" name="Completada" value="2" /> No<br />
                     <label>Adjuntos</label>
                     <input type="file" name="RutaArchivo" value="Agregar adjunto" /><br />
                     <label>Comentarios</label>
                     <input type="text" name="Texto" placeholder="Escribir comentario..." /><br />
-                    <input type="submit" class="btn-primary" value="Crear nueva tarea" />
+                    <input type="submit" class="btn btn-primary" value="Crear nueva tarea" />
                 </div>
                 <a class="col-md-2 col-sm-12 btn btn-primary" href="#" onclick="history.go(-1); return false;">Volver</a>
             </form>

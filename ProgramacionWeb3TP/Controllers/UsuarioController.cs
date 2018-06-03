@@ -11,5 +11,15 @@ namespace ProgramacionWeb3TP.Controllers {
         public ActionResult HomeUsuario() {
             return View();
         }
+
+        //Vista
+        public ActionResult Modificar() {
+            return View();
+        }
+
+        //Procesar modificacion de perfil de usuario
+        public ActionResult ModificacionUsuario() {
+            return RedirectToAction("HomeUsuario", "Usuario");
+        }
     }
 }

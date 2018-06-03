@@ -6,11 +6,21 @@
 <div class="container">
     <div class="row profile">
         <div class="col-md-12 col-sm-12">
-            <h1 class="col-md-6 col-sm-12 paddingLeftTitles">Mis Tareas</h1>
-            <a class="col-md-2 col-sm-12 btn-primary" href="/Tareas/Crear/">Crear nueva tarea</a>
-            <hr />
+            <div class="col-md-4 col-sm-12">
+                <h1 class="paddingLeftTitles">Mis Tareas</h1>
+            </div>
+            <div class="col-md-2 col-sm-12 col-md-push-1">
+                <input type="radio" name="filterBy" value="pendiente" class="col-md-3 col-sm-12" />No completadas
+            </div>
+            <div class="col-md-2 col-sm-12 col-md-push-1">
+                <input type="radio" name="filterBy" value="todas" class="col-md-3 col-sm-12" />Todas
+            </div>
+            <div class="col-md-4 col-sm-12 col-md-push-2">
+                <a class="btn btn-primary" href="/Tareas/Crear/">Crear nueva tarea</a>
+            </div>
         </div>
     </div>
+    <hr />
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="col-md-9 col-sm-12">
