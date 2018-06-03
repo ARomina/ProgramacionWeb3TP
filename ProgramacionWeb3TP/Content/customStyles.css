@@ -10,7 +10,13 @@
 }
 
 .footer {
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 80px;
+    background-color: #ffffff;
     text-align: center;
+    margin-top: 80px !important;
 }
 
 /* Login / Registracion */

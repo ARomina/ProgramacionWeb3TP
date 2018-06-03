@@ -14,20 +14,39 @@ namespace ProgramacionWeb3TP.Controllers {
             return View();
         }
 
+        //Vista
         public ActionResult NuevaTarea() {
+            return View();
+        }
+
+        //Procesar creación de nueva tarea
+        public ActionResult CreacionNuevaTarea() {
             return RedirectToAction("MisTareas", "Tarea");
         }
 
+        //Vista
         public ActionResult VerDetalleTarea() {
             return View();
         }
 
+        //Vista
         public ActionResult ModificarTarea() {
             return View();
         }
 
+        //Procesar modificación de tarea
+        public ActionResult ModificacionTarea() {
+            return RedirectToAction("MisTareas", "Tarea");
+        }
+
+        //Vista
         public ActionResult EliminarTarea() {
             return View();
+        }
+
+        //Procesar eliminación de tarea
+        public ActionResult EliminacionTarea() {
+            return RedirectToAction("MisTareas", "Tarea");
         }
     }
 }

@@ -3,47 +3,56 @@
     ViewBag.Title = "Tarea - Detalle";
 }
 
-<h1 class="col-md-12 col-sm-12">Detalle</h1>
-<hr />
-<div class="col-md-12 col-sm-12">
-    <div class="col-md-3 col-sm-12">
-        <h1 class="col-md-12 col-sm-12">Tarea: "Mi tarea"</h1>
-        <h2 class="col-md-12 col-sm-12">Carpeta: "Mi Carpeta"</h2>
-        <a class="col-md-2 col-sm-12 btn-primary" href="/Tarea/NuevaTarea/">Crear nueva tarea</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <h1 class="paddingLeftTitles">Detalle</h1>
+            <hr />
+        </div>
     </div>
-    <div class="col-md-3 col-sm-12">
-        <p class="col-md-12 col-sm-12">¿Completada? - No</p>
-        <p class="col-md-12 col-sm-12">Fecha límite: 12/04/18</p>
-        <p class="col-md-12 col-sm-12">Prioridad: Baja</p>
-    </div>
-    <div class="col-md-3 col-sm-12">
-        <a class="col-md-2 col-sm-12 btn-primary" href="/Tarea/ModificarTarea/">Mofidicar</a>
-        <a class="col-md-2 col-sm-12 btn-primary" href="/Tarea/EliminarTarea/">Eliminar</a>
-    </div>
-</div>
-<hr />
-
-<div class="col-md-12 col-sm-12">
-    <div class="col-md-6 col-sm-12">
-        <p>Descripción</p>
-        <textarea disabled value="Lorem ipsum dolor sit amet consectetur adipiscing elit, tortor dis hendrerit urna nullam platea arcu id, accumsan justo malesuada mollis duis cubilia. Tellus congue dapibus at suscipit faucibus cursus in, ligula montes dignissim varius blandit nibh, dictum mollis fermentum aptent non taciti."></textarea>/><br />
-        <label>Adjuntos (5)</label>
-        <p>NO SE COMO MOSTRAR ADJUNTOS !?</p>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <label>Comentarios (2)</label>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-4 col-sm-12">
+                <div class="col-md-12 col-sm-12">
+                    <h3>Tarea: "Mi tarea"</h3>
+                    <h4>Carpeta: "Mi Carpeta"</h4>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <p>¿Completada? - No</p>
+                <p>Fecha límite: 12/04/18</p>
+                <p>Prioridad: Baja</p>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <a class="btn btn-info" href="/Tarea/ModificarTarea/">Modificar</a>
+                <a class="btn btn-primary" href="/Tarea/EliminarTarea/">Eliminar</a>
+            </div>
+        </div>
         <hr />
+    </div>
+    <div class="row">
         <div class="col-md-12 col-sm-12">
-            <p>Comentario 1</p><br />
-            <hr />
-            <p>Creado el 12/04/2018</p><br />
-        </div>
-        <div class="col-md-12 col-sm-12">
-            <p>Comentario 2</p><br />
-            <hr />
-            <p>Creado el 12/04/2018</p><br />
+            <div class="col-md-6 col-sm-12">
+                <p>Descripción</p>
+                <textarea disabled placeholder="Lorem ipsum dolor sit amet consectetur adipiscing elit, tortor dis hendrerit urna nullam platea arcu id, accumsan justo malesuada mollis duis cubilia. Tellus congue dapibus at suscipit faucibus cursus in, ligula montes dignissim varius blandit nibh, dictum mollis fermentum aptent non taciti." class="col-md-12 col-sm-12" rows="5"></textarea><br />
+                <label>Adjuntos (5)</label>
+                <p>NO SE COMO MOSTRAR ADJUNTOS !?</p>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <label>Comentarios (2)</label>
+                <hr />
+                <div class="col-md-12 col-sm-12">
+                    <p>Comentario 1</p>
+                    <hr />
+                    <p>Creado el 12/04/2018</p><br />
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <p>Comentario 2</p>
+                    <hr />
+                    <p>Creado el 12/04/2018</p><br />
+                </div>
+            </div>
+            <a class="col-md-2 col-sm-12 pull-right btn btn-primary" href="#" onclick="history.go(-1); return false;">Volver</a>
         </div>
     </div>
-    <a class="col-md-2 col-sm-12 btn-primary" href="#" onclick="history.go(-1); return false;">Volver</a>
 </div>
-
