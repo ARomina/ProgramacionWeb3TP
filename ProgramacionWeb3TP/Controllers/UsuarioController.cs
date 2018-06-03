@@ -6,8 +6,9 @@ using System.Web.Mvc;
 
 namespace ProgramacionWeb3TP.Controllers {
     public class UsuarioController : Controller {
+        
         // GET: Usuario
-        public ActionResult Home() {
+        public ActionResult HomeUsuario() {
             return View();
         }
     }

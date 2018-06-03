@@ -18,12 +18,12 @@ namespace ProgramacionWeb3TP.Controllers{
             return View();
         }
 
-        //Login
+        //Pantalla Login
         public ActionResult Login() {
             return View();
         }
 
-        //Registro
+        //Pantalla Registro
         public ActionResult Registracion() {
             return View();
         }
@@ -32,10 +32,15 @@ namespace ProgramacionWeb3TP.Controllers{
         [HttpPost]
         public ActionResult RegistrarUsuario(Usuario usuario) {
             if (usuarioRepository.registrarUsuario(usuario) != null) {
-                return RedirectToAction("Home", "Usuario");
+                return RedirectToAction("HomeUsuario", "Usuario");
             }else {
                 return RedirectToAction("Registracion", "Home");
             } 
+        }
+
+        //Procesar login de usuario
+        public ActionResult LoginUsuario() {
+            return RedirectToAction("HomeUsuario", "Usuario");
         }
     }
 }
