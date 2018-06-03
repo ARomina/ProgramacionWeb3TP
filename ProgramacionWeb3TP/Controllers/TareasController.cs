@@ -5,48 +5,48 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace ProgramacionWeb3TP.Controllers {
-    public class TareaController : Controller {
+    public class TareasController : Controller {
         
         // GET: Tarea
         //Estando logueados --> Listado de tareas
         //Chequear si el usuario esta en sesión, sino mostrar pantalla de que no esta logueado, etc
-        public ActionResult MisTareas() {
+        public ActionResult Index() {
             return View();
         }
 
         //Vista
-        public ActionResult NuevaTarea() {
+        public ActionResult Crear() {
             return View();
         }
 
         //Procesar creación de nueva tarea
-        public ActionResult CreacionNuevaTarea() {
-            return RedirectToAction("MisTareas", "Tarea");
+        public ActionResult CreacionTarea() {
+            return RedirectToAction("Index", "Tareas");
         }
 
         //Vista
-        public ActionResult VerDetalleTarea() {
+        public ActionResult Detalle() {
             return View();
         }
 
         //Vista
-        public ActionResult ModificarTarea() {
+        public ActionResult Modificar() {
             return View();
         }
 
         //Procesar modificación de tarea
         public ActionResult ModificacionTarea() {
-            return RedirectToAction("MisTareas", "Tarea");
+            return RedirectToAction("Index", "Tareas");
         }
 
         //Vista
-        public ActionResult EliminarTarea() {
+        public ActionResult Eliminar() {
             return View();
         }
 
         //Procesar eliminación de tarea
         public ActionResult EliminacionTarea() {
-            return RedirectToAction("MisTareas", "Tarea");
+            return RedirectToAction("Index", "Tareas");
         }
     }
 }

@@ -102,6 +102,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\customJs.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -111,9 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CarpetaController.cs" />
+    <Compile Include="Controllers\CarpetasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TareaController.cs" />
+    <Compile Include="Controllers\TareasController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -141,12 +142,17 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Tarea\MisTareas.cshtml" />
-    <Content Include="Views\Tarea\NuevaTarea.cshtml" />
-    <Content Include="Views\Tarea\VerDetalleTarea.cshtml" />
-    <Content Include="Views\Tarea\ModificarTarea.cshtml" />
-    <Content Include="Views\Tarea\EliminarTarea.cshtml" />
     <Content Include="Views\Usuario\HomeUsuario.cshtml" />
+    <Content Include="Views\Carpetas\Index.cshtml" />
+    <Content Include="Views\Carpetas\Crear.cshtml" />
+    <Content Include="Views\Carpetas\Tareas.cshtml" />
+    <Content Include="Views\Carpetas\Modificar.cshtml" />
+    <Content Include="Views\Carpetas\Eliminar.cshtml" />
+    <Content Include="Views\Tareas\Crear.cshtml" />
+    <Content Include="Views\Tareas\Index.cshtml" />
+    <Content Include="Views\Tareas\Modificar.cshtml" />
+    <Content Include="Views\Tareas\Eliminar.cshtml" />
+    <Content Include="Views\Tareas\Detalle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -156,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Carpeta\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
