@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ProgramacionWeb3TP.Models.Entities
-{
-    public class Usuario
-    {
+namespace ProgramacionWeb3TP.Models {
+    public class Usuario {
         public int IdUsuario { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -17,12 +15,10 @@ namespace ProgramacionWeb3TP.Models.Entities
         public DateTime FechaActivacion { get; set; }
         public string CodigoActivacion { get; set; }
 
-        public Usuario()
-        {
+        public Usuario() {
         }
 
-        public Usuario(Usuario usuario)
-        {
+        public Usuario(Usuario usuario) {
             //Agregar Id después
             this.Nombre = usuario.Nombre;
             this.Apellido = usuario.Apellido;

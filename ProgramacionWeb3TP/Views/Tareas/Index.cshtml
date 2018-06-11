@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Mis Tareas";
+}
+
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-4 col-sm-12">
+                <h1 class="paddingLeftTitles">Mis Tareas</h1>
+            </div>
+            <div class="col-md-2 col-sm-12 col-md-push-1">
+                <input type="radio" name="filterBy" value="pendiente" class="col-md-3 col-sm-12" />No completadas
+            </div>
+            <div class="col-md-2 col-sm-12 col-md-push-1">
+                <input type="radio" name="filterBy" value="todas" class="col-md-3 col-sm-12" />Todas
+            </div>
+            <div class="col-md-4 col-sm-12 col-md-push-2">
+                <a class="btn btn-primary" href="/Tareas/Crear/">Crear nueva tarea</a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-9 col-sm-12">
+                <div class="col-md-5">
+                    <h4>Para el: 14-05-2018</h4>
+                </div>
+                <div class="col-md-2">
+                    <p>Prioridad alta</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Incompleta</p>
+                </div>
+                <div class="col-md-9">
+                    <h5>Carpeta: "Tareas de Programación Web 3"</h5>
+                </div>
+                <hr class="col-md-9" />
+                <div class="col-md-9">
+                    <div class="col-md-5">
+                        <p>Nombre: "Realizar vistas"</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>1 Comentario</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>1 Adjunto</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <a href="/Tareas/Detalle/" class="btn btn-primary">Ver más</a>
+                <a href="/Tareas/Modificar/" class="btn btn-primary">Modificar</a>
+                <a href="/Tareas/Eliminar/" class="btn btn-primary">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,4 +1,4 @@
-﻿using ProgramacionWeb3TP.Models.Entities;
+﻿using ProgramacionWeb3TP.Models;
 using ProgramacionWeb3TP.Models.Repositories;
 using System;
 using System.Collections.Generic;
@@ -7,53 +7,40 @@ using System.Web;
 using System.Web.Mvc;
 
 namespace ProgramacionWeb3TP.Controllers{
-    public class HomeController : Controller{
-
+    public class HomeController : Controller {
         public static List<Usuario> listUsuarios;
         private UsuarioRepository usuarioRepository = new UsuarioRepository();
+
         //Sin estar loggueados
 
         // GET: Home
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
             return View();
         }
 
-        //Login
-        public ActionResult Login()
-        {
+        //Pantalla Login
+        public ActionResult Login() {
             return View();
         }
 
-        public ActionResult LoginUsuario()
-        {
-            return View();
-        }
-        //IndexLogeado
-        public ActionResult IndexLogeado()
-        {
-            return View();
-        }
-        //Registro
-        public ActionResult Registracion()
-        {
+        //Pantalla Registro
+        public ActionResult Registracion() {
             return View();
         }
 
         //Registrar Usuario
         [HttpPost]
-        public ActionResult RegistrarUsuario(Usuario usuario)
-        {
-            Usuario usuarioNuevo = usuarioRepository.registrarUsuario(usuario);
-            if (usuarioNuevo != null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
-            else
-            {
+        public ActionResult RegistrarUsuario(Usuario usuario) {
+            if (usuarioRepository.registrarUsuario(usuario) != null) {
+                return RedirectToAction("HomeUsuario", "Usuario");
+            }else {
                 return RedirectToAction("Registracion", "Home");
-            }
+            } 
+        }
 
+        //Procesar login de usuario
+        public ActionResult LoginUsuario() {
+            return RedirectToAction("HomeUsuario", "Usuario");
         }
     }
 }

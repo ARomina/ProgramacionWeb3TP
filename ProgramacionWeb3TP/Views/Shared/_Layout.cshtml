@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Taskie</title>
     <!--<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />-->
+    
     <!-- Estilos propios -->
     <link href="~/Content/customStyles.css" rel="stylesheet" type="text/css" />
 
@@ -12,32 +13,37 @@
     <link href="~/Content/customTheme.css" rel="stylesheet" type="text/css" />
 
     <!--<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script> 
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-doublerow navbar-trans navbar-fixed-top">
-        <!-- top nav -->
-        <nav class="navbar navbar-top hidden-xs">
-            <div class="container">
-                <!-- left nav top -->
-                <ul class="nav navbar-nav pull-left">
-
-                    @Html.ActionLink("Taskie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-
-                </ul>
-                <!-- right nav top -->
-                <ul class="nav navbar-nav pull-right">
-                    @Html.ActionLink("Comenzar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })<!--Modificar estilo-->
-                    @Html.ActionLink("¿Por qué Taskie?", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })<!--Modificar estilo-->
-                    @Html.ActionLink("Contacto", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })<!--Modificar estilo-->
-                </ul>
+    <div class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!--<a class="navbar-brand" href="#">Project name</a>-->
+                @Html.ActionLink("Taskie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="dividline light-grey"></div>
-
-        </nav>
-
-
-    </nav>
+            <!-- MOSTRAR U OCULTAR ESTO SEGUN LA SESION -->
+            <!--<div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav pull-right ">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hola, NombreDeUsuario <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/Usuario/Modificar/"><i class="icon-cog"></i> Modificar mi perfil</a></li>
+                                    <li><a href="/Carpetas/Index/"><i class="icon-cog"></i> Mis carpetas</a></li>
+                                    <li><a href="/Tareas/Index"><i class="icon-envelope"></i> Mis tareas</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="/Usuario/Logout"><i class="icon-off"></i> Salir</a></li>
+                                </ul>
+                            </li>
+                </ul>
+            </div>-->
+        </div>
+    </div>
 
     @RenderBody()
     <footer class="footer">
@@ -48,3 +54,4 @@
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
+</html>

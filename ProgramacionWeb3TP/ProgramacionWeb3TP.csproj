@@ -102,6 +102,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\customJs.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -111,13 +112,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CarpetasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TareasController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\ArchivoTarea.cs" />
+    <Compile Include="Models\Entities\Carpeta.cs" />
+    <Compile Include="Models\Entities\ComentarioTarea.cs" />
+    <Compile Include="Models\Entities\Tarea.cs" />
+    <Compile Include="Models\Repositories\Carpeta\CarpetaRepository.cs" />
+    <Compile Include="Models\Repositories\Carpeta\CarpetaRepositoryInterface.cs" />
+    <Compile Include="Models\Repositories\Tarea\TareaRepository.cs" />
+    <Compile Include="Models\Repositories\Tarea\TareaRepositoryInterface.cs" />
+    <Compile Include="Models\Repositories\Usuario\UsuarioRepository.cs" />
+    <Compile Include="Models\Repositories\Usuario\UsuarioRepositoryInterface.cs" />
     <Compile Include="Models\Entities\Usuario.cs" />
-    <Compile Include="Models\Repositories\RepositoryInterface.cs" />
-    <Compile Include="Models\Repositories\UsuarioRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,8 +142,17 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\IndexLogeado.cshtml" />
-    <Content Include="Views\Home\LoginUsuario.cshtml" />
+    <Content Include="Views\Usuario\HomeUsuario.cshtml" />
+    <Content Include="Views\Carpetas\Index.cshtml" />
+    <Content Include="Views\Carpetas\Crear.cshtml" />
+    <Content Include="Views\Carpetas\Tareas.cshtml" />
+    <Content Include="Views\Carpetas\Eliminar.cshtml" />
+    <Content Include="Views\Tareas\Crear.cshtml" />
+    <Content Include="Views\Tareas\Index.cshtml" />
+    <Content Include="Views\Tareas\Modificar.cshtml" />
+    <Content Include="Views\Tareas\Eliminar.cshtml" />
+    <Content Include="Views\Tareas\Detalle.cshtml" />
+    <Content Include="Views\Usuario\Modificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

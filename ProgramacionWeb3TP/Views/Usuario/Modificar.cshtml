@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Modificar";
+}
+
+<!-- TRAER LOS DATOS DE SESION PARA LLENAR LOS CAMPOS -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <h1 class="paddingLeftTitles">Mi Perfil - Modificar</h1>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 text-center">
+            <form action="/Usuario/ModificacionUsuario/" method="POST">
+                <div class="col-md-6 col-sm-6">
+                    <label>Nombre</label>
+                    <input type="text" name="Nombre" placeholder="Nombre" max="50" /><br />
+                    <label>Apellido</label>
+                    <input type="text" name="Apellido" placeholder="Apellido" max="50" /><br />
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <label>Email</label>
+                    <input type="email" name="Email" placeholder="Email" max="50" /><br />
+                    <label>Contraseña</label>
+                    <input type="text" name="Contrasenia" placeholder="Contraseña" max="50" /><br />
+                </div>
+                <div class="pull-right">
+                    <a class="btn btn-info" href="#" onclick="history.go(-1); return false;">Volver</a>
+                    <input type="submit" class="btn btn-primary" value="Modificar" />
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+

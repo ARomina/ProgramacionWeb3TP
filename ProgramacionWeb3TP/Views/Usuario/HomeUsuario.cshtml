@@ -1,0 +1,169 @@
+﻿@{
+    ViewBag.Title = "Home";
+
+}
+
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <div class="profile-userpic">
+                    <img src="https://icon-icons.com/icons2/67/PNG/512/user_13230.png" class="img-responsive" alt="">
+                </div>
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">Nombre de usuario</div>
+                </div>
+                <div class="profile-userbuttons center-block">
+                    <a href="/Usuario/Modificar/" class="btn btn-success btn-sm">Modificar perfil</a>
+                </div>
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                       <li class="active">
+                            <a href="/Carpetas/Index/">
+                                <i class="glyphicon glyphicon-folder-open"></i> Mis carpetas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Tareas/Index/">
+                                <i class="glyphicon glyphicon-check"></i> Mis tareas
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+                 <div class="row">
+                    <div class="col-lg-9 col-md-9">
+                        <h2>Carpetas recientes</h2>
+                    </div>
+                    <!--<div class=" col-lg-4 col-md-4">
+                        <div class="input-group custom-search-form">
+                            <input class="form-control" type="text" placeholder="Búsqueda rápida...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>-->
+                    <div class=" col-lg-3 col-md-3 ">
+                        <div class="form-group pull-right">
+                            <a href="/Carpetas/Crear/" class="btn btn-success">
+                                <i class="glyphicon glyphicon-plus"></i> Crear carpeta
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <!--Carpetas-->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-12 text-right">
+                                        <div class="huge">Carpeta  1 </div>
+                                        <div class="huge">0 archivos adjuntos </div>
+                                        <div class="huge">Ultima vez hace 2 dias</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-12 text-right">
+                                        <div class="huge">Carpeta  2 </div>
+                                        <div class="huge">3 archivos adjuntos </div>
+                                        <div class="huge">Ultima vez hace 2 dias</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-12 text-right">
+                                        <div class="huge">Esta es la carpeta 3 </div>
+                                        <div class="huge">1 archivos adjuntos </div>
+                                        <div class="huge">Ultima vez hace 4 dias</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-12 text-right">
+                                        <div class="huge">Esta es la carpeta 4 </div>
+                                        <div class="huge">0 archivos adjuntos </div>
+                                        <div class="huge">Ultima vez hoy lorem ipsumlorem ipsum</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-12 text-right">
+                                        <div class="huge">Esta es la carpeta 5 </div>
+                                        <div class="huge">12 archivos adjuntos </div>
+                                        <div class="huge">Ultima vez hace 2 dias</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-12 text-right">
+                                        <div class="huge"> carpeta 6 </div>
+                                        <div class="huge">12 archivos adjuntos </div>
+                                        <div class="huge">Ultima vez hace 1 dia lorem ipsum</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--Fin carpetas-->
+            </div>
+        </div>
+    </div>
+</div>
+
