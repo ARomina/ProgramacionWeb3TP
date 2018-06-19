@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProgramacionWeb3TP
+namespace ProgramacionWeb3TP.Models
 {
     using System;
     using System.Collections.Generic;

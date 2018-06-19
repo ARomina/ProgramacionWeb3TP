@@ -7,19 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProgramacionWeb3TP
+namespace ProgramacionWeb3TP.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Carpeta
+    public partial class ArchivoTarea
     {
-        public int IdCarpeta { get; set; }
-        public Nullable<int> IdUsuario { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public int IdArchivoTarea { get; set; }
+        public string RutaArchivo { get; set; }
+        public int IdTarea { get; set; }
         public System.DateTime FechaCreacion { get; set; }
     
-        public virtual Usuario Usuario { get; set; }
+        public virtual Tarea Tarea { get; set; }
     }
 }

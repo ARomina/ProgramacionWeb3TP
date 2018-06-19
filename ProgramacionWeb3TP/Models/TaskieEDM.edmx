@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PW3TP_20181C_TareasModel2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TaskieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ArchivoTarea">
           <Key>
             <PropertyRef Name="IdArchivoTarea" />
@@ -118,7 +118,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PW3TP_20181C_TareasModel2StoreContainer">
+        <EntityContainer Name="TaskieModelStoreContainer">
           <EntitySet Name="ArchivoTarea" EntityType="Self.ArchivoTarea" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Carpeta" EntityType="Self.Carpeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComentarioTarea" EntityType="Self.ComentarioTarea" Schema="dbo" store:Type="Tables" />
@@ -145,7 +145,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PW3TP_20181C_TareasModel2" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="TaskieModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="ArchivoTarea">
           <Key>
             <PropertyRef Name="IdArchivoTarea" />
@@ -267,7 +267,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PW3TP_20181C_TareasEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PW3TP_20181C_TaskieEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ArchivoTarea" EntityType="Self.ArchivoTarea" />
           <EntitySet Name="Carpeta" EntityType="Self.Carpeta" />
           <EntitySet Name="ComentarioTarea" EntityType="Self.ComentarioTarea" />
@@ -295,9 +295,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PW3TP_20181C_TareasModel2StoreContainer" CdmEntityContainer="PW3TP_20181C_TareasEntities2">
+        <EntityContainerMapping StorageEntityContainer="TaskieModelStoreContainer" CdmEntityContainer="PW3TP_20181C_TaskieEntities">
           <EntitySetMapping Name="ArchivoTarea">
-            <EntityTypeMapping TypeName="PW3TP_20181C_TareasModel2.ArchivoTarea">
+            <EntityTypeMapping TypeName="TaskieModel.ArchivoTarea">
               <MappingFragment StoreEntitySet="ArchivoTarea">
                 <ScalarProperty Name="IdArchivoTarea" ColumnName="IdArchivoTarea" />
                 <ScalarProperty Name="RutaArchivo" ColumnName="RutaArchivo" />
@@ -307,7 +307,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Carpeta">
-            <EntityTypeMapping TypeName="PW3TP_20181C_TareasModel2.Carpeta">
+            <EntityTypeMapping TypeName="TaskieModel.Carpeta">
               <MappingFragment StoreEntitySet="Carpeta">
                 <ScalarProperty Name="IdCarpeta" ColumnName="IdCarpeta" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
@@ -318,7 +318,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ComentarioTarea">
-            <EntityTypeMapping TypeName="PW3TP_20181C_TareasModel2.ComentarioTarea">
+            <EntityTypeMapping TypeName="TaskieModel.ComentarioTarea">
               <MappingFragment StoreEntitySet="ComentarioTarea">
                 <ScalarProperty Name="IdComentarioTarea" ColumnName="IdComentarioTarea" />
                 <ScalarProperty Name="Texto" ColumnName="Texto" />
@@ -328,7 +328,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tarea">
-            <EntityTypeMapping TypeName="PW3TP_20181C_TareasModel2.Tarea">
+            <EntityTypeMapping TypeName="TaskieModel.Tarea">
               <MappingFragment StoreEntitySet="Tarea">
                 <ScalarProperty Name="IdTarea" ColumnName="IdTarea" />
                 <ScalarProperty Name="IdCarpeta" ColumnName="IdCarpeta" />
@@ -344,7 +344,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
-            <EntityTypeMapping TypeName="PW3TP_20181C_TareasModel2.Usuario">
+            <EntityTypeMapping TypeName="TaskieModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />

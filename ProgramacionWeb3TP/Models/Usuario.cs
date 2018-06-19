@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProgramacionWeb3TP
+namespace ProgramacionWeb3TP.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,24 +22,14 @@ namespace ProgramacionWeb3TP
         }
     
         public int IdUsuario { get; set; }
-        [Required(ErrorMessage ="Debe ingresar un nombre de Usuario")]
-        [StringLength(50, ErrorMessage="El máximo de caracteres para el Usuario es de 50")]
         public string Nombre { get; set; }
-        [Required(ErrorMessage = "Debe ingresar un Apellido para el Usuario")]
-        [StringLength(50, ErrorMessage = "El máximo de caracteres para el Apellido es de 50")]
         public string Apellido { get; set; }
-        [Required(ErrorMessage = "Debe ingresar una Contraseña para Usuario")]
-        [StringLength(200, ErrorMessage = "El máximo de caracteres para el Email es de 200")]
         public string Email { get; set; }
-        [StringLength(20, ErrorMessage = "El máximo de caracteres para el Contraseña es de 20")]
         public string Contrasenia { get; set; }
-
-
         public short Activo { get; set; }
         public System.DateTime FechaRegistracion { get; set; }
         public Nullable<System.DateTime> FechaActivacion { get; set; }
         public string CodigoActivacion { get; set; }
-        public string LoginErrorMessage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carpeta> Carpeta { get; set; }

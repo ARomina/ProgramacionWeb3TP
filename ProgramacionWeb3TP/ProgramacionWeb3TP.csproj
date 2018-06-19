@@ -102,35 +102,24 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Model1.Context.tt">
+    <Content Include="Models\TaskieEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>TaskieEDM.edmx</DependentUpon>
+      <LastGenOutput>TaskieEDM.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ModelEntityOk.Context.tt">
+    <Content Include="Models\TaskieEDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelEntityOk.edmx</DependentUpon>
-      <LastGenOutput>ModelEntityOk.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="ModelEntityOk.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelEntityOk.edmx</DependentUpon>
-      <LastGenOutput>ModelEntityOk.cs</LastGenOutput>
+      <DependentUpon>TaskieEDM.edmx</DependentUpon>
+      <LastGenOutput>TaskieEDM.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Model1.edmx">
+    <EntityDeploy Include="Models\TaskieEDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>TaskieEDM.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="ModelEntityOk.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelEntityOk.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="ModelEntityOk.edmx.diagram">
-      <DependentUpon>ModelEntityOk.edmx</DependentUpon>
+    <Content Include="Models\TaskieEDM.edmx.diagram">
+      <DependentUpon>TaskieEDM.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -142,54 +131,55 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="ArchivoTarea.cs">
-      <DependentUpon>ModelEntityOk.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Carpeta.cs">
-      <DependentUpon>ModelEntityOk.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ComentarioTarea.cs">
-      <DependentUpon>ModelEntityOk.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+    <Compile Include="Models\ArchivoTarea.cs">
+      <DependentUpon>TaskieEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Compile Include="Models\Carpeta.cs">
+      <DependentUpon>TaskieEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelEntityOk.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelEntityOk.Context.tt</DependentUpon>
+    <Compile Include="Models\ComentarioTarea.cs">
+      <DependentUpon>TaskieEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelEntityOk.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelEntityOk.tt</DependentUpon>
+    <Compile Include="Models\Entities\ArchivoTarea.cs" />
+    <Compile Include="Models\Entities\Carpeta.cs" />
+    <Compile Include="Models\Entities\ComentarioTarea.cs" />
+    <Compile Include="Models\Entities\Tarea.cs" />
+    <Compile Include="Models\Entities\Usuario.cs" />
+    <Compile Include="Models\Metadata\ArchivoTareaMetadata.cs" />
+    <Compile Include="Models\Metadata\CarpetaMetadata.cs" />
+    <Compile Include="Models\Metadata\ComentarioTareaMetadata.cs" />
+    <Compile Include="Models\Metadata\TareaMetadata.cs" />
+    <Compile Include="Models\Metadata\UsuarioMetadata.cs" />
+    <Compile Include="Models\Repositories\CarpetaRepository.cs" />
+    <Compile Include="Models\Tarea.cs">
+      <DependentUpon>TaskieEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelEntityOk.Designer.cs">
+    <Compile Include="Models\TaskieEDM.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelEntityOk.edmx</DependentUpon>
+      <DependentUpon>TaskieEDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaskieEDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TaskieEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaskieEDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TaskieEDM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuario.cs">
+      <DependentUpon>TaskieEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\UsuarioRepository.cs" />
     <Compile Include="Models\Repositories\RepositoryInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\sUsuario.cs" />
-    <Compile Include="Tarea.cs">
-      <DependentUpon>ModelEntityOk.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Usuario.cs">
-      <DependentUpon>ModelEntityOk.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -210,7 +200,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

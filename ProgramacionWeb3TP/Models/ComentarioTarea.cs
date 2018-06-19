@@ -7,15 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProgramacionWeb3TP
+namespace ProgramacionWeb3TP.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ArchivoTarea
+    public partial class ComentarioTarea
     {
-        public int IdArchivoTarea { get; set; }
-        public string RutaArchivo { get; set; }
+        public int IdComentarioTarea { get; set; }
+        public string Texto { get; set; }
         public int IdTarea { get; set; }
         public System.DateTime FechaCreacion { get; set; }
     
