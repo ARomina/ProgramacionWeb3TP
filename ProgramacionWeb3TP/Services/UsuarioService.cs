@@ -1,6 +1,7 @@
 ﻿using ProgramacionWeb3TP.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +10,10 @@ namespace ProgramacionWeb3TP.Services
     public class UsuarioService
     {
         private TaskieContext ctx = new TaskieContext();
+
+        //Variables estaticas para asignar si estan activos o no
+        private static short USUARIO_NO_ACTIVO = 0;
+        private static short USUARIO_ACTIVO = 1;
 
         public Usuario ObtenerUsuarioPorId(int id)
         {
@@ -40,9 +45,8 @@ namespace ProgramacionWeb3TP.Services
 
             return usuarioEncontrado;
         }
-    }
 
-    public Usuario registrarUsuario(Usuario usuario, string pass2) {
+        public Usuario registrarUsuario(Usuario usuario, string pass2) {
             Usuario usuarioNuevo = null;
             if (chequearSiMailsCoinciden(usuario.Contrasenia, pass2)) {
                 usuarioNuevo = new Usuario(usuario, USUARIO_NO_ACTIVO, null);
@@ -51,27 +55,31 @@ namespace ProgramacionWeb3TP.Services
                 System.Diagnostics.Debug.WriteLine("Datos del usuario nuevo a crear: " + usuarioNuevo.Nombre + " " + usuarioNuevo.Apellido + " "
                                                              + usuarioNuevo.Email + " " + usuarioNuevo.Contrasenia + " " + usuarioNuevo.Activo + " " + usuarioNuevo.FechaRegistracion
                                                              + " " + usuarioNuevo.FechaActivacion + " " + usuarioNuevo.CodigoActivacion);
-                
-                    if (chequearSiExisteEmail(usuarioNuevo.Email)) {
-                        if (chequearSiEstaActivo(usuarioNuevo.Email)) {
-                            //Avisar que ya existe un usuario activo con ese mail
-                        }else {
-                            Usuario usuarioActivado =  activarRegistroUsuarioExistente(usuarioNuevo);
-                            usuarioNuevo = usuarioActivado;
-                        }
-                    }else {
-                        try {
-                            ctx.Usuarios.Add(usuarioNuevo);
-                            ctx.SaveChanges();
-                        }catch (DbEntityValidationException ex) {
-                            foreach (var entityValidationErrors in ex.EntityValidationErrors) {
-                                foreach (var validationError in entityValidationErrors.ValidationErrors) {
-                                    System.Diagnostics.Debug.WriteLine("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
-                                }
+
+                if (chequearSiExisteEmail(usuarioNuevo.Email)) {
+                    if (chequearSiEstaActivo(usuarioNuevo.Email)) {
+                        //Avisar que ya existe un usuario activo con ese mail
+                    }
+                    else {
+                        Usuario usuarioActivado = activarRegistroUsuarioExistente(usuarioNuevo);
+                        usuarioNuevo = usuarioActivado;
+                    }
+                }
+                else {
+                    try {
+                        ctx.Usuario.Add(usuarioNuevo);
+                        ctx.SaveChanges();
+                    }
+                    catch (DbEntityValidationException ex) {
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors) {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors) {
+                                System.Diagnostics.Debug.WriteLine("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
                             }
                         }
                     }
-            }else {
+                }
+            }
+            else {
                 //Habria que mostrar algo si no coinciden los emails
             }
             return usuarioNuevo;
@@ -80,31 +88,34 @@ namespace ProgramacionWeb3TP.Services
         public bool chequearSiMailsCoinciden(string pass1, string pass2) {
             if (pass2.Equals(pass1)) {
                 return true;
-            }else {
+            }
+            else {
                 return false;
             }
         }
 
         public bool chequearSiExisteEmail(string email) {
-            var usuario = ctx.Usuarios.Where(u => u.Email == email).Select(u1 => u1);
+            var usuario = ctx.Usuario.Where(u => u.Email == email).Select(u1 => u1);
             if (usuario != null) {
                 return true;
-            }else {
+            }
+            else {
                 return false;
             }
         }
 
         public bool chequearSiEstaActivo(string email) {
-            var usuario = ctx.Usuarios.Where(u => u.Email == email && u.Activo == 1).Select(u1 => u1);
+            var usuario = ctx.Usuario.Where(u => u.Email == email && u.Activo == 1).Select(u1 => u1);
             if (usuario != null) {
                 return true;
-            }else {
+            }
+            else {
                 return false;
             }
         }
 
         public Usuario activarRegistroUsuarioExistente(Usuario usuario) {
-            var usuarioExistente = ctx.Usuarios.Where(u => u.IdUsuario == usuario.IdUsuario).First();
+            var usuarioExistente = ctx.Usuario.Where(u => u.IdUsuario == usuario.IdUsuario).First();
             usuarioExistente.Nombre = usuario.Nombre;
             usuarioExistente.Apellido = usuario.Apellido;
             usuarioExistente.Contrasenia = usuario.Contrasenia;
@@ -113,12 +124,12 @@ namespace ProgramacionWeb3TP.Services
 
             try {
                 ctx.SaveChanges();
-            } catch(Exception e){
+            }
+            catch (Exception e) {
                 //No se pudo modificar la informacion
             }
 
             return usuarioExistente;
         }
     }
-
 }
