@@ -154,7 +154,6 @@
     <Compile Include="Models\Metadata\ComentarioTareaMetadata.cs" />
     <Compile Include="Models\Metadata\TareaMetadata.cs" />
     <Compile Include="Models\Metadata\UsuarioMetadata.cs" />
-    <Compile Include="Models\Repositories\CarpetaRepository.cs" />
     <Compile Include="Models\Tarea.cs">
       <DependentUpon>TaskieEDM.tt</DependentUpon>
     </Compile>
@@ -176,10 +175,9 @@
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>TaskieEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repositories\UsuarioRepository.cs" />
-    <Compile Include="Models\Repositories\RepositoryInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Servicios\sUsuario.cs" />
+    <Compile Include="Services\CarpetaService.cs" />
+    <Compile Include="Services\UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

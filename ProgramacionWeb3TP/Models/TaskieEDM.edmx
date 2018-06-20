@@ -267,7 +267,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PW3TP_20181C_TaskieEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TaskieContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ArchivoTarea" EntityType="Self.ArchivoTarea" />
           <EntitySet Name="Carpeta" EntityType="Self.Carpeta" />
           <EntitySet Name="ComentarioTarea" EntityType="Self.ComentarioTarea" />
@@ -295,7 +295,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TaskieModelStoreContainer" CdmEntityContainer="PW3TP_20181C_TaskieEntities">
+        <EntityContainerMapping StorageEntityContainer="TaskieModelStoreContainer" CdmEntityContainer="TaskieContext">
           <EntitySetMapping Name="ArchivoTarea">
             <EntityTypeMapping TypeName="TaskieModel.ArchivoTarea">
               <MappingFragment StoreEntitySet="ArchivoTarea">

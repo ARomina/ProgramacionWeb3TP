@@ -1,6 +1,5 @@
 ﻿using ProgramacionWeb3TP.Models;
-using ProgramacionWeb3TP.Models.Repositories;
-using ProgramacionWeb3TP.Servicios;
+using ProgramacionWeb3TP.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +13,10 @@ namespace ProgramacionWeb3TP.Controllers{
 
     public class HomeController : Controller {
 
-        sUsuario usuarioServiceImpl = new sUsuario();
+        
 
         public static List<Usuario> listUsuarios;
-        // private UsuarioRepository usuarioRepository = new UsuarioRepository();
+        private UsuarioService _usuarioService = new UsuarioService();
 
         //Sin estar loggueados
 
@@ -48,7 +47,7 @@ namespace ProgramacionWeb3TP.Controllers{
         {
             if (ModelState.IsValid)
             {
-                Usuario user = usuarioServiceImpl.loguearUsuarioPorEmail(usuario);
+                Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
                 if (user != null)
                 {
                     //verifica si necesita redirigir a una pagina
@@ -78,7 +77,7 @@ namespace ProgramacionWeb3TP.Controllers{
             if (Session["usuarioEnSesion"] != null)
             {
                 string usuario = Session["usuarioEnSesion"] as string;
-                var usuarioExistente = usuarioServiceImpl.buscarUsuarioPorEmail(usuario);
+                var usuarioExistente = _usuarioService.buscarUsuarioPorEmail(usuario);
                 if (usuarioExistente != null)
                 {
                     return true;
