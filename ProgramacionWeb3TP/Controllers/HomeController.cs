@@ -45,6 +45,7 @@ namespace ProgramacionWeb3TP.Controllers{
             if (ModelState.IsValid) {
                 Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
                 if (user != null) {
+                    System.Diagnostics.Debug.WriteLine("Se logueo al usuario");
                     //verifica si necesita redirigir a una pagina
                     Session["usuarioEnSesion"] = user.Email;
                     Session["usuarioSesionNombre"] = user.Nombre;
@@ -57,8 +58,8 @@ namespace ProgramacionWeb3TP.Controllers{
                       //  Session.Remove("Action");
                       //  return RedirectToAction(action);
                     //}
-                }
-                else {
+                }else {
+                    System.Diagnostics.Debug.WriteLine("No se logueo al usuario");
                     TempData["Error"] = "Error de usuario y/o contraseña";
                 }
             }

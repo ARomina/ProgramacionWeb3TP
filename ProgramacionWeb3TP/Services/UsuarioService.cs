@@ -33,6 +33,7 @@ namespace ProgramacionWeb3TP.Services
             usuarioOK = ctx.Usuario.Where(u => u.Email == usuario.Email
                                                && u.Contrasenia == usuario.Contrasenia).SingleOrDefault();
 
+           
             return usuarioOK;
         }
 
@@ -49,7 +50,7 @@ namespace ProgramacionWeb3TP.Services
         public Usuario registrarUsuario(Usuario usuario, string pass2) {
             Usuario usuarioNuevo = null;
             if (chequearSiMailsCoinciden(usuario.Contrasenia, pass2)) {
-                usuarioNuevo = new Usuario(usuario, USUARIO_NO_ACTIVO, null);
+                usuarioNuevo = new Usuario(usuario, USUARIO_ACTIVO, DateTime.Now);
 
                 //Para chequear los datos
                 System.Diagnostics.Debug.WriteLine("Datos del usuario nuevo a crear: " + usuarioNuevo.Nombre + " " + usuarioNuevo.Apellido + " "
@@ -59,13 +60,13 @@ namespace ProgramacionWeb3TP.Services
                 if (chequearSiExisteEmail(usuarioNuevo.Email)) {
                     if (chequearSiEstaActivo(usuarioNuevo.Email)) {
                         //Avisar que ya existe un usuario activo con ese mail
-                    }
-                    else {
+                        System.Diagnostics.Debug.WriteLine("Ya existe un usuario activo con ese mail");
+                    }else {
+                        System.Diagnostics.Debug.WriteLine("Se activo y actualizo al usuario");
                         Usuario usuarioActivado = activarRegistroUsuarioExistente(usuarioNuevo);
                         usuarioNuevo = usuarioActivado;
                     }
-                }
-                else {
+                }else {
                     try {
                         ctx.Usuario.Add(usuarioNuevo);
                         ctx.SaveChanges();
@@ -81,6 +82,7 @@ namespace ProgramacionWeb3TP.Services
             }
             else {
                 //Habria que mostrar algo si no coinciden los emails
+                System.Diagnostics.Debug.WriteLine("No coinciden los emails");
             }
             return usuarioNuevo;
         }
@@ -108,8 +110,7 @@ namespace ProgramacionWeb3TP.Services
             var usuario = ctx.Usuario.Where(u => u.Email == email && u.Activo == 1).Select(u1 => u1);
             if (usuario != null) {
                 return true;
-            }
-            else {
+            }else {
                 return false;
             }
         }
@@ -125,8 +126,12 @@ namespace ProgramacionWeb3TP.Services
             try {
                 ctx.SaveChanges();
             }
-            catch (Exception e) {
-                //No se pudo modificar la informacion
+            catch (DbEntityValidationException ex) {
+                foreach (var entityValidationErrors in ex.EntityValidationErrors) {
+                    foreach (var validationError in entityValidationErrors.ValidationErrors) {
+                        System.Diagnostics.Debug.WriteLine("Property: " + validationError.PropertyName + " Error: " + validationError.ErrorMessage);
+                    }
+                }
             }
 
             return usuarioExistente;
