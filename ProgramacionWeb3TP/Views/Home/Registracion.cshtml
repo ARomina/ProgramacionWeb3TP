@@ -12,9 +12,16 @@
         </div>
     </div>
     <div class="row">
-        @using (Html.BeginForm("RegistrarUsuario", "Home")) {
-            <!--<form action="/Home/RegistrarUsuario/" method="POST">-->
 
+        @if (TempData["Error"] != null) {//si existe un error de registro
+            <div class="col-md-6 col-md-offset-3">
+                <div class="alert alert-danger text-center">
+                    <h5>@TempData["Error"]</h5>
+                </div>
+            </div>
+        }
+
+        @using (Html.BeginForm("RegistrarUsuario", "Home")) {
             <br />
 
             <div class="col col-md-6">
@@ -68,11 +75,6 @@
                                 <label for="repetircontrasenia">Repetir contraseña</label>
                                 <input type="password" class="form-control" id="Contrasenia2" name="Contrasenia2" placeholder="Repetir contraseña">
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input name="terminos" type="checkbox" value=""> Acepto los <strong>Términos y Condiciones </strong>
-                                </label>
-                            </div>
                             <hr />
                             <input class="btn btn-lg btn-success btn-block" type="submit" value="Continuar">
                             <hr />
@@ -86,7 +88,3 @@
         }
     </div>
 </div>
-
-<!-- Validaciones JS -->
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
