@@ -13,12 +13,12 @@
     </div>
     <div class="row">
         <div class="col-md-12 col-sm-12 text-center">
-
+            
 
             @using (Html.BeginForm("EliminacionCarpeta", "Carpetas"))
             {
                 @Html.AntiForgeryToken()
-                @Html.HiddenFor(model => model.IdCarpeta)
+
                 <h3>¿Desea eliminar esta carpeta?</h3>
                 <div class="center-block">
                     <input type="submit" value="Eliminar" class="btn btn-default" /> |

@@ -26,7 +26,7 @@ namespace ProgramacionWeb3TP.Models
             this.Email = usuario.Email;
             this.Contrasenia = usuario.Contrasenia;
             this.Activo = usuario.Activo;
-            this.FechaRegistracion = DateTime.ParseExact((DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")), "yyyy-MM-dd HH:mm:ss:fff", CultureInfo.InvariantCulture);
+            this.FechaRegistracion = DateTime.ParseExact((DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")), "yyyy-MM-dd HH:mm:ss:fff", System.Globalization.CultureInfo.InvariantCulture);
             this.FechaActivacion = usuario.FechaActivacion;
             this.CodigoActivacion = Guid.NewGuid().ToString("D").ToUpper().Substring(0, 30);
         }

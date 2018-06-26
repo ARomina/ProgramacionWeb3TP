@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProgramacionWeb3TP.Models;
+using ProgramacionWeb3TP.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,6 +8,8 @@ using System.Web.Mvc;
 
 namespace ProgramacionWeb3TP.Controllers {
     public class TareasController : Controller {
+
+        private TareaService _tareaService = new TareaService();
         
         // GET: Tarea
         //Estando logueados --> Listado de tareas
@@ -47,6 +51,13 @@ namespace ProgramacionWeb3TP.Controllers {
         //Procesar eliminación de tarea
         public ActionResult EliminacionTarea() {
             return RedirectToAction("Index", "Tareas");
+        }
+
+        public ActionResult Listado(int idCarpeta)
+        {
+            List<Tarea> tareas = _tareaService.ObtenerTareasPorCarpeta(idCarpeta);
+            TempData["idCarpeta"] = idCarpeta;
+            return View(tareas);
         }
     }
 }

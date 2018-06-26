@@ -1,4 +1,4 @@
-﻿
+﻿@model ProgramacionWeb3TP.Models.Carpeta
 @{
     ViewBag.Title = "Crear";
 }
@@ -12,14 +12,28 @@
     </div>
     <div class="row">
         <div class="col-md-12 col-sm-12 text-center">
-                <form action="/Carpetas/CreacionNuevaCarpeta/" method="POST">
-                    <label>Nombre</label>
-                    <input type="text" name="Nombre" placeholder="Nombre" max="50" /><br />
-                    <label>Descripción</label>
-                    <textarea cols="30" rows="4" name="Descripcion" maxlength="200"></textarea><br />
-                    <a class="btn btn-info" href="#" onclick="history.go(-1); return false;">Volver</a>
+
+            @using (Html.BeginForm("CreacionCarpeta", "Carpetas"))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div>
                     <input type="submit" class="btn btn-primary" value="Crear nueva carpeta" />
-                </form>
+                </div>
+            }
         </div>
     </div>
 </div>
