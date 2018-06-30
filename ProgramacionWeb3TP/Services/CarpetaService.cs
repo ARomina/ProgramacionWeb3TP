@@ -70,5 +70,9 @@ namespace ProgramacionWeb3TP.Services
                 ctx.SaveChanges();
             }
         }
+
+        public void crearCarpetaGeneral(int usuarioId) {
+            Carpeta carpetaGeneral = new Carpeta(usuarioId);
+        }
     }
 }

@@ -10,5 +10,16 @@ namespace ProgramacionWeb3TP.Models
     [MetadataType(typeof(CarpetaMetadata))]
     public partial class Carpeta
     {
+        //Constructor para crear nueva carpeta
+        public Carpeta() {
+        }
+
+        //Constructor de carpeta General al activar un usuario
+        public Carpeta(int idUsuario) {
+            this.IdUsuario = idUsuario;
+            this.Nombre = "General";
+            this.Descripcion = null;
+            this.FechaCreacion = DateTime.Now;
+        }
     }
 }
