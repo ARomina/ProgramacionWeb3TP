@@ -1,4 +1,5 @@
-﻿
+﻿@model ProgramacionWeb3TP.Models.Tarea
+
 @{
     ViewBag.Title = "Tarea - Detalle";
 }
@@ -6,53 +7,134 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            <h1 class="paddingLeftTitles">Detalle</h1>
+            <h1 class="paddingLeftTitles">Tarea - Detalle</h1>
             <hr />
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            <div class="col-md-4 col-sm-12">
-                <div class="col-md-12 col-sm-12">
-                    <h3>Tarea: "Mi tarea"</h3>
-                    <h4>Carpeta: "Mi Carpeta"</h4>
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <p>@Model.Nombre</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <p>@Model.Descripcion</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EstimadoHoras, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <p>@Model.EstimadoHoras</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                           <p>@Model.FechaFin</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Prioridad, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @switch (@Model.Prioridad) {
+                                        case 1:
+                                            <p>Urgente</p>
+                                            break;
+                                        case 2:
+                                            <p>Alta</p>
+                                            break;
+                                        case 3:
+                                            <p>Media</p>
+                                            break;
+                                        case 4:
+                                            <p>Baja</p>
+                                            break;
+                                        default:
+                                            <p>Sin prioridad</p>
+                                            break;
+                             }
+                          </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Completada, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @switch (@Model.Completada) {
+                                        case 1:
+                                            <p>Completada</p>
+                                            break;
+                                        case 0:
+                                            <p>Sin completar</p>
+                                            break;
+                                        default:
+                                            <p>Sin especificar</p>
+                                            break;
+                             }
+                          </div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <p>¿Completada? - No</p>
-                <p>Fecha límite: 12/04/18</p>
-                <p>Prioridad: Baja</p>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <a class="btn btn-info" href="/Tareas/Modificar/">Modificar</a>
-                <a class="btn btn-primary" href="/Tareas/Eliminar/">Eliminar</a>
-            </div>
-        </div>
-        <hr />
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <div class="col-md-6 col-sm-12">
-                <p>Descripción</p>
-                <textarea disabled placeholder="Lorem ipsum dolor sit amet consectetur adipiscing elit, tortor dis hendrerit urna nullam platea arcu id, accumsan justo malesuada mollis duis cubilia. Tellus congue dapibus at suscipit faucibus cursus in, ligula montes dignissim varius blandit nibh, dictum mollis fermentum aptent non taciti." class="col-md-12 col-sm-12" rows="5"></textarea><br />
-                <label>Adjuntos (5)</label>
-                <p>NO SE COMO MOSTRAR ADJUNTOS !?</p>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <label>Comentarios (2)</label>
-                <hr />
-                <div class="col-md-12 col-sm-12">
-                    <p>Comentario 1</p>
+
+
+            <!--<div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <h1 class="paddingLeftTitles">Detalle</h1>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="col-md-12 col-sm-12">
+                                <h3>Tarea: "Mi tarea"</h3>
+                                <h4>Carpeta: "Mi Carpeta"</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <p>¿Completada? - No</p>
+                            <p>Fecha límite: 12/04/18</p>
+                            <p>Prioridad: Baja</p>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <a class="btn btn-info" href="/Tareas/Modificar/">Modificar</a>
+                            <a class="btn btn-primary" href="/Tareas/Eliminar/">Eliminar</a>
+                        </div>
+                    </div>
                     <hr />
-                    <p>Creado el 12/04/2018</p><br />
                 </div>
-                <div class="col-md-12 col-sm-12">
-                    <p>Comentario 2</p>
-                    <hr />
-                    <p>Creado el 12/04/2018</p><br />
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="col-md-6 col-sm-12">
+                            <p>Descripción</p>
+                            <textarea disabled placeholder="Lorem ipsum dolor sit amet consectetur adipiscing elit, tortor dis hendrerit urna nullam platea arcu id, accumsan justo malesuada mollis duis cubilia. Tellus congue dapibus at suscipit faucibus cursus in, ligula montes dignissim varius blandit nibh, dictum mollis fermentum aptent non taciti." class="col-md-12 col-sm-12" rows="5"></textarea><br />
+                            <label>Adjuntos (5)</label>
+                            <p>NO SE COMO MOSTRAR ADJUNTOS !?</p>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <label>Comentarios (2)</label>
+                            <hr />
+                            <div class="col-md-12 col-sm-12">
+                                <p>Comentario 1</p>
+                                <hr />
+                                <p>Creado el 12/04/2018</p><br />
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <p>Comentario 2</p>
+                                <hr />
+                                <p>Creado el 12/04/2018</p><br />
+                            </div>
+                        </div>
+                        <a class="col-md-2 col-sm-12 pull-right btn btn-primary" href="#" onclick="history.go(-1); return false;">Volver</a>
+                    </div>
                 </div>
-            </div>
-            <a class="col-md-2 col-sm-12 pull-right btn btn-primary" href="#" onclick="history.go(-1); return false;">Volver</a>
-        </div>
-    </div>
-</div>
+            </div>-->

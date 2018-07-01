@@ -3,13 +3,15 @@ using ProgramacionWeb3TP.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
+using System.Net;
 
 
 namespace ProgramacionWeb3TP.Controllers{
+
+
     public class HomeController : Controller {
         private UsuarioService _usuarioService = new UsuarioService();
 
@@ -17,14 +19,16 @@ namespace ProgramacionWeb3TP.Controllers{
 
         // GET: Home
         public ActionResult Index() {
-            String userNameInSession;
-            if (Session["usuarioEnSesion"] == null) {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
                 userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Index: " + userNameInSession);
             }
             else {
-                userNameInSession = (String) Session["usuarioEnSesion"];
+                int userIdInSession;
+                userIdInSession = (int) Session["usuarioSesionId"];
+                System.Diagnostics.Debug.WriteLine("Home: " + userIdInSession);
             }
-            System.Diagnostics.Debug.WriteLine("Home: " + userNameInSession);
             return View();
         }
 
@@ -47,7 +51,7 @@ namespace ProgramacionWeb3TP.Controllers{
                 Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
                 if (user != null) {
                     //verifica si necesita redirigir a una pagina
-                    Session["usuarioEnSesion"] = user.Email;
+                    Session["usuarioSesionEmail"] = user.Email;
                     Session["usuarioSesionNombre"] = user.Nombre;
                     Session["usuarioSesionApellido"] = user.Apellido;
                     Session["usuarioSesionId"] = user.IdUsuario;
@@ -78,7 +82,7 @@ namespace ProgramacionWeb3TP.Controllers{
         //Proceso de registro de usuario
         [HttpPost]
         [ValidateAntiForgeryToken]  //Para prevenir ataques CSRF
-        public ActionResult RegistrarUsuario([Bind(Include = "IdUsuario, Nombre, Apellido, Email, Contrasenia")] Usuario usuario) {
+        public ActionResult RegistrarUsuario([Bind(Include = "Nombre, Apellido, Email, Contrasenia")] Usuario usuario) {
             if (ModelState.IsValid) {
                 String nombre = usuario.Nombre;
                 String apellido = usuario.Apellido;
@@ -93,7 +97,7 @@ namespace ProgramacionWeb3TP.Controllers{
                 Usuario user = _usuarioService.registrarUsuario(new Usuario(usuario.Nombre, usuario.Apellido, usuario.Email, usuario.Contrasenia), contrasenia2);
                 string mensajeError = "";
                 if (user != null) {
-                    Session["usuarioEnSesion"] = user.Email;
+                    Session["usuarioSesionEmail"] = user.Email;
                     Session["usuarioSesionNombre"] = user.Nombre;
                     Session["usuarioSesionApellido"] = user.Apellido;
                     Session["usuarioSesionId"] = user.IdUsuario;
@@ -111,10 +115,8 @@ namespace ProgramacionWeb3TP.Controllers{
                 return View("Registracion", usuario);
             }
         }
-
     }
-        
-    }
+}
 
 
 

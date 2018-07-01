@@ -5,11 +5,11 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 
-namespace ProgramacionWeb3TP.Services
-{
-    public class UsuarioService
-    {
+namespace ProgramacionWeb3TP.Services {
+    public class UsuarioService {
+
         private TaskieContext ctx = new TaskieContext();
+        private CarpetaService _carpetaService = new CarpetaService();
 
         //Variables estaticas para asignar si estan activos o no
         private static short USUARIO_NO_ACTIVO = 0;
@@ -22,8 +22,7 @@ namespace ProgramacionWeb3TP.Services
         //Codigo de error a asignar - Registro
         private int codigoErrorRegistro = 0;
 
-        public Usuario ObtenerUsuarioPorId(int id)
-        {
+        public Usuario ObtenerUsuarioPorId(int id) {
 
             var user = (from u in ctx.Usuario
                         where u.IdUsuario == id
@@ -33,20 +32,18 @@ namespace ProgramacionWeb3TP.Services
             return user;
         }
 
-        public Usuario loguearUsuarioPorEmail(Usuario usuario)
-        {
+        public Usuario loguearUsuarioPorEmail(Usuario usuario) {
             Usuario usuarioOK = new Usuario();
 
             usuarioOK = ctx.Usuario.Where(u => u.Email == usuario.Email
                                                && u.Contrasenia == usuario.Contrasenia).SingleOrDefault();
 
-           
+
             return usuarioOK;
         }
 
 
-        public Usuario buscarUsuarioPorEmail(string usuario)
-        {
+        public Usuario buscarUsuarioPorEmail(string usuario) {
             Usuario usuarioEncontrado = new Usuario();
 
             usuarioEncontrado = ctx.Usuario.Where(u => u.Email == usuario).SingleOrDefault();
@@ -71,7 +68,9 @@ namespace ProgramacionWeb3TP.Services
                         usuarioNuevo = null;
                     }
                     else {
-                        Usuario usuarioActivado = activarRegistroUsuarioExistente(usuarioNuevo);
+                        activarRegistroUsuarioExistente(usuarioNuevo);
+                        Usuario usuarioActivado = buscarUsuarioPorEmail(usuarioNuevo.Email);
+                        _carpetaService.crearCarpetaGeneral(usuarioActivado.IdUsuario);
                         usuarioNuevo = usuarioActivado;
                     }
                 }
@@ -79,6 +78,9 @@ namespace ProgramacionWeb3TP.Services
                     try {
                         ctx.Usuario.Add(usuarioNuevo);
                         ctx.SaveChanges();
+
+                        Usuario usuarioRegistrado = buscarUsuarioPorEmail(usuarioNuevo.Email);
+                        _carpetaService.crearCarpetaGeneral(usuarioRegistrado.IdUsuario);
                     }
                     catch (DbEntityValidationException ex) {
                         foreach (var entityValidationErrors in ex.EntityValidationErrors) {
@@ -132,7 +134,7 @@ namespace ProgramacionWeb3TP.Services
             }
         }
 
-        public Usuario activarRegistroUsuarioExistente(Usuario usuario) {
+        public void activarRegistroUsuarioExistente(Usuario usuario) {
             //var usuarioExistente = context.Usuarios.Where(u => u.IdUsuario == usuario.IdUsuario).First();
             Usuario usuarioExistente = (from u in ctx.Usuario
                                         where u.Email == usuario.Email
@@ -144,7 +146,7 @@ namespace ProgramacionWeb3TP.Services
             usuarioExistente.FechaActivacion = DateTime.Now;
             ctx.SaveChanges();
 
-            return usuarioExistente;
+            //return usuarioExistente;
         }
 
         public String mostrarMensajeDeError() {

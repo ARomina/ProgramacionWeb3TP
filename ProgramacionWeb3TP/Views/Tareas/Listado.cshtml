@@ -71,9 +71,7 @@
             @Html.DisplayFor(modelItem => item.Usuario.NombreCompleto)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdTarea }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdTarea }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdTarea })
+            @Html.ActionLink("Detalle", "Detalle", new { idTarea = item.IdTarea })
         </td>
     </tr>
 }

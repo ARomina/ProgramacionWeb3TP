@@ -6,17 +6,19 @@ using System.Web.Mvc;
 
 namespace ProgramacionWeb3TP.Controllers {
     public class UsuarioController : Controller {
+        private int userIdInSession;
 
         // GET: Usuario
         public ActionResult Index() {
-            String userNameInSession;
-            if (Session["usuarioEnSesion"] == null) {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
                 userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userNameInSession);
             }
             else {
-                userNameInSession = (String)Session["usuarioEnSesion"];
+                userIdInSession = (int)Session["usuarioSesionId"];
+                System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userIdInSession);
             }
-            System.Diagnostics.Debug.WriteLine("Usuario home: " + userNameInSession);
             return View();
         }
 

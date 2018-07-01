@@ -5,16 +5,14 @@ using System.Web;
 using System.Globalization;
 using System.ComponentModel.DataAnnotations;
 using ProgramacionWeb3TP.Models.Metadata;
+using System.Globalization;
 
 namespace ProgramacionWeb3TP.Models
 {
     [MetadataType(typeof(UsuarioMetadata))]
-    public partial class Usuario
-    {
-        public string NombreCompleto
-        {
-            get
-            {
+    public partial class Usuario {
+        public string NombreCompleto {
+            get {
                 return this.Apellido + ", " + this.Nombre;
             }
             set { }
@@ -63,5 +61,7 @@ namespace ProgramacionWeb3TP.Models
             this.FechaActivacion = fechaActivacion;
             this.CodigoActivacion = codigoActivacion;
         }
+
+        //public List<Carpeta> listaCarpetas  { get; set; }
     }
 }

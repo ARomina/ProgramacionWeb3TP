@@ -202,13 +202,14 @@
     <Content Include="Views\Tareas\Eliminar.cshtml" />
     <Content Include="Views\Tareas\Index.cshtml" />
     <Content Include="Views\Tareas\Modificar.cshtml" />
-    <Content Include="Views\Usuario\HomeUsuario.cshtml" />
     <Content Include="Views\Usuario\Modificar.cshtml" />
     <Content Include="Views\Carpetas\Todas.cshtml" />
     <Content Include="Views\Carpetas\Editar.cshtml" />
     <Content Include="Views\Tareas\Listado.cshtml" />
     <Content Include="Views\Tareas\Crear.cshtml" />
     <Content Include="Views\Carpetas\Eliminar.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Tareas\CrearNuevaTarea.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
