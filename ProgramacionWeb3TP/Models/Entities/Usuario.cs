@@ -60,5 +60,7 @@ namespace ProgramacionWeb3TP.Models
             this.FechaActivacion = fechaActivacion;
             this.CodigoActivacion = codigoActivacion;
         }
+
+        //public List<Carpeta> listaCarpetas  { get; set; }
     }
 }

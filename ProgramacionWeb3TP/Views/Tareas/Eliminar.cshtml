@@ -1,9 +1,35 @@
-﻿
+﻿@model ProgramacionWeb3TP.Models.Tarea
+
 @{
     ViewBag.Title = "Tarea - Eliminar";
 }
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <h1 class="paddingLeftTitles">Eliminar - Tarea "@Html.DisplayFor(model => model.Nombre)"</h1>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 text-center">
+
+
+            @using (Html.BeginForm("EliminacionTarea", "Tareas")) {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.IdTarea)
+                <h3>¿Desea eliminar esta tarea?</h3>
+                <div class="center-block">
+                    <input type="submit" value="Eliminar" class="btn btn-default" /> |
+                    @Html.ActionLink("Cancelar", "Index")
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<!--<div class="container">
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <h1 class="paddingLeftTitles">Eliminar - Tarea "Mi Tarea"</h1>
@@ -19,4 +45,4 @@
             </div>
         </div>
     </div>
-</div>  
+</div>-->

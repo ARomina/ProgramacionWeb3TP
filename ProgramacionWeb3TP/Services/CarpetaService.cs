@@ -42,6 +42,7 @@ namespace ProgramacionWeb3TP.Services
         {
             var carpetas = (    from l in ctx.Carpeta
                                 where l.IdUsuario == usuarioId
+                                orderby l.Nombre ascending
                                 select l )
                             .ToList();
 

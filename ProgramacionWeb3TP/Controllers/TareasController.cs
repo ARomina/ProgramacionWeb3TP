@@ -11,6 +11,7 @@ namespace ProgramacionWeb3TP.Controllers {
 
         private TareaService _tareaService = new TareaService();
         private UsuarioService _usuarioService = new UsuarioService();
+        private CarpetaService _carpetaService = new CarpetaService();
 
         private int userIdInSession;
 
@@ -30,20 +31,22 @@ namespace ProgramacionWeb3TP.Controllers {
                 userIdInSession = (int)Session["usuarioSesionId"];
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userIdInSession);
             }
-            return View();
+            userIdInSession = (int)Session["usuarioSesionId"];
+            List<Tarea> listaTareas = _tareaService.listarTareas(userIdInSession);
+            return View(listaTareas);
         }
 
         //Vista
         public ActionResult Crear() {
-            string idCarpetaCREAR = Request.QueryString["idCarpeta"];
-            System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpetaCREAR: " + idCarpetaCREAR);
-            Tarea tareaACrear = new Tarea(int.Parse(idCarpetaCREAR));
+            string idCarpeta = Request.QueryString["idCarpeta"];
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + idCarpeta);
+            Tarea tareaACrear = new Tarea(int.Parse(idCarpeta));
             System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpetaACREAR: " + tareaACrear.IdCarpeta);
             return View(tareaACrear);
         }
 
-        //Procesar creación de nueva tarea
-        [HttpPost]
+       //Procesar creación de nueva tarea (desde dentro de carpeta)
+       [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreacionTarea(Tarea tarea) {
             DateTime parsedFechaFin = DateTime.Parse(Request["FechaFin"]);
@@ -67,32 +70,83 @@ namespace ProgramacionWeb3TP.Controllers {
             if (tareaNueva == null) {
                 TempData["Error"] = MENSAJE_ERROR_NO_SE_PUDO_CREAR;
             }
-            return RedirectToAction("Index", "Tareas");
+            return RedirectToAction("Listado", "Tareas", tarea.IdCarpeta);
+        }
+
+        //Procesar creacion de nueva carpeta (sin carpeta definida de un principio)
+        public void CreacionNuevaTarea(Tarea tarea) {
+            DateTime parsedFechaFin = DateTime.Parse(Request["FechaFin"]);
+            short parsedPrioridad = short.Parse(Request["Prioridad"]);
+            short parsedCompletada = short.Parse(Request["Completada"]);
+            tarea.FechaFin = parsedFechaFin;
+            tarea.Prioridad = parsedPrioridad;
+            tarea.Completada = parsedCompletada;
+
+            //int carpetaId = int.Parse(Request["carpetaId"]);
+            //tarea.IdCarpeta = carpetaId;
+            var selectedText = carpetaId.Items[Select1.SelectedIndex].Text.Trim();
+
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + carpetaIdValue);
+            //System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + tarea.IdCarpeta);
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - Nombre: " + tarea.Nombre);
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - Descripcion: " + tarea.Descripcion);
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - EstimadoHoras: " + tarea.EstimadoHoras);
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - FechaFin: " + parsedFechaFin);
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - Prioridad: " + parsedPrioridad);
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - Completada: " + parsedCompletada);
+
+        }
+
+        //Vista
+        public ActionResult CrearNuevaTarea() {
+            //System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpetaACREAR: " + );
+            userIdInSession = (int)Session["usuarioSesionId"];
+            List<Carpeta> lista = _carpetaService.ObtenerCarpetasPorUsuario(userIdInSession);
+            foreach (Carpeta c in lista) {
+                ViewBag.listaCarpetas = lista;
+            }
+            return View();
         }
 
         //Vista
         public ActionResult Detalle() {
-            return View();
+            string idTarea = Request.QueryString["idTarea"];
+            System.Diagnostics.Debug.WriteLine("Ver Tarea" + idTarea);
+            Tarea tareaAVer = _tareaService.ObtenerTareaPorId(int.Parse(idTarea));
+            return View(tareaAVer);
         }
 
         //Vista
         public ActionResult Modificar() {
-            return View();
+            string idTarea = Request.QueryString["idTarea"];
+            System.Diagnostics.Debug.WriteLine("Modificar Tarea" + idTarea);
+            Tarea tareaAModificar = _tareaService.ObtenerTareaPorId(int.Parse(idTarea));
+            return View(tareaAModificar);
         }
 
         //Procesar modificación de tarea
-        public ActionResult ModificacionTarea() {
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ModificacionTarea(Tarea tarea) {
+            System.Diagnostics.Debug.WriteLine("Modificacion Tarea" + tarea.IdTarea);
             return RedirectToAction("Index", "Tareas");
         }
 
         //Vista
         public ActionResult Eliminar() {
-            return View();
+            string idTarea = Request.QueryString["idTarea"];
+            System.Diagnostics.Debug.WriteLine("Eliminar Tarea" + idTarea);
+            Tarea tareaAEliminar = _tareaService.ObtenerTareaPorId(int.Parse(idTarea));
+            return View(tareaAEliminar);
         }
 
         //Procesar eliminación de tarea
-        public ActionResult EliminacionTarea() {
-            return RedirectToAction("Index", "Tareas");
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EliminacionTarea(Tarea tarea) {
+            System.Diagnostics.Debug.WriteLine("Eliminacion Tarea" + tarea.IdTarea);
+            _tareaService.eliminarTarea(tarea.IdTarea);
+            return RedirectToAction("Listado", "Tareas");
         }
 
         public ActionResult Listado(int idCarpeta)

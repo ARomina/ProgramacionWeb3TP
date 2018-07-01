@@ -42,7 +42,7 @@ namespace ProgramacionWeb3TP.Services
             return nuevaTarea;
         }
 
-        public List<Tarea> ObtenerTareasPorUsuario(int usuarioId)
+        /*public List<Tarea> ObtenerTareasPorUsuario(int usuarioId)
         {
             var Tareas = (from t in ctx.Tarea
                             where t.IdUsuario == usuarioId
@@ -50,7 +50,7 @@ namespace ProgramacionWeb3TP.Services
                             .ToList();
 
             return Tareas;
-        }
+        }*/
 
         public List<Tarea> ObtenerTareasPorCarpeta(int carpetaId)
         {
@@ -60,6 +60,27 @@ namespace ProgramacionWeb3TP.Services
                             .ToList();
 
             return Tareas;
+        }
+
+        public void eliminarTarea(int tareaId) {
+            Tarea tarea = ObtenerTareaPorId(tareaId);
+            ctx.Tarea.Remove(tarea);
+            ctx.SaveChanges();
+        }
+
+        public List<Tarea> listarTareas(int idUsuario) {
+            List<Tarea> lista = new List<Tarea>();
+
+            var tareas = (from t in ctx.Tarea
+                          where t.IdUsuario == idUsuario
+                          orderby t.FechaCreacion descending
+                          select t).ToList();
+
+            foreach (Tarea t in tareas) {
+                lista.Add(t);
+            }
+
+            return lista;
         }
     }
 }
