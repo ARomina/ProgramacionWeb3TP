@@ -73,10 +73,21 @@ namespace ProgramacionWeb3TP.Services
             }
         }
 
-        public void crearCarpetaGeneral(int usuarioId) {
+        public Carpeta crearCarpetaGeneral(int usuarioId) {
             Carpeta carpetaGeneral = new Carpeta(usuarioId);
             ctx.Carpeta.Add(carpetaGeneral);
             ctx.SaveChanges();
+            return carpetaGeneral;
+        }
+
+        public int buscarCarpetaGeneralPorUsuarioId(int usuarioId) {
+            Carpeta carpeta = (from c in ctx.Carpeta
+                               where c.IdUsuario == usuarioId && c.Nombre == "General"
+                               select c).FirstOrDefault();
+            if (carpeta == null) {
+                carpeta = crearCarpetaGeneral(usuarioId);
+            }
+            return carpeta.IdCarpeta;
         }
     }
 }

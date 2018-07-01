@@ -45,8 +45,8 @@ namespace ProgramacionWeb3TP.Controllers {
             return View(tareaACrear);
         }
 
-       //Procesar creación de nueva tarea (desde dentro de carpeta)
-       [HttpPost]
+        //Procesar creación de nueva tarea (desde dentro de carpeta)
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreacionTarea(Tarea tarea) {
             DateTime parsedFechaFin = DateTime.Parse(Request["FechaFin"]);
@@ -70,11 +70,15 @@ namespace ProgramacionWeb3TP.Controllers {
             if (tareaNueva == null) {
                 TempData["Error"] = MENSAJE_ERROR_NO_SE_PUDO_CREAR;
             }
-            return RedirectToAction("Listado", "Tareas", tarea.IdCarpeta);
+            return RedirectToAction("Listado", "Tareas", new { idCarpeta = tarea.IdCarpeta });
         }
 
         //Procesar creacion de nueva carpeta (sin carpeta definida de un principio)
-        public void CreacionNuevaTarea(Tarea tarea) {
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreacionNuevaTarea(Tarea tarea) {
+            userIdInSession = (int)Session["usuarioSesionId"];
+
             DateTime parsedFechaFin = DateTime.Parse(Request["FechaFin"]);
             short parsedPrioridad = short.Parse(Request["Prioridad"]);
             short parsedCompletada = short.Parse(Request["Completada"]);
@@ -82,12 +86,14 @@ namespace ProgramacionWeb3TP.Controllers {
             tarea.Prioridad = parsedPrioridad;
             tarea.Completada = parsedCompletada;
 
-            //int carpetaId = int.Parse(Request["carpetaId"]);
-            //tarea.IdCarpeta = carpetaId;
-            var selectedText = carpetaId.Items[Select1.SelectedIndex].Text.Trim();
-
-            System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + carpetaIdValue);
-            //System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + tarea.IdCarpeta);
+            int carpetaIdValue = int.Parse(Request.Form["carpetaId"].ToString());
+            if (carpetaIdValue == 0) {
+                carpetaIdValue = _carpetaService.buscarCarpetaGeneralPorUsuarioId(userIdInSession);
+            }
+            tarea.IdCarpeta = carpetaIdValue;
+           
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpetaValue: " + carpetaIdValue);
+            System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + tarea.IdCarpeta);
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Nombre: " + tarea.Nombre);
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Descripcion: " + tarea.Descripcion);
             System.Diagnostics.Debug.WriteLine("Crear Tarea - EstimadoHoras: " + tarea.EstimadoHoras);
@@ -95,11 +101,16 @@ namespace ProgramacionWeb3TP.Controllers {
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Prioridad: " + parsedPrioridad);
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Completada: " + parsedCompletada);
 
+            Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession);
+            Tarea tareaNueva = _tareaService.CrearTarea(tarea, usuarioActual);
+            if (tareaNueva == null) {
+                TempData["Error"] = MENSAJE_ERROR_NO_SE_PUDO_CREAR;
+            }
+            return RedirectToAction("Listado", "Tareas", new { idCarpeta = carpetaIdValue });
         }
 
         //Vista
         public ActionResult CrearNuevaTarea() {
-            //System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpetaACREAR: " + );
             userIdInSession = (int)Session["usuarioSesionId"];
             List<Carpeta> lista = _carpetaService.ObtenerCarpetasPorUsuario(userIdInSession);
             foreach (Carpeta c in lista) {
