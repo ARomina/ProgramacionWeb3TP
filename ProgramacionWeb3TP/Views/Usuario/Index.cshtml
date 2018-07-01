@@ -11,14 +11,14 @@
                     <img src="https://icon-icons.com/icons2/67/PNG/512/user_13230.png" class="img-responsive" alt="">
                 </div>
                 <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">Nombre de usuario</div>
+                    <div class="profile-usertitle-name" runat="server">¡Hola, @Session["usuarioSesionNombre"]!</div>
                 </div>
                 <div class="profile-userbuttons center-block">
-                    <a href="/Usuario/Modificar/" class="btn btn-success btn-sm">Modificar perfil</a>
+                    <a href="/Usuario/Modificar/@Session["usuarioSesionId"]" class="btn btn-success btn-sm">Modificar perfil</a>
                 </div>
                 <div class="profile-usermenu">
                     <ul class="nav">
-                       <li class="active">
+                        <li class="active">
                             <a href="/Carpetas/Index/">
                                 <i class="glyphicon glyphicon-folder-open"></i> Mis carpetas
                             </a>
@@ -34,7 +34,7 @@
         </div>
         <div class="col-md-9">
             <div class="profile-content">
-                 <div class="row">
+                <div class="row">
                     <div class="col-lg-9 col-md-9">
                         <h2>Carpetas recientes</h2>
                     </div>
@@ -166,4 +166,3 @@
         </div>
     </div>
 </div>
-

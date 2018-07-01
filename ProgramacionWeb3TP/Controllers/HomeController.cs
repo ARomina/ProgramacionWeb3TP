@@ -3,139 +3,115 @@ using ProgramacionWeb3TP.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
 
 
 namespace ProgramacionWeb3TP.Controllers{
-
-
     public class HomeController : Controller {
-
-        
-
-        public static List<Usuario> listUsuarios;
         private UsuarioService _usuarioService = new UsuarioService();
 
         //Sin estar loggueados
 
         // GET: Home
-
-        
-
-        /*LOGIN*/
         public ActionResult Index() {
+            String userNameInSession;
+            if (Session["usuarioEnSesion"] == null) {
+                userNameInSession = "No user in session";
+            }
+            else {
+                userNameInSession = (String) Session["usuarioEnSesion"];
+            }
+            System.Diagnostics.Debug.WriteLine("Home: " + userNameInSession);
             return View();
         }
-        
 
-
-
-        //Login dirige a página principal
-        [HttpGet]
+        //Pantalla Login
         public ActionResult Login() {
-
             return View();
         }
 
+        //Pantalla Registro
+        public ActionResult Registracion() {
+            return View();
+        }
 
+        //Proceso de logueo de usuario
         /*Validación del Usuario Ingresado*/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult VerificarUsuario(Usuario usuario)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult VerificarUsuario(Usuario usuario) {
+            if (ModelState.IsValidField("Email") && ModelState.IsValidField("Contrasenia")) {
                 Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
-                if (user != null)
-                {
+                if (user != null) {
                     //verifica si necesita redirigir a una pagina
                     Session["usuarioEnSesion"] = user.Email;
+                    Session["usuarioSesionNombre"] = user.Nombre;
+                    Session["usuarioSesionApellido"] = user.Apellido;
+                    Session["usuarioSesionId"] = user.IdUsuario;
                     if (Session["Action"] == null)
-                        return RedirectToAction("Inicio"); /*redirije al Home*/
-                    else
-                    {
+                        return RedirectToAction("Index", "Usuario"); /*redirije al Home*/
+                    else {
                         string action = Session["Action"] as string;
                         Session.Remove("Action");
                         return RedirectToAction(action);
                     }
                 }
-                else
-                {
+                else {
                     TempData["Error"] = "Error de usuario y/o contraseña";
                 }
             }
-            return RedirectToAction("Login", "index");
+            else {
+                var message = string.Join(" | ", ModelState.Values
+                                            .SelectMany(v => v.Errors)
+                                            .Select(e => e.ErrorMessage));
+
+                //Return Status Code:
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, message);
+            }
+            return RedirectToAction("Login", "Home");
 
         }
 
-        //VERIFICAR SESION
-        public Boolean comprobarUsuario(String action)
-        {
-            //si el usuario existe devuelve true, sino crea la variable de sesion con el action al que tiene que volver
-            if (Session["usuarioEnSesion"] != null)
-            {
-                string usuario = Session["usuarioEnSesion"] as string;
-                var usuarioExistente = _usuarioService.buscarUsuarioPorEmail(usuario);
-                if (usuarioExistente != null)
-                {
-                    return true;
+        //Proceso de registro de usuario
+        [HttpPost]
+        [ValidateAntiForgeryToken]  //Para prevenir ataques CSRF
+        public ActionResult RegistrarUsuario([Bind(Include = "IdUsuario, Nombre, Apellido, Email, Contrasenia")] Usuario usuario) {
+            if (ModelState.IsValid) {
+                String nombre = usuario.Nombre;
+                String apellido = usuario.Apellido;
+                String email = usuario.Email;
+                String contrasenia = usuario.Contrasenia;
+                String contrasenia2 = Request["Contrasenia2"];
+
+                //Chequeo en la salida los datos que se recibieron
+                System.Diagnostics.Debug.WriteLine("Datos recibidos del formulario: " + nombre + " " + apellido + " " + email + " "
+                                                         + contrasenia + " " + contrasenia2);
+
+                Usuario user = _usuarioService.registrarUsuario(new Usuario(usuario.Nombre, usuario.Apellido, usuario.Email, usuario.Contrasenia), contrasenia2);
+                string mensajeError = "";
+                if (user != null) {
+                    Session["usuarioEnSesion"] = user.Email;
+                    Session["usuarioSesionNombre"] = user.Nombre;
+                    Session["usuarioSesionApellido"] = user.Apellido;
+                    Session["usuarioSesionId"] = user.IdUsuario;
+                    return RedirectToAction("Index", "Usuario"); /*redirije al Home*/
+                }
+                else {
+                    //Informar de alguna forma que no se pudo registrar el usuario
+                    mensajeError = _usuarioService.mostrarMensajeDeError();
+                    TempData["Error"] = mensajeError;
+                    return RedirectToAction("Registracion", usuario);
                 }
             }
-
-            Session["Action"] = action;
-            return false;
-        }
-
-        /*
-        //Validar Login
-        [HttpPost]
-        public ActionResult ValidarLogin(Email email, Contrasenia contrasenia)
-        {
-
-            Context ctx = new Context();
-
-            Usuario usuarioEncontrado = new Usuario();
-
-            {
-
-                usuarioEncontrado = ctx.Usuario.Where(u => u.Email == usuario.Email
-                                                   && u.Contrasenia == usuario.Contrasenia).SingleOrDefault();
-
-                {
-                    if (usuarioObtenido == null)
-                    {
-                        us.LoginErrorMessage = "Usuario o Password Incorrectos.";
-                        return View("Login", us);
-                    }
-                    else
-                        {
-                         
-                        }
-
-                }
-
+            else {
+                TempData["Error"] = null;
+                return View("Registracion", usuario);
             }
-            return View();
-         
-        }
-        */
-        /*      //Registro
-        public ActionResult Registracion() {
-            return View();
         }
 
-        //Registrar Usuario
-        [HttpPost]
-        public ActionResult RegistrarUsuario(Usuario usuario) {
-            Usuario usuarioNuevo = usuarioRepository.registrarUsuario(usuario);
-            if (usuarioNuevo != null) {
-                return RedirectToAction("Login", "Home");
-            }else {
-                return RedirectToAction("Registracion", "Home");
-            }
-           */
     }
         
     }

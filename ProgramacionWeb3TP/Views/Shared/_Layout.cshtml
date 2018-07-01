@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Taskie</title>
     <!--<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />-->
-    
     <!-- Estilos propios -->
     <link href="~/Content/customStyles.css" rel="stylesheet" type="text/css" />
 
@@ -13,7 +12,7 @@
     <link href="~/Content/customTheme.css" rel="stylesheet" type="text/css" />
 
     <!--<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
-    <script src="~/Scripts/modernizr-2.6.2.js"></script> 
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
     <div class="navbar navbar-default">
@@ -27,21 +26,22 @@
                 <!--<a class="navbar-brand" href="#">Project name</a>-->
                 @Html.ActionLink("Taskie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <!-- MOSTRAR U OCULTAR ESTO SEGUN LA SESION -->
-            <!--<div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav pull-right ">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hola, NombreDeUsuario <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/Usuario/Modificar/"><i class="icon-cog"></i> Modificar mi perfil</a></li>
-                                    <li><a href="/Carpetas/Index/"><i class="icon-cog"></i> Mis carpetas</a></li>
-                                    <li><a href="/Tareas/Index"><i class="icon-envelope"></i> Mis tareas</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="/Usuario/Logout"><i class="icon-off"></i> Salir</a></li>
-                                </ul>
-                            </li>
-                </ul>
-            </div>-->
+            @if (@Session["usuarioEnSesion"] != null) {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav pull-right ">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hola, @Session["usuarioSesionNombre"] <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/Usuario/Modificar/@Session["usuarioSesionId"]"><i class="icon-cog"></i> Modificar mi perfil</a></li>
+                                <li><a href="/Carpetas/Index/"><i class="icon-cog"></i> Mis carpetas</a></li>
+                                <li><a href="/Tareas/Index"><i class="icon-envelope"></i> Mis tareas</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/Usuario/Logout"><i class="icon-off"></i> Salir</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+             }
         </div>
     </div>
 

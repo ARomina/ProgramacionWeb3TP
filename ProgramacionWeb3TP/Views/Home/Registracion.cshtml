@@ -1,40 +1,43 @@
-﻿
+﻿@model ProgramacionWeb3TP.Models.Usuario
+
 @{
     ViewBag.Title = "Registro";
 }
 
-<!--<h2 class="col-md-12 col-sm-12 paddingLeftTitles">Registro</h2>-->
-
 <div class="container">
     <div class="row">
-         <div class="col-md-12 col-sm-12 ">
+        <div class="col-md-12 col-sm-12 ">
             <h2 class="paddingLeftTitles">Registro</h2>
             <hr />
         </div>
     </div>
     <div class="row">
-        <form action="/Home/RegistrarUsuario/" method="POST">
 
+        @if (TempData["Error"] != null) {//si existe un error de registro
+            <div class="col-md-6 col-md-offset-3">
+                <div class="alert alert-danger text-center">
+                    <h5>@TempData["Error"]</h5>
+                </div>
+            </div>
+        }
+
+        @using (Html.BeginForm("RegistrarUsuario", "Home")) {
             <br />
 
-            <!-- Example row of columns -->
             <div class="col col-md-6">
                 <div class="col-md-12">
                     <h2>En todo momento</h2>
                     <p>Desde la web o desde tu celular, tu información siempre disponible para que accedas cuando quieras</p>
-                    <!--<p><a class="btn btn-default" href="#" role="button">View details »</a></p>-->
                 </div>
                 <hr />
                 <div class="col-md-12">
                     <h2>Rápido y fácil</h2>
                     <p>Sistema fácil de utilizar y simple, para organizar tus tareas de forma óptima</p>
-                    <!--<p><a class="btn btn-default" href="#" role="button">View details »</a></p>-->
                 </div>
                 <hr />
                 <div class="col-md-12">
                     <h2>Cada cosa en su lugar</h2>
                     <p>En sistema de carpetas de Taskie te ayudará a separar y ordenar mejor tus tareas, siendo también más fáciles de encontrar</p>
-                    <!--<p><a class="btn btn-default" href="#" role="button">View details »</a></p>-->
                 </div>
             </div>
 
@@ -46,40 +49,42 @@
                     <div class="panel-body">
 
                         <fieldset>
+                            @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+                            @Html.AntiForgeryToken()
                             <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="Nombre completo">
+                                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Nombre, null, new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <label for="apellido">Apellido</label>
-                                <input type="text" class="form-control" id="apellido" name="Apellido" placeholder="Apellido completo">
+                                @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Apellido, null, new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="Email" placeholder="Email">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
-                                <label for="contrasenia">Contraseña</label>
-                                <input type="password" class="form-control" id="contrasenia" name="Contrasenia" placeholder="Contraseña">
+                                @Html.LabelFor(model => model.Contrasenia, "Contraseña", htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Contrasenia, null, new { @class = "text-danger" })
                             </div>
                             <div class="form-group">
                                 <label for="repetircontrasenia">Repetir contraseña</label>
-                                <input type="password" class="form-control" id="repetircontrasenia" name="repetircontrasenia" placeholder="Repetir contraseña">
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" type="checkbox" value="Remember Me"> Acepto los <strong>Términos y Condiciones </strong>
-                                </label>
+                                <input type="password" class="form-control" id="Contrasenia2" name="Contrasenia2" placeholder="Repetir contraseña">
                             </div>
                             <hr />
                             <input class="btn btn-lg btn-success btn-block" type="submit" value="Continuar">
                             <hr />
 
-                            @Html.ActionLink("¿Ya tenés cuenta? Ingresa acá", "Login", "Home", new { area = "" }, new { @class = "btn btn-lg btn-info btn-block" })<!--Modificar estilo-->
+                            @Html.ActionLink("¿Ya tenés cuenta? Ingresa acá", "Login", "Home", new { area = "" }, new { @class = "btn btn-lg btn-info btn-block" })
                         </fieldset>
                     </div>
                 </div>
             </div>
-        </form>
+            <!--</form>-->
+        }
     </div>
 </div>
