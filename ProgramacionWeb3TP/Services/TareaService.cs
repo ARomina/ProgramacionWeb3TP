@@ -9,6 +9,7 @@ namespace ProgramacionWeb3TP.Services
     public class TareaService
     {
         private TaskieContext ctx = new TaskieContext();
+        private CarpetaService _carpetaService = new CarpetaService();
 
         public Tarea ObtenerTareaPorId(int id)
         {
@@ -20,21 +21,22 @@ namespace ProgramacionWeb3TP.Services
             return tarea;
         }
 
-        public Tarea CrearTarea(Tarea dataTarea)
+        public Tarea CrearTarea(Tarea dataTarea, Usuario usuarioActual)
         {
-            Tarea nuevaTarea = new Tarea
-            {
-                Nombre = dataTarea.Nombre,
-                Descripcion = dataTarea.Descripcion,
+            Tarea nuevaTarea = new Tarea {
                 IdCarpeta = dataTarea.IdCarpeta,
                 IdUsuario = dataTarea.IdUsuario,
-                Completada = 0,
-                Prioridad = 1,
+                Nombre = dataTarea.Nombre,
+                Descripcion = dataTarea.Descripcion,
+                EstimadoHoras = dataTarea.EstimadoHoras,
+                FechaFin = dataTarea.FechaFin,
+                Completada = dataTarea.Completada,
+                Prioridad = dataTarea.Prioridad,
                 FechaCreacion = DateTime.Now
             };
 
+            //usuarioActual.Tarea.Add(nuevaTarea);
             ctx.Tarea.Add(nuevaTarea);
-
             ctx.SaveChanges();
 
             return nuevaTarea;

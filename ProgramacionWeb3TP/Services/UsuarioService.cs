@@ -7,6 +7,7 @@ using System.Web;
 
 namespace ProgramacionWeb3TP.Services {
     public class UsuarioService {
+
         private TaskieContext ctx = new TaskieContext();
         private CarpetaService _carpetaService = new CarpetaService();
 
@@ -77,6 +78,9 @@ namespace ProgramacionWeb3TP.Services {
                     try {
                         ctx.Usuario.Add(usuarioNuevo);
                         ctx.SaveChanges();
+
+                        Usuario usuarioRegistrado = buscarUsuarioPorEmail(usuarioNuevo.Email);
+                        _carpetaService.crearCarpetaGeneral(usuarioRegistrado.IdUsuario);
                     }
                     catch (DbEntityValidationException ex) {
                         foreach (var entityValidationErrors in ex.EntityValidationErrors) {

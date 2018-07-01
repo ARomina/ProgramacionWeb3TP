@@ -11,16 +11,32 @@ namespace ProgramacionWeb3TP.Controllers {
 
         // Service
         private CarpetaService _carpetaService = new CarpetaService();
+        private UsuarioService _usuarioService = new UsuarioService();
 
         //TODO:Fake
-        private readonly int fakeUserId = 8;
+        //private readonly int fakeUserId = 8;
+        private int userIdInSession;
 
         // GET: Carpeta
         //Estando logueados --> Listado de carpetas
         //Chequear si el usuario esta en sesión, sino mostrar pantalla de que no esta logueado, etc
-        public ActionResult Index()
-        {
-            List<Carpeta> carpetas = _carpetaService.ObtenerCarpetasPorUsuario(fakeUserId);
+        public ActionResult Index(){
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
+            }
+            else {
+                userIdInSession = (int)Session["usuarioSesionId"];
+                System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userIdInSession);
+            }
+            List<Carpeta> carpetas = _carpetaService.ObtenerCarpetasPorUsuario(userIdInSession);
+            if (!carpetas.Any()) {
+                System.Diagnostics.Debug.WriteLine("Lista Carpetas Vacia");
+            }
+            else {
+                System.Diagnostics.Debug.WriteLine("Lista Carpetas No Vacia");
+            }
             return View(carpetas);
         }
 
@@ -31,10 +47,20 @@ namespace ProgramacionWeb3TP.Controllers {
         }
 
         //Procesar creación de carpeta
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreacionCarpeta(Carpeta carpeta)
         {
-            carpeta.IdUsuario = fakeUserId;
-            _carpetaService.CrearCarpeta(carpeta);
+            userIdInSession = (int)Session["usuarioSesionId"];
+            Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession); 
+            carpeta.IdUsuario = userIdInSession;
+
+            //System.Diagnostics.Debug.WriteLine("Home - Crear Carpeta: " + userIdInSession);
+
+            System.Diagnostics.Debug.WriteLine("Crear carpeta - Usuario: " + usuarioActual.IdUsuario + " " + usuarioActual.Nombre);
+            System.Diagnostics.Debug.WriteLine("Crear carpeta: " + carpeta.IdUsuario + " " + carpeta.Nombre + " " + carpeta.Descripcion);
+
+            _carpetaService.CrearCarpeta(carpeta, usuarioActual);
 
             return RedirectToAction("Index");
         }

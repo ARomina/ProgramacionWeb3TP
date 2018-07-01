@@ -21,5 +21,13 @@ namespace ProgramacionWeb3TP.Models
             this.Descripcion = null;
             this.FechaCreacion = DateTime.Now;
         }
+
+        //Constructor para enviar al servicio de crear carpeta
+        public Carpeta(Carpeta carpeta) {
+            this.IdUsuario = carpeta.IdUsuario;
+            this.Nombre = carpeta.Nombre;
+            this.Descripcion = carpeta.Descripcion;
+            this.FechaCreacion = DateTime.Now;
+        }
     }
 }

@@ -10,7 +10,7 @@
             <div class=" col-lg-4 col-md-4">
                 
             </div>
-            <a class="col-md-2 col-sm-12 btn btn-primary" href="/Carpetas/Crear/">Crear carpeta</a>
+            <a class="col-md-2 col-sm-12 btn btn-primary" href="/Carpetas/Crear/@Session["usuarioSessionId"]">Crear carpeta</a>
         </div>
     </div>
     <hr />
@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col-xs-12 text-right">
                                     <div class="huge">@Html.DisplayFor(modelItem => item.Nombre)</div>
-                                    <div class="huge">0 archivos adjuntos </div>
+                                    <div class="huge">0 archivos adjuntos HARDCODED</div>
                                     <div class="huge">@Html.DisplayFor(modelItem => item.Descripcion)</div>
                                 </div>
                             </div>

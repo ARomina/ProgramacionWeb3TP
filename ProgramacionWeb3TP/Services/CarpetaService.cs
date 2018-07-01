@@ -8,7 +8,7 @@ namespace ProgramacionWeb3TP.Services
 {
     public class CarpetaService
     {
-        private TaskieContext ctx = new TaskieContext();
+        private static TaskieContext ctx = new TaskieContext();
 
         public Carpeta ObtenerCarpetaPorId(int id)
         {
@@ -20,18 +20,19 @@ namespace ProgramacionWeb3TP.Services
             return carpeta;
         }
 
-        public Carpeta CrearCarpeta(Carpeta dataCarpeta)
+        public Carpeta CrearCarpeta(Carpeta dataCarpeta, Usuario usuarioActual)
         {
+
             Carpeta nuevaCarpeta = new Carpeta
             {
+                IdUsuario = dataCarpeta.IdUsuario,
                 Nombre = dataCarpeta.Nombre,
                 Descripcion = dataCarpeta.Descripcion,
-                IdUsuario = dataCarpeta.IdUsuario,
                 FechaCreacion = DateTime.Now
             };
 
+            usuarioActual.Carpeta.Add(nuevaCarpeta);
             ctx.Carpeta.Add(nuevaCarpeta);
-
             ctx.SaveChanges();
 
             return nuevaCarpeta;
@@ -73,6 +74,8 @@ namespace ProgramacionWeb3TP.Services
 
         public void crearCarpetaGeneral(int usuarioId) {
             Carpeta carpetaGeneral = new Carpeta(usuarioId);
+            ctx.Carpeta.Add(carpetaGeneral);
+            ctx.SaveChanges();
         }
     }
 }
