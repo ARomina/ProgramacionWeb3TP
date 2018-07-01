@@ -25,7 +25,7 @@ namespace ProgramacionWeb3TP.Services
         {
             Tarea nuevaTarea = new Tarea {
                 IdCarpeta = dataTarea.IdCarpeta,
-                IdUsuario = dataTarea.IdUsuario,
+                IdUsuario = usuarioActual.IdUsuario,
                 Nombre = dataTarea.Nombre,
                 Descripcion = dataTarea.Descripcion,
                 EstimadoHoras = dataTarea.EstimadoHoras,
@@ -35,7 +35,7 @@ namespace ProgramacionWeb3TP.Services
                 FechaCreacion = DateTime.Now
             };
 
-            //usuarioActual.Tarea.Add(nuevaTarea);
+            usuarioActual.Tarea.Add(nuevaTarea);
             ctx.Tarea.Add(nuevaTarea);
             ctx.SaveChanges();
 
