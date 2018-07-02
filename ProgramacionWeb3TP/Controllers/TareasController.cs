@@ -84,7 +84,7 @@ namespace ProgramacionWeb3TP.Controllers {
 
             //int carpetaId = int.Parse(Request["carpetaId"]);
             //tarea.IdCarpeta = carpetaId;
-            var selectedText = carpetaId.Items[Select1.SelectedIndex].Text.Trim();
+            /*var selectedText = carpetaId.Items[Select1.SelectedIndex].Text.Trim();
 
             System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + carpetaIdValue);
             //System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + tarea.IdCarpeta);
@@ -94,7 +94,7 @@ namespace ProgramacionWeb3TP.Controllers {
             System.Diagnostics.Debug.WriteLine("Crear Tarea - FechaFin: " + parsedFechaFin);
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Prioridad: " + parsedPrioridad);
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Completada: " + parsedCompletada);
-
+            */
         }
 
         //Vista
