@@ -28,10 +28,10 @@ namespace ProgramacionWeb3TP.Controllers {
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
             }
             else {
-                userIdInSession = (int)Session["usuarioSesionId"];
+                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userIdInSession);
             }
-            userIdInSession = (int)Session["usuarioSesionId"];
+            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
             List<Tarea> listaTareas = _tareaService.listarTareas(userIdInSession);
             return View(listaTareas);
         }
@@ -64,7 +64,7 @@ namespace ProgramacionWeb3TP.Controllers {
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Prioridad: " + parsedPrioridad);
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Completada: " + parsedCompletada);
 
-            userIdInSession = (int)Session["usuarioSesionId"];
+            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
             Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession);
             Tarea tareaNueva = _tareaService.CrearTarea(tarea, usuarioActual);
             if (tareaNueva == null) {
@@ -77,7 +77,7 @@ namespace ProgramacionWeb3TP.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreacionNuevaTarea(Tarea tarea) {
-            userIdInSession = (int)Session["usuarioSesionId"];
+            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
 
             DateTime parsedFechaFin = DateTime.Parse(Request["FechaFin"]);
             short parsedPrioridad = short.Parse(Request["Prioridad"]);
@@ -111,7 +111,7 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult CrearNuevaTarea() {
-            userIdInSession = (int)Session["usuarioSesionId"];
+            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
             List<Carpeta> lista = _carpetaService.ObtenerCarpetasPorUsuario(userIdInSession);
             foreach (Carpeta c in lista) {
                 ViewBag.listaCarpetas = lista;

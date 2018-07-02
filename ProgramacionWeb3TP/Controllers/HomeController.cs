@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using ProgramacionWeb3TP.Models.Entities;
+using System.Web.Security;
+using System.Text;
 
 namespace ProgramacionWeb3TP.Controllers{
 
@@ -19,7 +21,20 @@ namespace ProgramacionWeb3TP.Controllers{
 
         // GET: Home
         public ActionResult Index() {
-            if (Session["usuarioSesionId"] == null) {
+            if (Request.Cookies["CookieUsuario"] != null) {
+                if (Session["usuarioSesionId"] == null) {
+
+                    Session["usuarioSesionEmail"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioEmail"], "CookieInfo");
+                    Session["usuarioSesionNombre"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioNombre"], "CookieInfo");
+                    Session["usuarioSesionApellido"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioApellido"], "CookieInfo");
+                    Session["usuarioSesionId"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioId"], "CookieInfo");
+                }
+                return RedirectToAction("Index", "Usuario");
+            }
+            else {
+                return View();
+            }
+            /*if (Session["usuarioSesionId"] == null) {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Index: " + userNameInSession);
@@ -28,8 +43,8 @@ namespace ProgramacionWeb3TP.Controllers{
                 int userIdInSession;
                 userIdInSession = (int) Session["usuarioSesionId"];
                 System.Diagnostics.Debug.WriteLine("Home: " + userIdInSession);
-            }
-            return View();
+            }*/
+            //return View();
         }
 
         //Pantalla Login
@@ -48,8 +63,23 @@ namespace ProgramacionWeb3TP.Controllers{
         [ValidateAntiForgeryToken]
         public ActionResult VerificarUsuario(Usuario usuario) {
             if (ModelState.IsValidField("Email") && ModelState.IsValidField("Contrasenia")) {
+                string rememberMeValue = Request["rememberMe"];
+                System.Diagnostics.Debug.WriteLine("Login - Remember Me: " + rememberMeValue);
+
                 Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
                 if (user != null) {
+                    //Se setea la cookie si el remember me es true
+                    if (rememberMeValue.Equals("true")) {
+                        HttpCookie userCookie = new HttpCookie("CookieUsuario");
+                        userCookie["CookieUsuarioId"] = ProtectCookieInfo(user.IdUsuario.ToString(), "CookieInfo") ;
+                        userCookie["CookieUsuarioNombre"] = ProtectCookieInfo(user.Nombre, "CookieInfo");
+                        userCookie["CookieUsuarioApellido"] = ProtectCookieInfo(user.Apellido, "CookieInfo");
+                        userCookie["CookieUsuarioEmail"] = ProtectCookieInfo(user.Email, "CookieInfo");
+                        userCookie.Expires = DateTime.Now.AddDays(1d);
+                        Response.Cookies.Add(userCookie);
+                        System.Diagnostics.Debug.WriteLine("Login - Cookie Usuario Id: " + userCookie["CookieUsuarioId"]);
+                    }
+
                     //verifica si necesita redirigir a una pagina
                     Session["usuarioSesionEmail"] = user.Email;
                     Session["usuarioSesionNombre"] = user.Nombre;
@@ -122,6 +152,26 @@ namespace ProgramacionWeb3TP.Controllers{
             }
              return View("Registracion", usuario);
             }
+
+        //Metodos para encriptar y desencriptar la cookie
+        public static string ProtectCookieInfo(string text, string purpose) {
+            if (string.IsNullOrEmpty(text))
+                return null;
+
+            byte[] stream = Encoding.UTF8.GetBytes(text);
+            byte[] encodedValue = MachineKey.Protect(stream, purpose);
+            return HttpServerUtility.UrlTokenEncode(encodedValue);
+        }
+
+        public static string UnprotectCookieInfo(string text, string purpose) {
+            if (string.IsNullOrEmpty(text))
+                return null;
+
+            byte[] stream = HttpServerUtility.UrlTokenDecode(text);
+            byte[] decodedValue = MachineKey.Unprotect(stream, purpose);
+            return Encoding.UTF8.GetString(decodedValue);
+        }
+
     }
 }
 
