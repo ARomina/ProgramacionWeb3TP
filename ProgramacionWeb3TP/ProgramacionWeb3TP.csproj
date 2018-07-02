@@ -150,6 +150,7 @@
     <Compile Include="Models\Entities\ArchivoTarea.cs" />
     <Compile Include="Models\Entities\Carpeta.cs" />
     <Compile Include="Models\Entities\ComentarioTarea.cs" />
+    <Compile Include="Models\Entities\ReCaptchaClass.cs" />
     <Compile Include="Models\Entities\Tarea.cs" />
     <Compile Include="Models\Entities\Usuario.cs" />
     <Compile Include="Models\Metadata\ArchivoTareaMetadata.cs" />
