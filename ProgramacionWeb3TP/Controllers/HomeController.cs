@@ -7,7 +7,9 @@ using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
 using System.Net;
-
+using ProgramacionWeb3TP.Models.Entities;
+using System.Web.Security;
+using System.Text;
 
 namespace ProgramacionWeb3TP.Controllers{
 
@@ -19,7 +21,20 @@ namespace ProgramacionWeb3TP.Controllers{
 
         // GET: Home
         public ActionResult Index() {
-            if (Session["usuarioSesionId"] == null) {
+            if (Request.Cookies["CookieUsuario"] != null) {
+                if (Session["usuarioSesionId"] == null) {
+
+                    Session["usuarioSesionEmail"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioEmail"], "CookieInfo");
+                    Session["usuarioSesionNombre"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioNombre"], "CookieInfo");
+                    Session["usuarioSesionApellido"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioApellido"], "CookieInfo");
+                    Session["usuarioSesionId"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioId"], "CookieInfo");
+                }
+                return RedirectToAction("Index", "Usuario");
+            }
+            else {
+                return View();
+            }
+            /*if (Session["usuarioSesionId"] == null) {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Index: " + userNameInSession);
@@ -28,8 +43,8 @@ namespace ProgramacionWeb3TP.Controllers{
                 int userIdInSession;
                 userIdInSession = (int) Session["usuarioSesionId"];
                 System.Diagnostics.Debug.WriteLine("Home: " + userIdInSession);
-            }
-            return View();
+            }*/
+            //return View();
         }
 
         //Pantalla Login
@@ -48,8 +63,23 @@ namespace ProgramacionWeb3TP.Controllers{
         [ValidateAntiForgeryToken]
         public ActionResult VerificarUsuario(Usuario usuario) {
             if (ModelState.IsValidField("Email") && ModelState.IsValidField("Contrasenia")) {
+                string rememberMeValue = Request["rememberMe"];
+                System.Diagnostics.Debug.WriteLine("Login - Remember Me: " + rememberMeValue);
+
                 Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
                 if (user != null) {
+                    //Se setea la cookie si el remember me es true
+                    if (rememberMeValue.Equals("true")) {
+                        HttpCookie userCookie = new HttpCookie("CookieUsuario");
+                        userCookie["CookieUsuarioId"] = ProtectCookieInfo(user.IdUsuario.ToString(), "CookieInfo") ;
+                        userCookie["CookieUsuarioNombre"] = ProtectCookieInfo(user.Nombre, "CookieInfo");
+                        userCookie["CookieUsuarioApellido"] = ProtectCookieInfo(user.Apellido, "CookieInfo");
+                        userCookie["CookieUsuarioEmail"] = ProtectCookieInfo(user.Email, "CookieInfo");
+                        userCookie.Expires = DateTime.Now.AddDays(1d);
+                        Response.Cookies.Add(userCookie);
+                        System.Diagnostics.Debug.WriteLine("Login - Cookie Usuario Id: " + userCookie["CookieUsuarioId"]);
+                    }
+
                     //verifica si necesita redirigir a una pagina
                     Session["usuarioSesionEmail"] = user.Email;
                     Session["usuarioSesionNombre"] = user.Nombre;
@@ -83,38 +113,65 @@ namespace ProgramacionWeb3TP.Controllers{
         [HttpPost]
         [ValidateAntiForgeryToken]  //Para prevenir ataques CSRF
         public ActionResult RegistrarUsuario([Bind(Include = "Nombre, Apellido, Email, Contrasenia")] Usuario usuario) {
-            if (ModelState.IsValid) {
-                String nombre = usuario.Nombre;
-                String apellido = usuario.Apellido;
-                String email = usuario.Email;
-                String contrasenia = usuario.Contrasenia;
-                String contrasenia2 = Request["Contrasenia2"];
+            var encodedResponse = Request.Form["g-Recaptcha-Response"];
+            var isCaptchaValid = ReCaptchaClass.Validate(encodedResponse);
 
-                //Chequeo en la salida los datos que se recibieron
-                System.Diagnostics.Debug.WriteLine("Datos recibidos del formulario: " + nombre + " " + apellido + " " + email + " "
-                                                         + contrasenia + " " + contrasenia2);
-
-                Usuario user = _usuarioService.registrarUsuario(new Usuario(usuario.Nombre, usuario.Apellido, usuario.Email, usuario.Contrasenia), contrasenia2);
-                string mensajeError = "";
-                if (user != null) {
-                    Session["usuarioSesionEmail"] = user.Email;
-                    Session["usuarioSesionNombre"] = user.Nombre;
-                    Session["usuarioSesionApellido"] = user.Apellido;
-                    Session["usuarioSesionId"] = user.IdUsuario;
-                    return RedirectToAction("Index", "Usuario"); /*redirije al Home*/
-                }
-                else {
-                    //Informar de alguna forma que no se pudo registrar el usuario
-                    mensajeError = _usuarioService.mostrarMensajeDeError();
-                    TempData["Error"] = mensajeError;
-                    return RedirectToAction("Registracion", usuario);
-                }
+            if (!isCaptchaValid) {
+                TempData["Error"] = "El captcha es inválido";
             }
             else {
-                TempData["Error"] = null;
-                return View("Registracion", usuario);
+                if (ModelState.IsValid) {
+                    String nombre = usuario.Nombre;
+                    String apellido = usuario.Apellido;
+                    String email = usuario.Email;
+                    String contrasenia = usuario.Contrasenia;
+                    String contrasenia2 = Request["Contrasenia2"];
+
+                    //Chequeo en la salida los datos que se recibieron
+                    System.Diagnostics.Debug.WriteLine("Datos recibidos del formulario: " + nombre + " " + apellido + " " + email + " "
+                                                             + contrasenia + " " + contrasenia2);
+
+                    Usuario user = _usuarioService.registrarUsuario(new Usuario(usuario.Nombre, usuario.Apellido, usuario.Email, usuario.Contrasenia), contrasenia2);
+                    string mensajeError = "";
+                    if (user != null) {
+                        Session["usuarioSesionEmail"] = user.Email;
+                        Session["usuarioSesionNombre"] = user.Nombre;
+                        Session["usuarioSesionApellido"] = user.Apellido;
+                        Session["usuarioSesionId"] = user.IdUsuario;
+                        return RedirectToAction("Index", "Usuario"); /*redirije al Home*/
+                    }
+                    else {
+                        //Informar de alguna forma que no se pudo registrar el usuario
+                        mensajeError = _usuarioService.mostrarMensajeDeError();
+                        TempData["Error"] = mensajeError;
+                    }
+                }
+                else {
+                    TempData["Error"] = null;
+                }
             }
+             return View("Registracion", usuario);
+            }
+
+        //Metodos para encriptar y desencriptar la cookie
+        public static string ProtectCookieInfo(string text, string purpose) {
+            if (string.IsNullOrEmpty(text))
+                return null;
+
+            byte[] stream = Encoding.UTF8.GetBytes(text);
+            byte[] encodedValue = MachineKey.Protect(stream, purpose);
+            return HttpServerUtility.UrlTokenEncode(encodedValue);
         }
+
+        public static string UnprotectCookieInfo(string text, string purpose) {
+            if (string.IsNullOrEmpty(text))
+                return null;
+
+            byte[] stream = HttpServerUtility.UrlTokenDecode(text);
+            byte[] decodedValue = MachineKey.Unprotect(stream, purpose);
+            return Encoding.UTF8.GetString(decodedValue);
+        }
+
     }
 }
 

@@ -16,7 +16,8 @@ namespace ProgramacionWeb3TP.Controllers {
                 System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userNameInSession);
             }
             else {
-                userIdInSession = (int)Session["usuarioSesionId"];
+                System.Diagnostics.Debug.WriteLine("Home - Usuario: " + Session["usuarioSesionId"]);
+                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
                 System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userIdInSession);
             }
             return View();

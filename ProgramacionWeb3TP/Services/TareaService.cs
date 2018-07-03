@@ -56,8 +56,9 @@ namespace ProgramacionWeb3TP.Services
         {
             var Tareas = (from t in ctx.Tarea
                           where t.IdCarpeta == carpetaId
+                          orderby t.Prioridad ascending, t.FechaFin ascending
                           select t)
-                            .ToList();
+                          .ToList();
 
             return Tareas;
         }
@@ -74,6 +75,22 @@ namespace ProgramacionWeb3TP.Services
             var tareas = (from t in ctx.Tarea
                           where t.IdUsuario == idUsuario
                           orderby t.FechaCreacion descending
+                          select t).ToList();
+
+            foreach (Tarea t in tareas) {
+                lista.Add(t);
+            }
+
+            return lista;
+        }
+
+        public List<Tarea> listarTareasIncompletasPorUsuario(int idUsuario) {
+            List<Tarea> lista = new List<Tarea>();
+
+            var tareas = (from t in ctx.Tarea
+                          where t.IdUsuario == idUsuario &&
+                          t.Completada == 0
+                          orderby t.Prioridad descending, t.FechaFin ascending
                           select t).ToList();
 
             foreach (Tarea t in tareas) {

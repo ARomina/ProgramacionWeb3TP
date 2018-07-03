@@ -44,6 +44,10 @@
                 @Html.ValidationMessageFor(model => model.Contrasenia, null, new { @class = "text-danger" })
             </div>
 
+            <div>
+                <input type="checkbox" id="rememberMe" name="rememberMe" value="true" runat="server"/>Recordarme
+            </div>
+            
             <button type="submit" class="btn btn-info">Login</button><br /><br />
         }
     </div>

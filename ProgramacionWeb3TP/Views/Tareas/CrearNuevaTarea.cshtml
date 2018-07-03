@@ -21,7 +21,7 @@
                 </div>
             }
 
-            @using (Html.BeginForm("CreacionTarea", "Tareas")) {
+            @using (Html.BeginForm("CreacionNuevaTarea", "Tareas")) {
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
@@ -30,10 +30,11 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.IdCarpeta, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <select id="carpetaId" runat="server">
+                            <select id="carpetaId" name="carpetaId" runat="server">
+                                <option value="0">Seleccione una opción...</option>
                                 @foreach (var c in ViewBag.listaCarpetas) {
-                                    <option value="@c.IdCarpeta">@c.Nombre</option>
-                                }
+                            <option value="@c.IdCarpeta">@c.Nombre</option>
+}
                             </select>
                         </div>
                     </div>
