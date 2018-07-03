@@ -36,18 +36,8 @@
             <div class="profile-content">
                 <div class="row">
                     <div class="col-lg-9 col-md-9">
-                        <h2>Carpetas recientes</h2>
+                        <h2>Tareas pendientes</h2>
                     </div>
-                    <!--<div class=" col-lg-4 col-md-4">
-                        <div class="input-group custom-search-form">
-                            <input class="form-control" type="text" placeholder="Búsqueda rápida...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </div>-->
                     <div class=" col-lg-3 col-md-3 ">
                         <div class="form-group pull-right">
                             <a href="/Carpetas/Crear/@Session["usuarioSesionId"]" class="btn btn-success">
@@ -55,6 +45,52 @@
                             </a>
                         </div>
                     </div>
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>Fecha de Fin</td>
+                                    <td>Nombre</td>
+                                    <td>Prioridad</td>
+                                    <td>Carpeta</td>
+                                    <td>Estimado</td>
+                                    <td>Completada</td>
+                                    <td>Acciones</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var t in ViewBag.listaTareasPendientes) {
+                    <tr>
+                        <td>@t.FechaFin</td>
+                        <td>@t.Nombre</td>
+                        <td>@t.Prioridad</td>
+                        <td>@t.IdCarpeta</td>
+                        @if (@t.Completada == 0) {
+                <td>No Completada</td>
+}
+else {
+                <td>Completada</td>
+}
+                        <td>@t.EstimadoHoras</td>
+                        <td>@t.Completada</td>
+                        <td>
+                            @Html.ActionLink("Detalle", "Detalle", "Tareas", new { idTarea = t.IdTarea }, null)
+                        </td>
+                    </tr>
+}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--<div class=" col-lg-4 col-md-4">
+        <div class="input-group custom-search-form">
+            <input class="form-control" type="text" placeholder="Búsqueda rápida...">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>-->
                 </div>
                 <hr />
                 <!--Carpetas-->

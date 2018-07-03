@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProgramacionWeb3TP.Models;
+using ProgramacionWeb3TP.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,6 +8,8 @@ using System.Web.Mvc;
 
 namespace ProgramacionWeb3TP.Controllers {
     public class UsuarioController : Controller {
+
+        private TareaService _tareaService = new TareaService();
         private int userIdInSession;
 
         // GET: Usuario
@@ -20,6 +24,9 @@ namespace ProgramacionWeb3TP.Controllers {
                 userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
                 System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userIdInSession);
             }
+
+            List<Tarea> listaTareasPendientes = _tareaService.listarTareasIncompletasPorUsuario(userIdInSession);
+            ViewBag.listaTareasPendientes = listaTareasPendientes;
             return View();
         }
 
@@ -37,6 +44,7 @@ namespace ProgramacionWeb3TP.Controllers {
         public ActionResult Logout() {
             Session.Clear();
             Session.Abandon();
+            //Response.Cookies.Clear();
             return RedirectToAction("Index", "Home");
         }
     }
