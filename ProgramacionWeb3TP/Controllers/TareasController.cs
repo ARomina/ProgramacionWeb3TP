@@ -28,6 +28,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
             }
             else {
                 /*if (Request.Cookies["CookieUsuario"] != null) {
@@ -57,6 +58,13 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult Crear() {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             string idCarpeta = Request.QueryString["idCarpeta"];
             System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + idCarpeta);
             Tarea tareaACrear = new Tarea(int.Parse(idCarpeta));
@@ -142,6 +150,13 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult CrearNuevaTarea() {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             /*if (Request.Cookies["CookieUsuario"] != null) {
                 userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
             }
@@ -158,6 +173,13 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult Detalle() {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             string idTarea = Request.QueryString["idTarea"];
             System.Diagnostics.Debug.WriteLine("Ver Tarea" + idTarea);
             Tarea tareaAVer = _tareaService.ObtenerTareaPorId(int.Parse(idTarea));
@@ -166,6 +188,13 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult Modificar() {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             string idTarea = Request.QueryString["idTarea"];
             System.Diagnostics.Debug.WriteLine("Modificar Tarea" + idTarea);
             Tarea tareaAModificar = _tareaService.ObtenerTareaPorId(int.Parse(idTarea));
@@ -182,6 +211,13 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult Eliminar() {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             string idTarea = Request.QueryString["idTarea"];
             System.Diagnostics.Debug.WriteLine("Eliminar Tarea" + idTarea);
             Tarea tareaAEliminar = _tareaService.ObtenerTareaPorId(int.Parse(idTarea));
@@ -196,20 +232,30 @@ namespace ProgramacionWeb3TP.Controllers {
             _tareaService.eliminarTarea(tarea.IdTarea);
             return RedirectToAction("Listado", "Tareas");
         }
-
+        
+        //Vista
         public ActionResult Listado(int idCarpeta)
         {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             List<Tarea> tareas = _tareaService.ObtenerTareasPorCarpeta(idCarpeta);
             TempData["idCarpeta"] = idCarpeta;
             return View(tareas);
         }
 
+        //Procesar Completar Tarea
         public ActionResult CompletarTarea(int id) {
             System.Diagnostics.Debug.WriteLine("Completar Tarea" + id);
             _tareaService.completarTarea(id);
             return RedirectToAction("Index", "Usuario");
         }
 
+        //Procesar Crear Comentario
         [HttpPost]
         public ActionResult CrearComentario([Bind]int idTarea, [Bind]string texto) {
             _tareaService.CrearComentario(idTarea, texto);
