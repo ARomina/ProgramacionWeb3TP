@@ -14,14 +14,19 @@ namespace ProgramacionWeb3TP.Controllers {
 
         // GET: Usuario
         public ActionResult Index() {
-            if (Session["usuarioSesionId"] == null) {
-                String userNameInSession;
-                userNameInSession = "No user in session";
-                System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userNameInSession);
-            }
-            else {
-                System.Diagnostics.Debug.WriteLine("Home - Usuario: " + Session["usuarioSesionId"]);
-                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+                if (Session["usuarioSesionId"] == null) {
+                    String userNameInSession;
+                    userNameInSession = "No user in session";
+                    System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userNameInSession);
+                }
+                else {
+                    System.Diagnostics.Debug.WriteLine("Home - Usuario: " + Session["usuarioSesionId"]);
+                    /*if (Request.Cookies["CookieUsuario"] != null) {
+                        //userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+                    }else {
+                        userIdInSession =  (int) Session["usuarioSesionId"];
+                    }*/
+                userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
                 System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userIdInSession);
             }
 
@@ -42,9 +47,12 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Procesar logout
         public ActionResult Logout() {
+            //Response.Cookies.Remove("CookieUsuario");
+            if (Request.Cookies["CookieUsuario"] != null) {
+                Response.Cookies["CookieUsuario"].Expires = DateTime.Now.AddDays(-1);
+            }
             Session.Clear();
             Session.Abandon();
-            //Response.Cookies.Clear();
             return RedirectToAction("Index", "Home");
         }
     }

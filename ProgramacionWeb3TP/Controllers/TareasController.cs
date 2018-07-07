@@ -28,10 +28,15 @@ namespace ProgramacionWeb3TP.Controllers {
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
             }
             else {
-                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+                /*if (Request.Cookies["CookieUsuario"] != null) {
+                    userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+                }
+                else {
+                    userIdInSession = (int)Session["usuarioSesionId"];
+                }*/
+                userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userIdInSession);
             }
-            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
             List<Tarea> listaTareas = _tareaService.listarTareas(userIdInSession);
             return View(listaTareas);
         }
@@ -64,7 +69,13 @@ namespace ProgramacionWeb3TP.Controllers {
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Prioridad: " + parsedPrioridad);
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Completada: " + parsedCompletada);
 
-            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            /*if (Request.Cookies["CookieUsuario"] != null) {
+                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            }
+            else {
+                userIdInSession = (int)Session["usuarioSesionId"];
+            }*/
+            userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
             Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession);
             Tarea tareaNueva = _tareaService.CrearTarea(tarea, usuarioActual);
             if (tareaNueva == null) {
@@ -77,7 +88,13 @@ namespace ProgramacionWeb3TP.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreacionNuevaTarea(Tarea tarea) {
-            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            /*if (Request.Cookies["CookieUsuario"] != null) {
+                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            }
+            else {
+                userIdInSession = (int)Session["usuarioSesionId"];
+            }*/
+            userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
 
             DateTime parsedFechaFin = DateTime.Parse(Request["FechaFin"]);
             short parsedPrioridad = short.Parse(Request["Prioridad"]);
@@ -111,7 +128,13 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult CrearNuevaTarea() {
-            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            /*if (Request.Cookies["CookieUsuario"] != null) {
+                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            }
+            else {
+                userIdInSession = (int)Session["usuarioSesionId"];
+            }*/
+            userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
             List<Carpeta> lista = _carpetaService.ObtenerCarpetasPorUsuario(userIdInSession);
             foreach (Carpeta c in lista) {
                 ViewBag.listaCarpetas = lista;

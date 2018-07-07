@@ -27,7 +27,13 @@ namespace ProgramacionWeb3TP.Controllers {
                 System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
             }
             else {
-                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+                /*if (Request.Cookies["CookieUsuario"] != null) {
+                    userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+                }
+                else {
+                    userIdInSession = (int)Session["usuarioSesionId"];
+                }*/
+                userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
                 System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userIdInSession);
             }
             List<Carpeta> carpetas = _carpetaService.ObtenerCarpetasPorUsuario(userIdInSession);
@@ -51,7 +57,13 @@ namespace ProgramacionWeb3TP.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult CreacionCarpeta(Carpeta carpeta)
         {
-            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            /*if (Request.Cookies["CookieUsuario"] != null) {
+                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            }
+            else {
+                userIdInSession = (int)Session["usuarioSesionId"];
+            }*/
+            userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
             Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession); 
             carpeta.IdUsuario = userIdInSession;
 
