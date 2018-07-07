@@ -11,7 +11,7 @@ using ProgramacionWeb3TP.Models.Entities;
 using System.Web.Security;
 using System.Text;
 
-namespace ProgramacionWeb3TP.Controllers{
+namespace ProgramacionWeb3TP.Controllers {
 
 
     public class HomeController : Controller {
@@ -23,6 +23,7 @@ namespace ProgramacionWeb3TP.Controllers{
         public ActionResult Index() {
             if (Request.Cookies["CookieUsuario"] != null) {
                 if (Session["usuarioSesionId"] == null) {
+
                     Session["usuarioSesionEmail"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioEmail"], "CookieInfo");
                     Session["usuarioSesionNombre"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioNombre"], "CookieInfo");
                     Session["usuarioSesionApellido"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioApellido"], "CookieInfo");
@@ -60,46 +61,41 @@ namespace ProgramacionWeb3TP.Controllers{
         /*Validación del Usuario Ingresado*/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult VerificarUsuario(Usuario usuario) {
-            if (ModelState.IsValidField("Email") && ModelState.IsValidField("Contrasenia")) {
-                string rememberMeValue = Request["rememberMe"];
-                System.Diagnostics.Debug.WriteLine("Login - Remember Me: " + rememberMeValue);
+        public ActionResult VerificarUsuario(Usuario usuario, bool rememberMe = false) {
+            System.Diagnostics.Debug.WriteLine("Login - Remember Me: " + rememberMe);
 
-                Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
-                if (user != null) {
-                    if (rememberMeValue != null)
-                    {
-                        //Se setea la cookie si el remember me es true
-                        if (rememberMeValue.Equals("true"))
-                        {
-                            HttpCookie userCookie = new HttpCookie("CookieUsuario");
-                            userCookie["CookieUsuarioId"] = ProtectCookieInfo(user.IdUsuario.ToString(), "CookieInfo");
-                            userCookie["CookieUsuarioNombre"] = ProtectCookieInfo(user.Nombre, "CookieInfo");
-                            userCookie["CookieUsuarioApellido"] = ProtectCookieInfo(user.Apellido, "CookieInfo");
-                            userCookie["CookieUsuarioEmail"] = ProtectCookieInfo(user.Email, "CookieInfo");
-                            userCookie.Expires = DateTime.Now.AddDays(1d);
-                            Response.Cookies.Add(userCookie);
-                            System.Diagnostics.Debug.WriteLine("Login - Cookie Usuario Id: " + userCookie["CookieUsuarioId"]);
-                        }
-                    }
-
-                    //verifica si necesita redirigir a una pagina
-                    Session["usuarioSesionEmail"] = user.Email;
-                    Session["usuarioSesionNombre"] = user.Nombre;
-                    Session["usuarioSesionApellido"] = user.Apellido;
-                    Session["usuarioSesionId"] = user.IdUsuario;
-                    if (Session["Action"] == null)
-                        return RedirectToAction("Index", "Usuario"); /*redirije al Home*/
-                    else {
-                        string action = Session["Action"] as string;
-                        Session.Remove("Action");
-                        return RedirectToAction(action);
-                    }
+            Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
+            if (user != null) {
+                //Se setea la cookie si el remember me es true
+                if (rememberMe) {
+                    HttpCookie userCookie = new HttpCookie("CookieUsuario");
+                    userCookie["CookieUsuarioId"] = ProtectCookieInfo(user.IdUsuario.ToString(), "CookieInfo");
+                    userCookie["CookieUsuarioNombre"] = ProtectCookieInfo(user.Nombre, "CookieInfo");
+                    userCookie["CookieUsuarioApellido"] = ProtectCookieInfo(user.Apellido, "CookieInfo");
+                    userCookie["CookieUsuarioEmail"] = ProtectCookieInfo(user.Email, "CookieInfo");
+                    userCookie.Expires = DateTime.Now.AddDays(1d);
+                    Response.Cookies.Add(userCookie);
+                    System.Diagnostics.Debug.WriteLine("Login - Cookie Usuario Id: " + userCookie["CookieUsuarioId"]);
                 }
+
+                //verifica si necesita redirigir a una pagina
+                Session["usuarioSesionEmail"] = user.Email;
+                Session["usuarioSesionNombre"] = user.Nombre;
+                Session["usuarioSesionApellido"] = user.Apellido;
+                Session["usuarioSesionId"] = user.IdUsuario;
+                if (Session["Action"] == null)
+                    return RedirectToAction("Index", "Usuario"); /*redirije al Home*/
                 else {
-                    TempData["Error"] = "Error de usuario y/o contraseña";
+                    string action = Session["Action"] as string;
+                    Session.Remove("Action");
+                    return RedirectToAction(action);
                 }
             }
+            else {
+                TempData["Error"] = "Error de usuario y/o contraseña";
+            }
+            
+        /*}
             else {
                 var message = string.Join(" | ", ModelState.Values
                                             .SelectMany(v => v.Errors)
@@ -107,7 +103,7 @@ namespace ProgramacionWeb3TP.Controllers{
 
                 //Return Status Code:
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, message);
-            }
+            }*/
             return RedirectToAction("Login", "Home");
 
         }

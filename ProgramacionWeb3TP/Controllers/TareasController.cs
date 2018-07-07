@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -23,23 +24,49 @@ namespace ProgramacionWeb3TP.Controllers {
         // GET: Tarea
         //Estando logueados --> Listado de tareas
         //Chequear si el usuario esta en sesión, sino mostrar pantalla de que no esta logueado, etc
-        public ActionResult Index() {
+        public async Task<ActionResult> Index(int? id) {
+            //public ActionResult Index(int? id) {
             if (Session["usuarioSesionId"] == null) {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
             }
             else {
-                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+                /*if (Request.Cookies["CookieUsuario"] != null) {
+                    userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+                }
+                else {
+                    userIdInSession = (int)Session["usuarioSesionId"];
+                }*/
+                userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userIdInSession);
             }
-            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
-            List<Tarea> listaTareas = _tareaService.listarTareas(userIdInSession);
+
+            List<Tarea> listaTareas;
+            if (id != null) {
+                if (id == 0) {
+                    listaTareas = await _tareaService.listarTareasIncompletasPorUsuarioAsync(userIdInSession);
+                }
+                else {
+                    listaTareas = await _tareaService.listarTareasCompletasPorUsuarioAsync(userIdInSession);
+                }
+            }else {
+                listaTareas = await _tareaService.listarTareasAsync(userIdInSession);
+            }
+            //List<Tarea> listaTareas = _tareaService.listarTareas(userIdInSession);
             return View(listaTareas);
         }
 
         //Vista
         public ActionResult Crear() {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             string idCarpeta = Request.QueryString["idCarpeta"];
             System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + idCarpeta);
             Tarea tareaACrear = new Tarea(int.Parse(idCarpeta));
@@ -66,7 +93,13 @@ namespace ProgramacionWeb3TP.Controllers {
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Prioridad: " + parsedPrioridad);
             System.Diagnostics.Debug.WriteLine("Crear Tarea - Completada: " + parsedCompletada);
 
-            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            /*if (Request.Cookies["CookieUsuario"] != null) {
+                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            }
+            else {
+                userIdInSession = (int)Session["usuarioSesionId"];
+            }*/
+            userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
             Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession);
             Tarea tareaNueva = _tareaService.CrearTarea(tarea, usuarioActual);
             if (tareaNueva == null) {
@@ -79,7 +112,13 @@ namespace ProgramacionWeb3TP.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreacionNuevaTarea(Tarea tarea) {
-            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            /*if (Request.Cookies["CookieUsuario"] != null) {
+                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            }
+            else {
+                userIdInSession = (int)Session["usuarioSesionId"];
+            }*/
+            userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
 
             DateTime parsedFechaFin = DateTime.Parse(Request["FechaFin"]);
             short parsedPrioridad = short.Parse(Request["Prioridad"]);
@@ -113,7 +152,20 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult CrearNuevaTarea() {
-            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
+            /*if (Request.Cookies["CookieUsuario"] != null) {
+                userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+            }
+            else {
+                userIdInSession = (int)Session["usuarioSesionId"];
+            }*/
+            userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
             List<Carpeta> lista = _carpetaService.ObtenerCarpetasPorUsuario(userIdInSession);
             foreach (Carpeta c in lista) {
                 ViewBag.listaCarpetas = lista;
@@ -123,6 +175,13 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult Detalle() {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             string idTarea = Request.QueryString["idTarea"];
             System.Diagnostics.Debug.WriteLine("Ver Tarea" + idTarea);
             Tarea tareaAVer = _tareaService.ObtenerTareaPorId(int.Parse(idTarea));
@@ -131,6 +190,13 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult Modificar() {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             string idTarea = Request.QueryString["idTarea"];
             System.Diagnostics.Debug.WriteLine("Modificar Tarea" + idTarea);
             Tarea tareaAModificar = _tareaService.ObtenerTareaPorId(int.Parse(idTarea));
@@ -147,6 +213,13 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Vista
         public ActionResult Eliminar() {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             string idTarea = Request.QueryString["idTarea"];
             System.Diagnostics.Debug.WriteLine("Eliminar Tarea" + idTarea);
             Tarea tareaAEliminar = _tareaService.ObtenerTareaPorId(int.Parse(idTarea));
@@ -161,9 +234,17 @@ namespace ProgramacionWeb3TP.Controllers {
             _tareaService.EliminarTarea(tarea.IdTarea);
             return RedirectToAction("Listado", "Tareas");
         }
-
+        
+        //Vista
         public ActionResult Listado(int idCarpeta)
         {
+            if (Session["usuarioSesionId"] == null) {
+                String userNameInSession;
+                userNameInSession = "No user in session";
+                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                return RedirectToAction("Login", "Home");
+            }
+
             List<Tarea> tareas = _tareaService.ObtenerTareasPorCarpeta(idCarpeta);
             TempData["idCarpeta"] = idCarpeta;
             return View(tareas);
@@ -193,6 +274,14 @@ namespace ProgramacionWeb3TP.Controllers {
 
 
             return RedirectToAction("Detalle", new { idTarea });
+        }
+
+        //Procesar Completar Tarea
+        public ActionResult CompletarTarea(int id)
+        {
+            System.Diagnostics.Debug.WriteLine("Completar Tarea" + id);
+            _tareaService.completarTarea(id);
+            return RedirectToAction("Index", "Usuario");
         }
     }
 }
