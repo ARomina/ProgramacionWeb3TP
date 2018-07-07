@@ -84,6 +84,64 @@
                     </div>
                 </div>
 
+            <!-- Nuevo Comentario -->
+                <div class="form-group">
+                    <h3>Comentarios</h3>
+                    <form action="/Tareas/CrearComentario" method="post">
+                        <div class="col-md-2">
+                            <input type="hidden" id="idTarea" name="idTarea" value="@Model.IdTarea">
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" id="comentario" name="texto" />
+                        </div>
+                        <input type="submit" value="Agregar" />
+
+                    </form>
+                </div>
+
+            <!-- Listado de Comentarios -->
+                <div class="form-group">
+                    @foreach (var com in Model.ComentarioTarea.OrderByDescending(c => c.FechaCreacion))
+                    {
+                        <div class="col-md-2">
+                            <p><strong>@com.FechaCreacion.ToShortDateString()</strong>  @com.FechaCreacion.ToShortTimeString()</p>
+                        </div>
+                        <div class="col-md-10">
+                            <p>@com.Texto</p>
+                            @Html.ActionLink("X", "EliminarComentario", new { idComentario = com.IdComentarioTarea })
+                        </div>
+                    }
+                </div>
+
+                @if (Model.ArchivoTarea != null || Model.ArchivoTarea.Count > 0)
+                {
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Archivo
+                                </th>
+                                <th>
+                                    Fecha subida
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var archivo in Model.ArchivoTarea)
+                            {
+                                <tr>
+                                    <td><a href="@archivo.RutaArchivo">@archivo.RutaArchivo</a></td>
+                                    <td>@archivo.FechaCreacion.ToShortDateString()</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p> Usted no contiene archivos adjuntados a la tarea. Haciendo Click en el boto "Nuevo Adjunto" puede subir archivos </p>
+                }
+            </div>
 
             <!--<div class="container">
                 <div class="row">

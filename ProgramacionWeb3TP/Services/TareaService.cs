@@ -137,5 +137,18 @@ namespace ProgramacionWeb3TP.Services
             tarea.Completada = 1;
             ctx.SaveChanges();
         }
+
+        public void CrearComentario(int idTarea, string texto) {
+            Tarea tarea = ObtenerTareaPorId(idTarea);
+            ComentarioTarea comentario = new ComentarioTarea {
+                IdTarea = tarea.IdTarea,
+                Tarea = tarea,
+                Texto = texto,
+                FechaCreacion = DateTime.Now
+            };
+
+            ctx.ComentarioTarea.Add(comentario);
+            ctx.SaveChanges();
+        }
     }
 }

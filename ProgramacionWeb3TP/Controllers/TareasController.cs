@@ -209,5 +209,11 @@ namespace ProgramacionWeb3TP.Controllers {
             _tareaService.completarTarea(id);
             return RedirectToAction("Index", "Usuario");
         }
+
+        [HttpPost]
+        public ActionResult CrearComentario([Bind]int idTarea, [Bind]string texto) {
+            _tareaService.CrearComentario(idTarea, texto);
+            return RedirectToAction("Detalle", new { idTarea });
+        }
     }
 }
