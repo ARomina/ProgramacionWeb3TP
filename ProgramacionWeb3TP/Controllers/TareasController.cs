@@ -156,7 +156,7 @@ namespace ProgramacionWeb3TP.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult EliminacionTarea(Tarea tarea) {
             System.Diagnostics.Debug.WriteLine("Eliminacion Tarea" + tarea.IdTarea);
-            _tareaService.eliminarTarea(tarea.IdTarea);
+            _tareaService.EliminarTarea(tarea.IdTarea);
             return RedirectToAction("Listado", "Tareas");
         }
 
@@ -166,5 +166,14 @@ namespace ProgramacionWeb3TP.Controllers {
             TempData["idCarpeta"] = idCarpeta;
             return View(tareas);
         }
+
+        [HttpPost]
+        public ActionResult CrearComentario([Bind]int idTarea, [Bind]string texto)
+        {
+            _tareaService.CrearComentario(idTarea, texto);
+            return RedirectToAction("Detalle", new { idTarea });
+        }
+
+        
     }
 }

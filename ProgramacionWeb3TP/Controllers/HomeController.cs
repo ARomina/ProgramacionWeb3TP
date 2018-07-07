@@ -23,7 +23,6 @@ namespace ProgramacionWeb3TP.Controllers{
         public ActionResult Index() {
             if (Request.Cookies["CookieUsuario"] != null) {
                 if (Session["usuarioSesionId"] == null) {
-
                     Session["usuarioSesionEmail"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioEmail"], "CookieInfo");
                     Session["usuarioSesionNombre"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioNombre"], "CookieInfo");
                     Session["usuarioSesionApellido"] = UnprotectCookieInfo(Request.Cookies["CookieUsuario"]["CookieUsuarioApellido"], "CookieInfo");
@@ -68,16 +67,20 @@ namespace ProgramacionWeb3TP.Controllers{
 
                 Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
                 if (user != null) {
-                    //Se setea la cookie si el remember me es true
-                    if (rememberMeValue.Equals("true")) {
-                        HttpCookie userCookie = new HttpCookie("CookieUsuario");
-                        userCookie["CookieUsuarioId"] = ProtectCookieInfo(user.IdUsuario.ToString(), "CookieInfo") ;
-                        userCookie["CookieUsuarioNombre"] = ProtectCookieInfo(user.Nombre, "CookieInfo");
-                        userCookie["CookieUsuarioApellido"] = ProtectCookieInfo(user.Apellido, "CookieInfo");
-                        userCookie["CookieUsuarioEmail"] = ProtectCookieInfo(user.Email, "CookieInfo");
-                        userCookie.Expires = DateTime.Now.AddDays(1d);
-                        Response.Cookies.Add(userCookie);
-                        System.Diagnostics.Debug.WriteLine("Login - Cookie Usuario Id: " + userCookie["CookieUsuarioId"]);
+                    if (rememberMeValue != null)
+                    {
+                        //Se setea la cookie si el remember me es true
+                        if (rememberMeValue.Equals("true"))
+                        {
+                            HttpCookie userCookie = new HttpCookie("CookieUsuario");
+                            userCookie["CookieUsuarioId"] = ProtectCookieInfo(user.IdUsuario.ToString(), "CookieInfo");
+                            userCookie["CookieUsuarioNombre"] = ProtectCookieInfo(user.Nombre, "CookieInfo");
+                            userCookie["CookieUsuarioApellido"] = ProtectCookieInfo(user.Apellido, "CookieInfo");
+                            userCookie["CookieUsuarioEmail"] = ProtectCookieInfo(user.Email, "CookieInfo");
+                            userCookie.Expires = DateTime.Now.AddDays(1d);
+                            Response.Cookies.Add(userCookie);
+                            System.Diagnostics.Debug.WriteLine("Login - Cookie Usuario Id: " + userCookie["CookieUsuarioId"]);
+                        }
                     }
 
                     //verifica si necesita redirigir a una pagina

@@ -35,7 +35,7 @@ namespace ProgramacionWeb3TP.Controllers {
 
         //Procesar logout
         public ActionResult Logout() {
-            Session.Clear();
+            Request.Cookies.Remove("CookieUsuario");
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }

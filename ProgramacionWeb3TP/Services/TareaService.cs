@@ -63,7 +63,7 @@ namespace ProgramacionWeb3TP.Services
             return Tareas;
         }
 
-        public void eliminarTarea(int tareaId) {
+        public void EliminarTarea(int tareaId) {
             Tarea tarea = ObtenerTareaPorId(tareaId);
             ctx.Tarea.Remove(tarea);
             ctx.SaveChanges();
@@ -98,6 +98,21 @@ namespace ProgramacionWeb3TP.Services
             }
 
             return lista;
+        }
+
+        public void CrearComentario(int idTarea, string texto)
+        {
+            Tarea tarea = ObtenerTareaPorId(idTarea);
+            ComentarioTarea comentario = new ComentarioTarea
+            {
+                IdTarea = tarea.IdTarea,
+                Tarea = tarea,
+                Texto = texto,
+                FechaCreacion = DateTime.Now
+            };
+
+            ctx.ComentarioTarea.Add(comentario);
+            ctx.SaveChanges();
         }
     }
 }
