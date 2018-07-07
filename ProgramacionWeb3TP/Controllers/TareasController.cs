@@ -189,5 +189,11 @@ namespace ProgramacionWeb3TP.Controllers {
             TempData["idCarpeta"] = idCarpeta;
             return View(tareas);
         }
+
+        public ActionResult CompletarTarea(int id) {
+            System.Diagnostics.Debug.WriteLine("Completar Tarea" + id);
+            _tareaService.completarTarea(id);
+            return RedirectToAction("Index", "Usuario");
+        }
     }
 }

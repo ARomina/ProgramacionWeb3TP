@@ -7,5 +7,7 @@ namespace ProgramacionWeb3TP.Models.Metadata
 {
     public class CarpetaMetadata
     {
+
+        public String Nombre { get; set; }
     }
 }

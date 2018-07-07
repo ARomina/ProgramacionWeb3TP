@@ -99,5 +99,11 @@ namespace ProgramacionWeb3TP.Services
 
             return lista;
         }
+
+        public void completarTarea(int tareaId) {
+            Tarea tarea = ObtenerTareaPorId(tareaId);
+            tarea.Completada = 1;
+            ctx.SaveChanges();
+        }
     }
 }
