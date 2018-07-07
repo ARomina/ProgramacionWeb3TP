@@ -280,7 +280,7 @@ namespace ProgramacionWeb3TP.Controllers {
         public ActionResult CompletarTarea(int id)
         {
             System.Diagnostics.Debug.WriteLine("Completar Tarea" + id);
-            _tareaService.completarTarea(id);
+            _tareaService.CompletarTarea(id);
             return RedirectToAction("Index", "Usuario");
         }
     }
