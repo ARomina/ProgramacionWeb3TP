@@ -3,6 +3,7 @@ using ProgramacionWeb3TP.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -21,7 +22,8 @@ namespace ProgramacionWeb3TP.Controllers {
         // GET: Tarea
         //Estando logueados --> Listado de tareas
         //Chequear si el usuario esta en sesión, sino mostrar pantalla de que no esta logueado, etc
-        public ActionResult Index() {
+        public async Task<ActionResult> Index(int? id) {
+            //public ActionResult Index(int? id) {
             if (Session["usuarioSesionId"] == null) {
                 String userNameInSession;
                 userNameInSession = "No user in session";
@@ -37,7 +39,19 @@ namespace ProgramacionWeb3TP.Controllers {
                 userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userIdInSession);
             }
-            List<Tarea> listaTareas = _tareaService.listarTareas(userIdInSession);
+
+            List<Tarea> listaTareas;
+            if (id != null) {
+                if (id == 0) {
+                    listaTareas = await _tareaService.listarTareasIncompletasPorUsuarioAsync(userIdInSession);
+                }
+                else {
+                    listaTareas = await _tareaService.listarTareasCompletasPorUsuarioAsync(userIdInSession);
+                }
+            }else {
+                listaTareas = await _tareaService.listarTareasAsync(userIdInSession);
+            }
+            //List<Tarea> listaTareas = _tareaService.listarTareas(userIdInSession);
             return View(listaTareas);
         }
 

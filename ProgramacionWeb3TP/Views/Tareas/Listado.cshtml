@@ -5,10 +5,7 @@
 }
 
 <h2>Listado</h2>
-
-<p>
-    @Html.ActionLink("Nueva Tarea", "Crear", new { idCarpeta = TempData["idCarpeta"] })
-</p>
+<p>@Html.ActionLink("Nueva Tarea", "Crear", new { idCarpeta = TempData["idCarpeta"] })</p>
 <table class="table">
     <tr>
         <th>

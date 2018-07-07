@@ -4,11 +4,14 @@
     ViewBag.Title = "Mis Tareas";
 }
 
-<h2>Listado</h2>
+<h2>Listado de Tareas</h2>
 
 <p>
     @Html.ActionLink("Nueva Tarea", "CrearNuevaTarea")
 </p>
+<a href="/Tareas/Index/" class="btn">Mostrar todas las tareas</a>
+<a href="/Tareas/Index/0" class="btn">Mostrar solo tareas incompletas</a>
+<a href="/Tareas/Index/1" class="btn">Mostrar solo tareas completas</a>
 <table class="table">
     <tr>
         <th>

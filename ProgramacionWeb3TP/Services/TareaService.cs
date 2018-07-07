@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace ProgramacionWeb3TP.Services
@@ -84,12 +85,43 @@ namespace ProgramacionWeb3TP.Services
             return lista;
         }
 
+        public async Task<List<Tarea>> listarTareasAsync(int idUsuario) {
+            List<Tarea> lista = new List<Tarea>();
+            return lista = await Task.Run(() => this.listarTareas(idUsuario));
+        }
+
+        public async Task<List<Tarea>> listarTareasIncompletasPorUsuarioAsync(int idUsuario) {
+            List<Tarea> lista = new List<Tarea>();
+            return lista = await Task.Run(() => this.listarTareasIncompletasPorUsuario(idUsuario));
+        }
+
+        public async Task<List<Tarea>> listarTareasCompletasPorUsuarioAsync(int idUsuario) {
+            List<Tarea> lista = new List<Tarea>();
+            return lista = await Task.Run(() => this.listarTareasCompletasPorUsuario(idUsuario));
+        }
+
         public List<Tarea> listarTareasIncompletasPorUsuario(int idUsuario) {
             List<Tarea> lista = new List<Tarea>();
 
             var tareas = (from t in ctx.Tarea
                           where t.IdUsuario == idUsuario &&
                           t.Completada == 0
+                          orderby t.Prioridad descending, t.FechaFin ascending
+                          select t).ToList();
+
+            foreach (Tarea t in tareas) {
+                lista.Add(t);
+            }
+
+            return lista;
+        }
+
+        public List<Tarea> listarTareasCompletasPorUsuario(int idUsuario) {
+            List<Tarea> lista = new List<Tarea>();
+
+            var tareas = (from t in ctx.Tarea
+                          where t.IdUsuario == idUsuario &&
+                          t.Completada == 1
                           orderby t.Prioridad descending, t.FechaFin ascending
                           select t).ToList();
 
