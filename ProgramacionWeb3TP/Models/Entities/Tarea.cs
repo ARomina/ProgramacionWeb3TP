@@ -25,5 +25,13 @@ namespace ProgramacionWeb3TP.Models
             this.Completada = 0;
             this.FechaCreacion = DateTime.Now;
         }
+
+        public string CompletadaTexto
+        {
+            get
+            {
+                return this.Completada == 0 ? "No" : "Sí";
+            }
+        }
     }
 }

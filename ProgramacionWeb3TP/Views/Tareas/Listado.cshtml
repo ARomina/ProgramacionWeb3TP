@@ -4,11 +4,18 @@
     ViewBag.Title = "Listado";
 }
 <div class="container">
-    <h2>Listado</h2>
-
-    <p>
-        @Html.ActionLink("Nueva Tarea", "Crear", new { idCarpeta = TempData["idCarpeta"] })
-    </p>
+    <div class="row profile">
+        <div class="col-md-12 col-sm-12">
+            <div class="col-md-6 col-sm-12">
+                <h2>Listado</h2>
+            </div>
+            <div class=" col-lg-4 col-md-4">
+            </div>
+            <div class="col-md-2 col-sm-12">
+                @Html.ActionLink("Nueva Tarea", "Crear", new { idCarpeta = TempData["idCarpeta"] }, new { @class = "col-md-12 btn btn-primary" })
+            </div>
+        </div>
+    </div>
     <table class="table">
         <tr>
             <th>
@@ -63,7 +70,7 @@
                     @Html.DisplayFor(modelItem => item.Prioridad)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Completada)
+                    @Html.DisplayFor(modelItem => item.CompletadaTexto)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaCreacion)

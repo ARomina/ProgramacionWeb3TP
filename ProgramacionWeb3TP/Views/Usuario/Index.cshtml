@@ -53,8 +53,8 @@
                                     <td>Nombre</td>
                                     <td>Prioridad</td>
                                     <td>Carpeta</td>
-                                    <td>Estimado</td>
                                     <td>Completada</td>
+                                    <td>Estimado</td>
                                     <td>Acciones</td>
                                 </tr>
                             </thead>
@@ -66,14 +66,13 @@
                         <td>@t.Prioridad</td>
                         <td>@t.IdCarpeta</td>
                         @if (@t.Completada == 0) {
-                            <td>No Completada<br />
+                            <td>
                                 <a href="/Tareas/CompletarTarea/@t.IdTarea" class="btn btn-primary">Completar</a>
                             </td>
                         }else {
                             <td>Completada</td>
                         }
                         <td>@t.EstimadoHoras</td>
-                        <td>@t.Completada</td>
                         <td>
                             @Html.ActionLink("Detalle", "Detalle", "Tareas", new { idTarea = t.IdTarea }, null)
                         </td>
