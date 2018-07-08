@@ -25,6 +25,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
+                Session["returnPath"] = Request.RawUrl;
                 return RedirectToAction("Login", "Home");
             }
             else {
@@ -54,6 +55,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
+                Session["returnPath"] = Request.RawUrl;
                 return RedirectToAction("Login", "Home");
             }
             return View();
@@ -85,26 +87,40 @@ namespace ProgramacionWeb3TP.Controllers {
         }
         
         //Vista
-        public ActionResult Detalle(int idCarpeta)
+        public ActionResult Detalle(int? idCarpeta)
         {
-            if (Session["usuarioSesionId"] == null) {
-                String userNameInSession;
-                userNameInSession = "No user in session";
-                System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
+            if (idCarpeta == null) {
                 return RedirectToAction("Login", "Home");
             }
+            else {
+                if (Session["usuarioSesionId"] == null) {
+                    String userNameInSession;
+                    userNameInSession = "No user in session";
+                    System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
+                    Session["returnPath"] = Request.RawUrl;
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+
             return RedirectToAction("Listado", "Tareas", new { idCarpeta });
         }
 
         //Vista
-        public ActionResult Eliminar(int idCarpeta)
+        public ActionResult Eliminar(int? idCarpeta)
         {
-            if (Session["usuarioSesionId"] == null) {
-                String userNameInSession;
-                userNameInSession = "No user in session";
-                System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
+           
+            if (idCarpeta == null) {
                 return RedirectToAction("Login", "Home");
+            }else {
+                if (Session["usuarioSesionId"] == null) {
+                    String userNameInSession;
+                    userNameInSession = "No user in session";
+                    System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
+                    Session["returnPath"] = Request.RawUrl;
+                    return RedirectToAction("Login", "Home");
+                }
             }
+
             Carpeta carpeta = _carpetaService.ObtenerCarpetaPorId(idCarpeta);
             return View(carpeta);
         }
@@ -117,14 +133,21 @@ namespace ProgramacionWeb3TP.Controllers {
         }
 
         //Vista
-        public ActionResult Editar(int idCarpeta)
+        public ActionResult Editar(int? idCarpeta)
         {
-            if (Session["usuarioSesionId"] == null) {
-                String userNameInSession;
-                userNameInSession = "No user in session";
-                System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
+            if (idCarpeta == null) {
                 return RedirectToAction("Login", "Home");
             }
+            else {
+                if (Session["usuarioSesionId"] == null) {
+                    String userNameInSession;
+                    userNameInSession = "No user in session";
+                    System.Diagnostics.Debug.WriteLine("Home - Carpetas: " + userNameInSession);
+                    Session["returnPath"] = Request.RawUrl;
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+
             Carpeta carpeta = _carpetaService.ObtenerCarpetaPorId(idCarpeta);
             return View(carpeta);
         }

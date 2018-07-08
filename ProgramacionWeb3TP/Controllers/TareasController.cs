@@ -28,6 +28,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                Session["returnPath"] = Request.RawUrl;
                 return RedirectToAction("Login", "Home");
             }
             else {
@@ -62,6 +63,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                Session["returnPath"] = Request.RawUrl;
                 return RedirectToAction("Login", "Home");
             }
 
@@ -154,6 +156,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                Session["returnPath"] = Request.RawUrl;
                 return RedirectToAction("Login", "Home");
             }
 
@@ -177,6 +180,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                Session["returnPath"] = Request.RawUrl;
                 return RedirectToAction("Login", "Home");
             }
 
@@ -192,6 +196,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                Session["returnPath"] = Request.RawUrl;
                 return RedirectToAction("Login", "Home");
             }
 
@@ -215,6 +220,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                Session["returnPath"] = Request.RawUrl;
                 return RedirectToAction("Login", "Home");
             }
 
@@ -234,12 +240,17 @@ namespace ProgramacionWeb3TP.Controllers {
         }
         
         //Vista
-        public ActionResult Listado(int idCarpeta)
+        public ActionResult Listado(int? idCarpeta)
         {
-            if (Session["usuarioSesionId"] == null) {
-                String userNameInSession;
-                userNameInSession = "No user in session";
-                System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+            if (idCarpeta != null) {
+                if (Session["usuarioSesionId"] == null) {
+                    String userNameInSession;
+                    userNameInSession = "No user in session";
+                    System.Diagnostics.Debug.WriteLine("Home - Tareas: " + userNameInSession);
+                    Session["returnPath"] = Request.RawUrl;
+                    return RedirectToAction("Login", "Home");
+                }
+            }else {
                 return RedirectToAction("Login", "Home");
             }
 

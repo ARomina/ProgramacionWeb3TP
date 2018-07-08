@@ -83,12 +83,13 @@ namespace ProgramacionWeb3TP.Controllers {
                 Session["usuarioSesionNombre"] = user.Nombre;
                 Session["usuarioSesionApellido"] = user.Apellido;
                 Session["usuarioSesionId"] = user.IdUsuario;
-                if (Session["Action"] == null)
+                if (Session["ReturnPath"] == null)
                     return RedirectToAction("Index", "Usuario"); /*redirije al Home*/
                 else {
-                    string action = Session["Action"] as string;
-                    Session.Remove("Action");
-                    return RedirectToAction(action);
+                    string path = Session["ReturnPath"] as string;
+                    Session.Remove("ReturnPath");
+                    Response.Redirect(path);
+                    //return RedirectToAction(path);
                 }
             }
             else {

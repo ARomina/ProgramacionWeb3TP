@@ -10,7 +10,7 @@ namespace ProgramacionWeb3TP.Services
     {
         private static TaskieContext ctx = new TaskieContext();
 
-        public Carpeta ObtenerCarpetaPorId(int id)
+        public Carpeta ObtenerCarpetaPorId(int? id)
         {
             Carpeta carpeta = ( from u in ctx.Carpeta
                                 where u.IdCarpeta == id
