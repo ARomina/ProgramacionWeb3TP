@@ -15,8 +15,11 @@ namespace ProgramacionWeb3TP {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-1.*"));
 
-            /*bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui*"));*/
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                        "~/Scripts/jquery-ui*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/TaskieJS").Include(
+                        "~/Scripts/Taskie.*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryValidate").Include(
                         "~/Scripts/jquery.*"));
@@ -27,7 +30,7 @@ namespace ProgramacionWeb3TP {
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            /*bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+            bundles.Add(new StyleBundle("~/Content/themes/base/jqueryCSS").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
                         "~/Content/themes/base/jquery.ui.resizable.css",
                         "~/Content/themes/base/jquery.ui.selectable.css",
@@ -39,7 +42,7 @@ namespace ProgramacionWeb3TP {
                         "~/Content/themes/base/jquery.ui.tabs.css",
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                        "~/Content/themes/base/jquery.ui.progressbar.css",
-                        "~/Content/themes/base/jquery.ui.theme.css"));*/
+                        "~/Content/themes/base/jquery.ui.theme.css"));
 
             BundleTable.EnableOptimizations = true;
         }

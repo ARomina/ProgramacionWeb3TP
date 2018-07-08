@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Taskie</title>
 
-    @Styles.Render("~/Content/CustomCSS")
+    @Styles.Render("~/Content/CustomCSS", "~/Content/themes/base/jqueryCSS")
     <!--<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />-->
     <!-- Estilos propios -->
     <!--<link href="~/Content/customStyles.css" rel="stylesheet" type="text/css" />-->
@@ -51,7 +51,7 @@
         <p>&copy; @DateTime.Now.Year - Programación Web 3 - Equipo: [ { Barraza, A. Romina } , { Rapetti, Nahuel } ]</p>
     </footer>
 
-    @Scripts.Render("~/bundles/jquery", "~/bundles/jqueryValidate", "~/bundles/bootstrap", "~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery", "~/bundles/jqueryui", "~/bundles/jqueryValidate", "~/bundles/TaskieJS", "~/bundles/bootstrap", "~/bundles/modernizr")
     <!--<script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
