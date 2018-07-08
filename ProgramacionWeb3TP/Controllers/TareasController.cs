@@ -79,46 +79,45 @@ namespace ProgramacionWeb3TP.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreacionTarea(Tarea tarea) {
-            if (ModelState.IsValid) {
-                DateTime parsedFechaFin = DateTime.Parse(Request["FechaFin"]);
+            if (ModelState.IsValidField("Nombre") && ModelState.IsValidField("EstimadoHoras")) {
+                Nullable<System.DateTime> parsedFechaFin = String.IsNullOrEmpty(Request["EstimadoHoras"]) ? (DateTime?)null : DateTime.Parse((Request["EstimadoHoras"]));
                 short parsedPrioridad = short.Parse(Request["Prioridad"]);
-                short parsedCompletada = short.Parse(Request["Completada"]);
-                tarea.FechaFin = parsedFechaFin;
+                        short parsedCompletada = short.Parse(Request["Completada"]);
 
-                if (parsedPrioridad == 0) {
-                    tarea.Prioridad = 4;
-                }
-                else {
-                    tarea.Prioridad = parsedPrioridad;
-                }
+                        if (parsedPrioridad == 0) {
+                            tarea.Prioridad = 4;
+                        }
+                        else {
+                            tarea.Prioridad = parsedPrioridad;
+                        }
 
-                tarea.Completada = parsedCompletada;
+                        tarea.Completada = parsedCompletada;
 
-                System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + tarea.IdCarpeta);
-                System.Diagnostics.Debug.WriteLine("Crear Tarea - Nombre: " + tarea.Nombre);
-                System.Diagnostics.Debug.WriteLine("Crear Tarea - Descripcion: " + tarea.Descripcion);
-                System.Diagnostics.Debug.WriteLine("Crear Tarea - EstimadoHoras: " + tarea.EstimadoHoras);
-                System.Diagnostics.Debug.WriteLine("Crear Tarea - FechaFin: " + parsedFechaFin);
-                System.Diagnostics.Debug.WriteLine("Crear Tarea - Prioridad: " + parsedPrioridad);
-                System.Diagnostics.Debug.WriteLine("Crear Tarea - Completada: " + parsedCompletada);
+                        System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + tarea.IdCarpeta);
+                        System.Diagnostics.Debug.WriteLine("Crear Tarea - Nombre: " + tarea.Nombre);
+                        System.Diagnostics.Debug.WriteLine("Crear Tarea - Descripcion: " + tarea.Descripcion);
+                        System.Diagnostics.Debug.WriteLine("Crear Tarea - EstimadoHoras: " + tarea.EstimadoHoras);
+                        System.Diagnostics.Debug.WriteLine("Crear Tarea - FechaFin: " + parsedFechaFin);
+                        System.Diagnostics.Debug.WriteLine("Crear Tarea - Prioridad: " + parsedPrioridad);
+                        System.Diagnostics.Debug.WriteLine("Crear Tarea - Completada: " + parsedCompletada);
 
-                /*if (Request.Cookies["CookieUsuario"] != null) {
-                    userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
-                }
-                else {
-                    userIdInSession = (int)Session["usuarioSesionId"];
-                }*/
-                userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
-                Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession);
-                Tarea tareaNueva = _tareaService.CrearTarea(tarea, usuarioActual);
-                if (tareaNueva == null) {
-                    TempData["Error"] = MENSAJE_ERROR_NO_SE_PUDO_CREAR;
-                }
-                return RedirectToAction("Listado", "Tareas", new { idCarpeta = tarea.IdCarpeta });
-            }
-            else {
-                return RedirectToAction("Crear", "Tareas", new { idCarpeta = tarea.IdCarpeta });
-            }
+                        /*if (Request.Cookies["CookieUsuario"] != null) {
+                            userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
+                        }
+                        else {
+                            userIdInSession = (int)Session["usuarioSesionId"];
+                        }*/
+                        userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
+                        Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession);
+                        Tarea tareaNueva = _tareaService.CrearTarea(tarea, usuarioActual);
+                        if (tareaNueva == null) {
+                            TempData["Error"] = MENSAJE_ERROR_NO_SE_PUDO_CREAR;
+                        }
+                        return RedirectToAction("Listado", "Tareas", new { idCarpeta = tarea.IdCarpeta });
+                    }
+                    else {
+                        return RedirectToAction("Crear", "Tareas", new { idCarpeta = tarea.IdCarpeta });
+                    }
         }
 
         //Procesar creacion de nueva carpeta (sin carpeta definida de un principio)
