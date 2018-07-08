@@ -64,37 +64,40 @@ namespace ProgramacionWeb3TP.Controllers {
         public ActionResult VerificarUsuario(Usuario usuario, bool rememberMe = false) {
             System.Diagnostics.Debug.WriteLine("Login - Remember Me: " + rememberMe);
 
-            Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
-            if (user != null) {
-                //Se setea la cookie si el remember me es true
-                if (rememberMe) {
-                    HttpCookie userCookie = new HttpCookie("CookieUsuario");
-                    userCookie["CookieUsuarioId"] = ProtectCookieInfo(user.IdUsuario.ToString(), "CookieInfo");
-                    userCookie["CookieUsuarioNombre"] = ProtectCookieInfo(user.Nombre, "CookieInfo");
-                    userCookie["CookieUsuarioApellido"] = ProtectCookieInfo(user.Apellido, "CookieInfo");
-                    userCookie["CookieUsuarioEmail"] = ProtectCookieInfo(user.Email, "CookieInfo");
-                    userCookie.Expires = DateTime.Now.AddDays(1d);
-                    Response.Cookies.Add(userCookie);
-                    System.Diagnostics.Debug.WriteLine("Login - Cookie Usuario Id: " + userCookie["CookieUsuarioId"]);
-                }
+            if (ModelState.IsValidField("Email") && ModelState.IsValidField("Contrasenia")) {
+                Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
+                if (user != null) {
+                    //Se setea la cookie si el remember me es true
+                    if (rememberMe) {
+                        HttpCookie userCookie = new HttpCookie("CookieUsuario");
+                        userCookie["CookieUsuarioId"] = ProtectCookieInfo(user.IdUsuario.ToString(), "CookieInfo");
+                        userCookie["CookieUsuarioNombre"] = ProtectCookieInfo(user.Nombre, "CookieInfo");
+                        userCookie["CookieUsuarioApellido"] = ProtectCookieInfo(user.Apellido, "CookieInfo");
+                        userCookie["CookieUsuarioEmail"] = ProtectCookieInfo(user.Email, "CookieInfo");
+                        userCookie.Expires = DateTime.Now.AddDays(1d);
+                        Response.Cookies.Add(userCookie);
+                        System.Diagnostics.Debug.WriteLine("Login - Cookie Usuario Id: " + userCookie["CookieUsuarioId"]);
+                    }
 
-                //verifica si necesita redirigir a una pagina
-                Session["usuarioSesionEmail"] = user.Email;
-                Session["usuarioSesionNombre"] = user.Nombre;
-                Session["usuarioSesionApellido"] = user.Apellido;
-                Session["usuarioSesionId"] = user.IdUsuario;
-                if (Session["ReturnPath"] == null)
-                    return RedirectToAction("Index", "Usuario"); /*redirije al Home*/
+                    //verifica si necesita redirigir a una pagina
+                    Session["usuarioSesionEmail"] = user.Email;
+                    Session["usuarioSesionNombre"] = user.Nombre;
+                    Session["usuarioSesionApellido"] = user.Apellido;
+                    Session["usuarioSesionId"] = user.IdUsuario;
+                    if (Session["ReturnPath"] == null)
+                        return RedirectToAction("Index", "Usuario"); /*redirije al Home*/
+                    else {
+                        string path = Session["ReturnPath"] as string;
+                        Session.Remove("ReturnPath");
+                        Response.Redirect(path);
+                        //return RedirectToAction(path);
+                    }
+                }
                 else {
-                    string path = Session["ReturnPath"] as string;
-                    Session.Remove("ReturnPath");
-                    Response.Redirect(path);
-                    //return RedirectToAction(path);
+                    TempData["Error"] = "Error de usuario y/o contraseña";
                 }
             }
-            else {
-                TempData["Error"] = "Error de usuario y/o contraseña";
-            }
+            
             
         /*}
             else {

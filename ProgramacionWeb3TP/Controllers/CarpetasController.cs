@@ -66,23 +66,25 @@ namespace ProgramacionWeb3TP.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult CreacionCarpeta(Carpeta carpeta)
         {
-            /*if (Request.Cookies["CookieUsuario"] != null) {
+            if (ModelState.IsValid) {
+                /*if (Request.Cookies["CookieUsuario"] != null) {
                 userIdInSession = int.Parse(Session["usuarioSesionId"] as String);
             }
             else {
                 userIdInSession = (int)Session["usuarioSesionId"];
             }*/
-            userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
-            Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession); 
-            carpeta.IdUsuario = userIdInSession;
+                userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
+                Usuario usuarioActual = _usuarioService.ObtenerUsuarioPorId(userIdInSession);
+                carpeta.IdUsuario = userIdInSession;
 
-            //System.Diagnostics.Debug.WriteLine("Home - Crear Carpeta: " + userIdInSession);
+                //System.Diagnostics.Debug.WriteLine("Home - Crear Carpeta: " + userIdInSession);
 
-            System.Diagnostics.Debug.WriteLine("Crear carpeta - Usuario: " + usuarioActual.IdUsuario + " " + usuarioActual.Nombre);
-            System.Diagnostics.Debug.WriteLine("Crear carpeta: " + carpeta.IdUsuario + " " + carpeta.Nombre + " " + carpeta.Descripcion);
+                System.Diagnostics.Debug.WriteLine("Crear carpeta - Usuario: " + usuarioActual.IdUsuario + " " + usuarioActual.Nombre);
+                System.Diagnostics.Debug.WriteLine("Crear carpeta: " + carpeta.IdUsuario + " " + carpeta.Nombre + " " + carpeta.Descripcion);
 
-            _carpetaService.CrearCarpeta(carpeta, usuarioActual);
-
+                _carpetaService.CrearCarpeta(carpeta, usuarioActual);
+            }
+            
             return RedirectToAction("Index");
         }
         
