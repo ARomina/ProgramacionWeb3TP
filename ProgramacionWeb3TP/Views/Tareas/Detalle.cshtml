@@ -5,47 +5,57 @@
 }
 
 <div class="container">
-    <div class="row">
+    <div class="row profile">
         <div class="col-md-12 col-sm-12">
-            <h1 class="paddingLeftTitles">Tarea - Detalle</h1>
+            <h2 class="paddingLeftTitles">Tarea - Detalle</h2>
             <hr />
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12 col-sm-12">
+        <div class="col-md-6 col-sm-12">
             <div class="form-horizontal">
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-8">
                         <p>@Model.Nombre</p>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-8">
                         <p>@Model.Descripcion</p>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.EstimadoHoras, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.EstimadoHoras, htmlAttributes: new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-8">
                         <p>@Model.EstimadoHoras</p>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-8">
                         <p>@Model.FechaFin</p>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Prioridad, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Prioridad, htmlAttributes: new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-8">
                         @switch (@Model.Prioridad)
                         {
                             case 1:
@@ -67,9 +77,11 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Completada, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
+                <div class="row form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Completada, htmlAttributes: new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-8">
                         @switch (@Model.Completada)
                         {
                             case 1:
@@ -84,111 +96,152 @@
                         }
                     </div>
                 </div>
-                <!-- Nuevo Comentario -->
-                <div class="form-group">
-                    <h3>Comentarios</h3>
-                    <form action="/Tareas/CrearComentario" method="post">
-                        <div class="col-md-2">
-                            <input type="hidden" id="idTarea" name="idTarea" value="@Model.IdTarea">
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" id="comentario" name="texto" />
-                        </div>
-                        <button type="submit" class="btn btn-success">
-                            <span class="glyphicon glyphicon-plus"></span>Nuevo comentario
-                        </button>
 
-                    </form>
-                </div>
-                <!-- Listado de Comentarios -->
-                <div class="form-group">
-                    @foreach (var com in Model.ComentarioTarea.OrderByDescending(c => c.FechaCreacion))
-                    {
-                        <div class="col-md-2">
-                            <p><strong>@com.FechaCreacion.ToShortDateString()</strong>  @com.FechaCreacion.ToShortTimeString()</p>
-                        </div>
-                        <div class="col-md-9">
-                            <p>@com.Texto</p>
-                        </div>
-                        <div class="col-md-1">
-                            @Html.ActionLink("X", "EliminarComentario", new { idComentario = com.IdComentarioTarea, idTarea = com.IdTarea })
-                        </div>
-                    }
-                </div>
-                <div class="form-group">
-                    <h3>Adjuntos</h3>
-                    @if (Model.ArchivoTarea != null || Model.ArchivoTarea.Count > 0)
-                    {
+            </div>
+        </div>
 
-                        <div class="col-md-9">
-                            <p>
-                                <strong>
-                                    Archivo
-                                </strong>
-                            </p>
-                        </div>
-                        <div class="col-md-3">
-                            <p>
-                                <strong>
-                                    Fecha subida
-                                </strong>
-                            </p>
-                        </div>
-                        
-                        foreach (var archivo in Model.ArchivoTarea)
-                        {
-                            <div class="col-md-9">
-                                <a href="@archivo.RutaArchivo">@archivo.RutaArchivo</a>
-                            </div>
-                            <div class="col-md-3">
-                                <p>@archivo.FechaCreacion.ToShortDateString()</p>
-                            </div>
-                        }
-                        
-                    }
-                    else
-                    {
-                        <p> Usted no contiene archivos adjuntados a la tarea. Haciendo Click en el boto "Nuevo Adjunto" puede subir archivos </p>
-                    }
-                </div>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#adjuntoModal">
-                    <span class="glyphicon glyphicon-plus"></span>   Nuevo adjunto
-                </button>
-
-
-                <div class="modal fade" id="adjuntoModal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h3 class="modal-title" id="myModalLabel">Nuevo adjunto</h3>
-                            </div>
-                            @using (Html.BeginForm("CrearAdjunto", "Tareas", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                            {
-                                <div class="modal-body" id="SubirAdjuntoContainer">
-
-                                    @Html.HiddenFor(X => X.IdTarea)
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="form-control">
-
-                                                <input type="file" name="adjunto" id="adjunto" />
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary" id="SubirAdjuntoAceptar">Aceptar</button>
-                                </div>
-                            }
+        <div class="col-md-6 col-sm-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Nuevo Comentario -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Comentarios</h4>
                         </div>
                     </div>
+                    <div class="row">
+                        <form action="/Tareas/CrearComentario" method="post">
+                            <div>
+                                <input type="hidden" id="idTarea" name="idTarea" value="@Model.IdTarea">
+                            </div>
+                            <div class="col-md-8">
+                                <input type="text" id="comentario" name="texto" class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-block btn-success">
+                                    <span class="glyphicon glyphicon-plus"></span>Agregar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listado de Comentarios -->
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        @foreach (var com in Model.ComentarioTarea.OrderByDescending(c => c.FechaCreacion))
+                        {
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p><strong>@com.FechaCreacion.ToShortDateString()</strong>  @com.FechaCreacion.ToShortTimeString()</p>
+                                </div>
+                                <div class="col-md-7">
+                                    <p>@com.Texto</p>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="/Tareas/EliminarComentario?idComentario=@com.IdComentarioTarea&idTarea=@com.IdTarea">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4>Adjuntos</h4>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#adjuntoModal">
+                                    <span class="glyphicon glyphicon-plus"></span>   Nuevo adjunto
+                                </button>
+                            </div>
+                        </div>
+                        <hr/>
+                        @if (Model.ArchivoTarea != null || Model.ArchivoTarea.Count > 0)
+                        {
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <p>
+                                        <strong>
+                                            Archivo
+                                        </strong>
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    <p>
+                                        <strong>
+                                            Fecha subida
+                                        </strong>
+                                    </p>
+                                </div>
+                            </div>
+
+                            foreach (var archivo in Model.ArchivoTarea)
+                            {
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <a href="@archivo.RutaArchivo">@archivo.RutaArchivo</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p>@archivo.FechaCreacion.ToShortDateString()</p>
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <p> Usted no contiene archivos adjuntados a la tarea. Haciendo Click en el boto "Nuevo Adjunto" puede subir archivos </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+
+        <div class="modal fade" id="adjuntoModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel">Nuevo adjunto</h3>
+                    </div>
+                    @using (Html.BeginForm("CrearAdjunto", "Tareas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="modal-body" id="SubirAdjuntoContainer">
+
+                            @Html.HiddenFor(X => X.IdTarea)
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-control">
+
+                                        <input type="file" name="adjunto" id="adjunto" />
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" id="SubirAdjuntoAceptar">Aceptar</button>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
-

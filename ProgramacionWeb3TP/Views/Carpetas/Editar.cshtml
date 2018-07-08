@@ -5,27 +5,27 @@
 }
 
 <div class="container">
-    <div class="row">
+    <div class="row profile">
         <div class="col-md-12 col-sm-12">
-            <h1 class="paddingLeftTitles">Editar Tarea</h1>
-            <hr />
+            <h2 class="paddingLeftTitles">Editar Carpeta</h2>
         </div>
     </div>
+    <hr />
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            @if (TempData["Error"] != null) {//si existe un error
+            @if (TempData["Error"] != null)
+            {//si existe un error
                 <div class="col-md-6 col-md-offset-3">
                     <div class="alert alert-danger text-center">
                         <h5>@TempData["Error"]</h5>
                     </div>
                 </div>
             }
-            @using (Html.BeginForm("EdicionCarpeta", "Carpetas")) {
+            @using (Html.BeginForm("EdicionCarpeta", "Carpetas"))
+            {
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>Carpeta - Editar</h4>
-                    <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.IdCarpeta)
 
@@ -47,15 +47,15 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Save" class="btn btn-default" />
+                            <input type="submit" value="Guardar" class="btn btn-block btn-default" />
                         </div>
                     </div>
                 </div>
             }
 
-                <div>
-                    <a href="/C"></a>
-                </div>
+            <div>
+                <a href="/C"></a>
+            </div>
         </div>
     </div>
 </div>

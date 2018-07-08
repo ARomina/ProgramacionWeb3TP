@@ -53,7 +53,7 @@ namespace ProgramacionWeb3TP.Services
             return Tareas;
         }
 
-        public List<Tarea> ObtenerTareasPorCarpeta(int carpetaId)
+        public List<Tarea> ObtenerTareasPorCarpeta(int? carpetaId)
         {
             var Tareas = (from t in ctx.Tarea
                           where t.IdCarpeta == carpetaId

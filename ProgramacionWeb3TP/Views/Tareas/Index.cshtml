@@ -4,77 +4,95 @@
     ViewBag.Title = "Mis Tareas";
 }
 <div class="container">
-    <h2>Listado</h2>
+    <div class="row profile">
+        <div class="col-md-10 col-sm-12">
+            <h2 class="paddingLeftTitles">Listado de tareas</h2>
+        </div>
+        <div class="col-md-2">
+            @Html.ActionLink("Nueva Tarea", "CrearNuevaTarea", null, new { @class = "btn-block btn btn-primary" })
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <a class="btn-block btn btn-info" href="/Tareas/Index/" class="btn">Mostrar todas las tareas</a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn-block btn btn-info" href="/Tareas/Index/0" class="btn">Mostrar solo tareas incompletas</a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn-block btn btn-info" href="/Tareas/Index/1" class="btn">Mostrar solo tareas completas</a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdCarpeta)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EstimadoHoras)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaFin)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Prioridad)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Completada)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaCreacion)
+                    </th>
+                    <th></th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Nueva Tarea", "CrearNuevaTarea")
-</p>
-<a href="/Tareas/Index/" class="btn">Mostrar todas las tareas</a>
-<a href="/Tareas/Index/0" class="btn">Mostrar solo tareas incompletas</a>
-<a href="/Tareas/Index/1" class="btn">Mostrar solo tareas completas</a>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdCarpeta)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstimadoHoras)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaFin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prioridad)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Completada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaCreacion)
-        </th>
-        <th></th>
-    </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdCarpeta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EstimadoHoras)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaFin)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prioridad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompletadaTexto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaCreacion)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalle", "Detalle", new { idTarea = item.IdTarea })
+                        </td>
+                    </tr>
+                }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdCarpeta)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EstimadoHoras)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaFin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Prioridad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompletadaTexto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaCreacion)
-                </td>
-                <td>
-                    @Html.ActionLink("Detalle", "Detalle", new { idTarea = item.IdTarea })
-                </td>
-            </tr>
-        }
+            </table>
+        </div>
+    </div>
 
-    </table>
-
-    
 </div>

@@ -64,7 +64,8 @@ namespace ProgramacionWeb3TP.Controllers {
         public ActionResult VerificarUsuario(Usuario usuario, bool rememberMe = false) {
             System.Diagnostics.Debug.WriteLine("Login - Remember Me: " + rememberMe);
 
-            if (ModelState.IsValidField("Email") && ModelState.IsValidField("Contrasenia")) {
+            if (ModelState.IsValidField("Email"))// && ModelState.IsValidField("Contrasenia"))
+            {
                 Usuario user = _usuarioService.loguearUsuarioPorEmail(usuario);
                 if (user != null) {
                     //Se setea la cookie si el remember me es true
@@ -97,18 +98,7 @@ namespace ProgramacionWeb3TP.Controllers {
                     TempData["Error"] = "Error de usuario y/o contraseña";
                 }
             }
-            
-            
-        /*}
-            else {
-                var message = string.Join(" | ", ModelState.Values
-                                            .SelectMany(v => v.Errors)
-                                            .Select(e => e.ErrorMessage));
-
-                //Return Status Code:
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, message);
-            }*/
-            return RedirectToAction("Login", "Home");
+           return RedirectToAction("Login", "Home");
 
         }
 
