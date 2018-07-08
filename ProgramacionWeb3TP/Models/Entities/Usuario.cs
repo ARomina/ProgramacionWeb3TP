@@ -5,7 +5,6 @@ using System.Web;
 using System.Globalization;
 using System.ComponentModel.DataAnnotations;
 using ProgramacionWeb3TP.Models.Metadata;
-using System.Globalization;
 
 namespace ProgramacionWeb3TP.Models
 {
