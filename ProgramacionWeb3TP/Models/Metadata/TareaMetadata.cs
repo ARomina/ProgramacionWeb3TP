@@ -21,6 +21,7 @@ namespace ProgramacionWeb3TP.Models.Metadata
         public Nullable<decimal> EstimadoHoras { get; set; }
 
         [Display(Name = "Fecha Fin")]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> FechaFin { get; set; }
 
         [Display(Name = "Fecha de Creación")]
