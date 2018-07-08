@@ -150,5 +150,43 @@ namespace ProgramacionWeb3TP.Services
             ctx.ComentarioTarea.Add(comentario);
             ctx.SaveChanges();
         }
+
+        public void EliminarComentario(int comentarioId) {
+            ComentarioTarea comentario = ObtenerComentarioPorId(comentarioId);
+            ctx.ComentarioTarea.Remove(comentario);
+            ctx.SaveChanges();
+        }
+
+        public ComentarioTarea ObtenerComentarioPorId(int comentarioId) {
+            ComentarioTarea comentario = (from c in ctx.ComentarioTarea
+                                          where c.IdComentarioTarea == comentarioId
+                                          select c).FirstOrDefault();
+            return comentario;
+        }
+
+        public void CrearAdjunto(int idTarea, string path) {
+            Tarea tarea = ObtenerTareaPorId(idTarea);
+            ArchivoTarea archivo = new ArchivoTarea {
+                RutaArchivo = path,
+                FechaCreacion = DateTime.Now,
+                IdTarea = idTarea,
+                Tarea = tarea
+            };
+
+            ctx.ArchivoTarea.Add(archivo);
+            ctx.SaveChanges();
+        }
+
+        public void EliminarAdjunto(int adjuntoId) {
+            ArchivoTarea archivo = ObtenerArchivoPorId(adjuntoId);
+            ctx.ArchivoTarea.Remove(archivo);
+            ctx.SaveChanges();
+        }
+
+        public ArchivoTarea ObtenerArchivoPorId(int adjuntoId) {
+            ArchivoTarea adjunto = ctx.ArchivoTarea.Where(a => a.IdArchivoTarea == adjuntoId).FirstOrDefault();
+
+            return adjunto;
+        }
     }
 }

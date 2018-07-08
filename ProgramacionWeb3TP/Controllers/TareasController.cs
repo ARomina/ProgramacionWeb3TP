@@ -1,5 +1,6 @@
 ﻿using ProgramacionWeb3TP.Models;
 using ProgramacionWeb3TP.Services;
+using ProgramacionWeb3TP.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -287,6 +288,22 @@ namespace ProgramacionWeb3TP.Controllers {
         [HttpPost]
         public ActionResult CrearComentario([Bind]int idTarea, [Bind]string texto) {
             _tareaService.CrearComentario(idTarea, texto);
+            return RedirectToAction("Detalle", new { idTarea });
+        }
+
+        public ActionResult EliminarComentario(int idComentario, int idTarea) {
+            _tareaService.EliminarComentario(idComentario);
+            return RedirectToAction("Detalle", new { idTarea });
+        }
+
+        public ActionResult CrearAdjunto(int idTarea) {
+            if (Request.Files.Count > 0) {
+                string fullPath = FileUtility.Guardar(Request.Files[0], Request.Files[0].FileName, $"/archivos/tareas/{idTarea}/");
+
+                _tareaService.CrearAdjunto(idTarea, fullPath);
+            }
+
+
             return RedirectToAction("Detalle", new { idTarea });
         }
     }

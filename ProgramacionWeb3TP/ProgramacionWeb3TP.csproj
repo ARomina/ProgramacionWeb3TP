@@ -183,6 +183,7 @@
     <Compile Include="Services\CarpetaService.cs" />
     <Compile Include="Services\TareaService.cs" />
     <Compile Include="Services\UsuarioService.cs" />
+    <Compile Include="Utils\FileUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
