@@ -87,7 +87,8 @@ namespace ProgramacionWeb3TP.Controllers {
 
                 if (parsedPrioridad == 0) {
                     tarea.Prioridad = 4;
-                }else {
+                }
+                else {
                     tarea.Prioridad = parsedPrioridad;
                 }
 
@@ -113,8 +114,11 @@ namespace ProgramacionWeb3TP.Controllers {
                 if (tareaNueva == null) {
                     TempData["Error"] = MENSAJE_ERROR_NO_SE_PUDO_CREAR;
                 }
+                return RedirectToAction("Listado", "Tareas", new { idCarpeta = tarea.IdCarpeta });
             }
-            return RedirectToAction("Listado", "Tareas", new { idCarpeta = tarea.IdCarpeta });
+            else {
+                return RedirectToAction("Crear", "Tareas", new { idCarpeta = tarea.IdCarpeta });
+            }
         }
 
         //Procesar creacion de nueva carpeta (sin carpeta definida de un principio)
