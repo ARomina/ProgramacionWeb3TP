@@ -67,7 +67,6 @@
                         @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.FechaFin, new { id = "fechaFin" })
-                            @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -75,12 +74,12 @@
                         @Html.LabelFor(model => model.Prioridad, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             @Html.DropDownList("Prioridad", new List<SelectListItem>{
+                                                new SelectListItem{ Text="Seleccionar prioridad...", Value = "0" },
                                                 new SelectListItem{ Text="Urgente", Value = "1" },
                                                 new SelectListItem{ Text="Alta", Value = "2" },
                                                 new SelectListItem{ Text="Media", Value = "3" },
                                                 new SelectListItem{ Text="Baja", Value = "4" }
                                              })
-                            @Html.ValidationMessageFor(model => model.Prioridad, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -91,7 +90,6 @@
                                                 new SelectListItem{ Text="Completada", Value = "1" },
                                                 new SelectListItem{ Text="No completada", Value = "0" }
                                              })
-                            @Html.ValidationMessageFor(model => model.Completada, "", new { @class = "text-danger" })
                         </div>
                     </div>
 

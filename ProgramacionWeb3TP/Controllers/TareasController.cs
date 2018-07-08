@@ -83,7 +83,13 @@ namespace ProgramacionWeb3TP.Controllers {
                 short parsedPrioridad = short.Parse(Request["Prioridad"]);
                 short parsedCompletada = short.Parse(Request["Completada"]);
                 tarea.FechaFin = parsedFechaFin;
-                tarea.Prioridad = parsedPrioridad;
+
+                if (parsedPrioridad == 0) {
+                    tarea.Prioridad = 4;
+                }else {
+                    tarea.Prioridad = parsedPrioridad;
+                }
+
                 tarea.Completada = parsedCompletada;
 
                 System.Diagnostics.Debug.WriteLine("Crear Tarea - IdCarpeta: " + tarea.IdCarpeta);
@@ -128,7 +134,14 @@ namespace ProgramacionWeb3TP.Controllers {
                 short parsedPrioridad = short.Parse(Request["Prioridad"]);
                 short parsedCompletada = short.Parse(Request["Completada"]);
                 tarea.FechaFin = parsedFechaFin;
-                tarea.Prioridad = parsedPrioridad;
+
+                if (parsedPrioridad == 0) {
+                    tarea.Prioridad = 4;
+                }
+                else {
+                    tarea.Prioridad = parsedPrioridad;
+                }
+
                 tarea.Completada = parsedCompletada;
 
                 if (carpetaIdValue == 0) {
