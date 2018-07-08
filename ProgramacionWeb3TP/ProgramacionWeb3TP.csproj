@@ -275,6 +275,7 @@
     <Content Include="Views\Carpetas\Eliminar.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Tareas\CrearNuevaTarea.cshtml" />
+    <Content Include="Views\Tareas\CrearComentario.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

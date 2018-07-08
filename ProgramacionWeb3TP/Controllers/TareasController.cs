@@ -258,7 +258,7 @@ namespace ProgramacionWeb3TP.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult EliminacionTarea(Tarea tarea) {
             System.Diagnostics.Debug.WriteLine("Eliminacion Tarea" + tarea.IdTarea);
-            _tareaService.eliminarTarea(tarea.IdTarea);
+            _tareaService.EliminarTarea(tarea.IdTarea);
             return RedirectToAction("Listado", "Tareas");
         }
         

@@ -30,7 +30,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.IdCarpeta, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            <select id="carpetaId" name="carpetaId" runat="server">
+                            <select id="carpetaId" name="carpetaId" runat="server"  class="form-control">
                                 <option value="0">Seleccione una opción...</option>
                                 @foreach (var c in ViewBag.listaCarpetas) {
                             <option value="@c.IdCarpeta">@c.Nombre</option>
@@ -66,7 +66,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.FechaFin, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.FechaFin, new { id = "fechaFin" })
+                            @Html.EditorFor(model => model.FechaFin, new { htmlAttributes = new { @class = "form-control", @id = "fechaFin" }})
                         </div>
                     </div>
 
@@ -78,8 +78,12 @@
                                                 new SelectListItem{ Text="Urgente", Value = "1" },
                                                 new SelectListItem{ Text="Alta", Value = "2" },
                                                 new SelectListItem{ Text="Media", Value = "3" },
+
                                                 new SelectListItem{ Text="Baja", Value = "4" }
                                              })
+
+                                                },
+                                                htmlAttributes : new { @class = "form-control" })
                         </div>
                     </div>
 
@@ -89,20 +93,24 @@
                             @Html.DropDownList("Completada", new List<SelectListItem>{
                                                 new SelectListItem{ Text="Completada", Value = "1" },
                                                 new SelectListItem{ Text="No completada", Value = "0" }
+
                                              })
+
+                                                },
+                                                htmlAttributes: new { @class = "form-control" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="Crear" class="btn btn-default" />
                         </div>
                     </div>
                 </div>
             }
 
             <div>
-                @Html.ActionLink("Back to List", "Index")
+                @Html.ActionLink("Volver a Tareas", "Index")
             </div>
         </div>
     </div>
