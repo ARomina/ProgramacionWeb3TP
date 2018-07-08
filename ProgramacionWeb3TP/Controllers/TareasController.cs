@@ -134,7 +134,7 @@ namespace ProgramacionWeb3TP.Controllers {
             userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
 
             int carpetaIdValue = carpetaIdValue = int.Parse(Request.Form["carpetaId"].ToString());
-            if (ModelState.IsValidField("Nombre") && ModelState.IsValidField("EstimadoHoras")) {
+            if (ModelState.IsValidField("Nombre")) {
                 Nullable<System.DateTime> parsedFechaFin = String.IsNullOrEmpty(Request["EstimadoHoras"]) ? (DateTime?)null : DateTime.Parse((Request["EstimadoHoras"]));
                 short parsedPrioridad = short.Parse(Request["Prioridad"]);
                 short parsedCompletada = short.Parse(Request["Completada"]);
