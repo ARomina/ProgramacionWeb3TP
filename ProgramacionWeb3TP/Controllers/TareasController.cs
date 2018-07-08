@@ -82,7 +82,7 @@ namespace ProgramacionWeb3TP.Controllers {
             if (ModelState.IsValidField("Nombre") && ModelState.IsValidField("EstimadoHoras")) {
                 Nullable<System.DateTime> parsedFechaFin = String.IsNullOrEmpty(Request["EstimadoHoras"]) ? (DateTime?)null : DateTime.Parse((Request["EstimadoHoras"]));
                 short parsedPrioridad = short.Parse(Request["Prioridad"]);
-                        short parsedCompletada = short.Parse(Request["Completada"]);
+                short parsedCompletada = short.Parse(Request["Completada"]);
 
                         if (parsedPrioridad == 0) {
                             tarea.Prioridad = 4;
@@ -133,11 +133,10 @@ namespace ProgramacionWeb3TP.Controllers {
             userIdInSession = Convert.ToInt32(Session["usuarioSesionId"]);
 
             int carpetaIdValue = carpetaIdValue = int.Parse(Request.Form["carpetaId"].ToString());
-            if (ModelState.IsValid) {
-                DateTime parsedFechaFin = DateTime.Parse(Request["FechaFin"]);
+            if (ModelState.IsValidField("Nombre") && ModelState.IsValidField("EstimadoHoras")) {
+                Nullable<System.DateTime> parsedFechaFin = String.IsNullOrEmpty(Request["EstimadoHoras"]) ? (DateTime?)null : DateTime.Parse((Request["EstimadoHoras"]));
                 short parsedPrioridad = short.Parse(Request["Prioridad"]);
                 short parsedCompletada = short.Parse(Request["Completada"]);
-                tarea.FechaFin = parsedFechaFin;
 
                 if (parsedPrioridad == 0) {
                     tarea.Prioridad = 4;
@@ -167,8 +166,11 @@ namespace ProgramacionWeb3TP.Controllers {
                 if (tareaNueva == null) {
                     TempData["Error"] = MENSAJE_ERROR_NO_SE_PUDO_CREAR;
                 }
+                return RedirectToAction("Listado", "Tareas", new { idCarpeta = carpetaIdValue });
             }
-            return RedirectToAction("Listado", "Tareas", new { idCarpeta = carpetaIdValue });
+            else {
+                return RedirectToAction("CrearNuevaTarea", "Tareas", tarea);
+            }
         }
 
         //Vista
