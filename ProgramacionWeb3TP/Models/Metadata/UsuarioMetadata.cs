@@ -24,7 +24,8 @@ namespace ProgramacionWeb3TP.Models.Metadata
         [Required(ErrorMessage = "El campo es obligatorio")]
         [StringLength(20, ErrorMessage = "Debe tener como máximo 20 caracteres")]
         [DataType(DataType.Password)]
-        [RegularExpression(@"^(?=.*[a - z])(?=.*[A - Z])(?=.*\d).+$", ErrorMessage = "Debe contener al menos 1 mayúscula, 1 minúscula y 1 número")]
+        //[RegularExpression(@"^(?=.*[a - z])(?=.*[A - Z])(?=.*\d).+$", ErrorMessage = "Debe contener al menos 1 mayúscula, 1 minúscula y 1 número")]
+        [RegularExpression(@"^([a-z]{1,})([A-Z]{1,})(0-9{1,})$", ErrorMessage = "Debe contener al menos 1 mayúscula, 1 minúscula y 1 número")]
         public string Contrasenia { get; set; }
     }
 }

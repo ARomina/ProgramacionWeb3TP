@@ -117,7 +117,8 @@ namespace ProgramacionWeb3TP.Controllers {
         [ValidateAntiForgeryToken]  //Para prevenir ataques CSRF
         public ActionResult RegistrarUsuario([Bind(Include = "Nombre, Apellido, Email, Contrasenia")] Usuario usuario) {
             var encodedResponse = Request.Form["g-Recaptcha-Response"];
-            var isCaptchaValid = ReCaptchaClass.Validate(encodedResponse);
+            bool isCaptchaValid = ReCaptchaClass.Validate(encodedResponse);
+            System.Diagnostics.Debug.Write("Registracion - Captcha: ", isCaptchaValid.ToString());
 
             if (!isCaptchaValid) {
                 TempData["Error"] = "El captcha es inválido";
