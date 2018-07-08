@@ -26,7 +26,7 @@ namespace ProgramacionWeb3TP.Models
             this.Activo = usuario.Activo;
             this.FechaRegistracion = DateTime.ParseExact((DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff")), "yyyy-MM-dd HH:mm:ss:fff", CultureInfo.InvariantCulture);
             this.FechaActivacion = usuario.FechaActivacion;
-            this.CodigoActivacion = Guid.NewGuid().ToString("D").ToUpper().Substring(0, 30);
+            this.CodigoActivacion = Guid.NewGuid().ToString("D").ToUpper().Substring(0, 36);
         }
 
         //Constructor que uso para registrar al nuevo usuario dentro del repository
@@ -38,7 +38,7 @@ namespace ProgramacionWeb3TP.Models
             this.Activo = activo;
             this.FechaRegistracion = DateTime.Now;
             this.FechaActivacion = fechaActivacion;
-            this.CodigoActivacion = Guid.NewGuid().ToString("D").ToUpper().Substring(0, 30);
+            this.CodigoActivacion = Guid.NewGuid().ToString("D").ToUpper().Substring(0, 36);
         }
 
         //Constructor que uso para mandar los datos del registro al repository

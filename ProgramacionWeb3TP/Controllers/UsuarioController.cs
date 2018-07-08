@@ -18,6 +18,7 @@ namespace ProgramacionWeb3TP.Controllers {
                     String userNameInSession;
                     userNameInSession = "No user in session";
                     System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userNameInSession);
+                    Session["returnPath"] = Request.RawUrl;
                     return RedirectToAction("Login", "Home");
                 }
                 else {
@@ -42,6 +43,7 @@ namespace ProgramacionWeb3TP.Controllers {
                 String userNameInSession;
                 userNameInSession = "No user in session";
                 System.Diagnostics.Debug.WriteLine("Home - Usuario: " + userNameInSession);
+                Session["returnPath"] = Request.RawUrl;
                 return RedirectToAction("Login", "Home");
             }
             return View();
