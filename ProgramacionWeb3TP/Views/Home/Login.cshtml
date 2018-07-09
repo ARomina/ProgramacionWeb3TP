@@ -1,25 +1,62 @@
-﻿
+﻿@model ProgramacionWeb3TP.Models.Usuario
 @{
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12 ">
+            <h2 class="paddingLeftTitles">Login</h2>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
 
 
-<form:form action="validar-login" method="POST" modelAttribute="usuario">
+        @if (ViewBag.Error != null) {//si existe un error de logueo
+            <div class="col-md-6 col-md-offset-3">
+                <div class="alert alert-danger text-center">
+                    <h5>@ViewBag.Error</h5>
+                </div>
+            </div>
+        }
+        else if (Session["Action"] != null) {//si se intenta ingresar a una pagina de administracion sin loguearse
+            <div class="col-md-6 col-md-offset-3">
+                <div class="alert alert-danger text-center">
+                    <h5>Necesita estar logueado para ingresar a esta pagina</h5>
+                </div>
+            </div>
+        }
+        <div class="col-md-6">
+            @using (Html.BeginForm("VerificarUsuario", "Home", FormMethod.Post, new { enctype = "multipart/form-data" })) {//formulario de login
+                @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+                @Html.AntiForgeryToken()
+                <div class="form-group">
 
-    <br>
-    <br>
-    <br>
-    <%--Elementos de entrada de datos, el elemento path debe indicar en que atributo del objeto usuario se guardan los datos ingresados--%>
-    <form:input path="email" id="email" type="email" placeholder="Mail" class="form-control" />
-    <br>
-    <form:input path="password" type="password" id="password" placeholder="Contraseña" class="form-control" />
-    <br>
-    <br>
-    <br>
-    <br>
-    <button class="btn btn-lg btn-primary btn-block" Type="Submit">Login</button>
-</form:form>
-				</br><div><a href="ingresarAlumno" class="btn btn-lg btn-warning" role="button">Registrarse</a></div>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
 
+
+                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+
+                    @Html.EditorFor(model => model.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
+
+                    @Html.ValidationMessageFor(model => model.Contrasenia, null, new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="rememberMe" name="rememberMe" value="true" runat="server" /> <label for="rememberMe">Recordarme</label>
+                </div>
+
+                <button type="submit" class="btn btn-info  btn-block">Ingresar</button><br /><br />
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <hr />
+            @Html.ActionLink("¿No tenés cuenta? Ingresa acá", "Registracion", "Home", new { area = "" }, new { @class = "btn btn-lg btn-primary btn-block" })<!--Modificar estilo-->
+        </div>
+    </div>
+</div>

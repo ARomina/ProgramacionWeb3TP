@@ -1,0 +1,74 @@
+﻿@model IEnumerable<ProgramacionWeb3TP.Models.Carpeta>
+
+@{
+    ViewBag.Title = "Todas";
+}
+
+<h2>Todas</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaCreacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IdCarpeta }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IdCarpeta }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdCarpeta })
+            </td>
+        </tr>
+    }
+</table>
+
+@foreach (var item in Model)
+{
+        <div class="col-lg-3 col-md-6">
+            <a href="/Carpetas/Detalle/">
+                <div class="panel panel-primary folderContainer">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-comments fa-5x"></i>
+                            </div>
+                            <div class="col-xs-12 text-right">
+                                <div class="huge">@Html.DisplayFor(modelItem => item.Nombre)</div>
+                                <div class="huge">0 archivos adjuntos </div>
+                                <div class="huge">@Html.DisplayFor(modelItem => item.Descripcion)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        }

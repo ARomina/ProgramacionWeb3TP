@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Home";
+
+}
+
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <div class="profile-userpic">
+                    <img src="https://icon-icons.com/icons2/67/PNG/512/user_13230.png" class="img-responsive" alt="">
+                </div>
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name" runat="server">¡Hola, @Session["usuarioSesionNombre"]!</div>
+                </div>
+                <!--<div class="profile-userbuttons center-block">
+                    <a href="/Usuario/Modificar/@Session["usuarioSesionId"]" class="btn btn-success btn-sm">Modificar perfil</a>
+                </div>-->
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="/Usuario/">
+                                <i class="glyphicon glyphicon-home"></i> Inicio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Carpetas/Index/@Session["usuarioSesionId"]">
+                                <i class="glyphicon glyphicon-folder-open"></i> Mis carpetas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Tareas/Index/@Session["usuarioSesionId"]">
+                                <i class="glyphicon glyphicon-check"></i> Mis tareas
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9">
+                        <h2>Tareas pendientes</h2>
+                    </div>
+                    <div class=" col-lg-3 col-md-3 ">
+                        <div class="form-group pull-right">
+                            <a href="/Carpetas/Crear/@Session["usuarioSesionId"]" class="btn btn-success">
+                                <i class="glyphicon glyphicon-plus"></i> Crear carpeta
+                            </a>
+                        </div>
+                    </div>
+                     <hr />
+                        <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>Fecha de Fin</td>
+                                    <td>Nombre</td>
+                                    <td>Prioridad</td>
+                                    <td>Carpeta</td>
+                                    <td>Estimado</td>
+                                    <td>Completada</td>
+                                    <td>Acciones</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var t in ViewBag.listaTareasPendientes) {
+                            <tr>
+                                <td>@t.FechaFin</td>
+                                <td>@t.Nombre</td>
+                                <td>@t.Prioridad</td>
+                                <td>@t.IdCarpeta</td>
+                                @if (@t.Completada == 0) {
+                                    <td>
+                                        <a href="/Tareas/CompletarTarea/@t.IdTarea" class="btn btn-primary">Completar</a>
+                                    </td>
+                                }
+                                else {
+                                    <td>Completada</td>
+                                }
+                                <td>@t.EstimadoHoras</td>
+                                <td>
+                                    @Html.ActionLink("Detalle", "Detalle", "Tareas", new { idTarea = t.IdTarea }, null)
+                                </td>
+                            </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

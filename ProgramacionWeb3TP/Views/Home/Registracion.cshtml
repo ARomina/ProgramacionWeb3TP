@@ -1,27 +1,95 @@
-﻿
+﻿@model ProgramacionWeb3TP.Models.Usuario
+
 @{
     ViewBag.Title = "Registro";
 }
 
-<h2>Registro</h2>
-<form action="/Home/RegistrarUsuario/" method="POST">
-    <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input type="text" class="form-control" id="nombre" name="Nombre" placeholder="Nombre">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+            <h2 class="paddingLeftTitles">Registro</h2>
+            <hr />
+        </div>
     </div>
-    <div class="form-group">
-        <label for="apellido">Apellido</label>
-        <input type="text" class="form-control" id="apellido" name="Apellido" placeholder="Apellido">
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="Email" placeholder="Email">
-    </div>
-    <div class="form-group">
-        <label for="contrasenia">Contraseña</label>
-        <input type="password" class="form-control" id="contrasenia" name="Contrasenia" placeholder="Contraseña">
-    </div>
-    <!-- Agregar captcha -->
-    <button type="submit" class="btn btn-default">Registrarse</button>
-</form>
+    <div class="row">
 
+        @if (TempData["Error"] != null) {//si existe un error de registro
+            <div class="col-md-6 col-md-offset-3">
+                <div class="alert alert-danger text-center">
+                    <h5>@TempData["Error"]</h5>
+                </div>
+            </div>
+        }
+
+        @using (Html.BeginForm("RegistrarUsuario", "Home")) {
+            <br />
+
+            <div class="col col-md-6">
+                <div class="col-md-12">
+                    <h2>En todo momento</h2>
+                    <p>Desde la web o desde tu celular, tu información siempre disponible para que accedas cuando quieras</p>
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <h2>Rápido y fácil</h2>
+                    <p>Sistema fácil de utilizar y simple, para organizar tus tareas de forma óptima</p>
+                </div>
+                <hr />
+                <div class="col-md-12">
+                    <h2>Cada cosa en su lugar</h2>
+                    <p>En sistema de carpetas de Taskie te ayudará a separar y ordenar mejor tus tareas, siendo también más fáciles de encontrar</p>
+                </div>
+            </div>
+
+            <div class="col col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Crear una cuenta</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <fieldset>
+                            @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Nombre, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Apellido, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Contrasenia, "Contraseña", htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Contrasenia, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="repetircontrasenia">Repetir contraseña</label>
+                                <input type="password" class="form-control" id="Contrasenia2" name="Contrasenia2" placeholder="Repetir contraseña">
+                            </div>
+                            <hr />
+                            <div class="form-group g-recaptcha" data-sitekey="6LeQrGEUAAAAACph-dKdC1PiVcG3BqudT5k2JOZa"></div>
+                            <div class="form-group">
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="Continuar">
+                            </div>
+                            <hr />
+
+                            @Html.ActionLink("¿Ya tenés cuenta? Ingresa acá", "Login", "Home", new { area = "" }, new { @class = "btn btn-lg btn-info btn-block" })
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+            <!--</form>-->
+        }
+    </div>
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js"></script>

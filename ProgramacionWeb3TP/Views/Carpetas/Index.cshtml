@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ProgramacionWeb3TP.Models.Carpeta>
+@{
+    ViewBag.Title = "Mis Carpetas";
+}
+
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-12 col-sm-12">
+            <h2 class="col-md-6 col-sm-12 paddingLeftTitles">Mis Carpetas</h2>
+            <div class=" col-lg-4 col-md-4">
+                
+            </div>
+            <a class="col-md-2 col-sm-12 btn btn-primary" href="/Carpetas/Crear/@Session["usuarioSessionId"]">Crear carpeta</a>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            @foreach (var item in Model)
+            {
+            <div class="col-lg-3 col-md-6">
+                @Html.ActionLink("Detalle", "Detalle", new { idCarpeta = item.IdCarpeta }) |
+                @Html.ActionLink("Editar", "Editar", new { idCarpeta = item.IdCarpeta }) |
+                @Html.ActionLink("Eliminar", "Eliminar", new { idCarpeta = item.IdCarpeta })
+                <a href="#">
+                    <div class="panel panel-primary folderContainer">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-comments fa-5x"></i>
+                                </div>
+                                <div class="col-xs-12 text-right">
+                                    <div class="huge">@Html.DisplayFor(modelItem => item.Nombre)</div>
+                                    <div class="huge">@Html.DisplayFor(modelItem => item.Descripcion)</div>
+                                    <div class="huge">@Html.DisplayFor(modelItem => item.FechaCreacion)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            }
+        </div>
+    </div>
+</div>
+

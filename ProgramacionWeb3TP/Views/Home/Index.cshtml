@@ -3,18 +3,14 @@
     ViewBag.Title = "Tus tareas.. Organizadas!";
 }
 
-<!--<h2>Index</h2><br />-->
-<!--<a href="/Home/Login/">Ir al Login</a><br />-->
-<!--<a href="/Home/Registracion/">Ir a la Registración</a>-->
-
 <div class="jumbotron">
     <div class="container">
         <h1>¡Organiza tu mundo!</h1>
         <p>¿Qué tenía que hacer? ¿Cuándo? ¿Cómo?</p>
         <p>No te olvides, ahora todo es más simple, <br />rápido y sencillo, gracias a Taskie :)</p>
         <p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">¡Registrarme!</a>
-            <a class="btn btn-info btn-lg" href="#" role="button">Iniciar sesión</a>
+            @Html.ActionLink("¡Registrarme!", "Registracion", "Home", new { area = "" }, new { @class = "btn btn-primary btn-md" })
+            @Html.ActionLink("Iniciar sesión", "Login", "Home", new { area = "" }, new { @class = "btn btn-info btn-md" })
         </p>
     </div>
 </div>
