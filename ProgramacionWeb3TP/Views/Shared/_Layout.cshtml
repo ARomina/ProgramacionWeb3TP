@@ -6,13 +6,6 @@
     <title>@ViewBag.Title - Taskie</title>
 
     @Styles.Render("~/Content/CustomCSS", "~/Content/themes/base/jqueryCSS")
-    <!--<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />-->
-    <!-- Estilos propios -->
-    <!--<link href="~/Content/customStyles.css" rel="stylesheet" type="text/css" />-->
-    <!-- Tema personalizado -->
-    <!--<link href="~/Content/customTheme.css" rel="stylesheet" type="text/css" />-->
-    <!--<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
-    <!--<script src="~/Scripts/modernizr-2.6.2.js"></script>-->
 </head>
 <body>
     <div class="navbar navbar-default">
@@ -23,7 +16,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!--<a class="navbar-brand" href="#">Project name</a>-->
                 @Html.ActionLink("Taskie", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             @if (@Session["usuarioSesionId"] != null) {
@@ -32,7 +24,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hola, @Session["usuarioSesionNombre"] <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <!--<li><a href="/Usuario/Modificar/@Session["usuarioSesionId"]"><i class="icon-cog"></i> Modificar mi perfil</a></li>-->
+                                <li><a href="/Usuario"><i class="icon-cog"></i>Inicio</a></li>
                                 <li><a href="/Carpetas/Index/@Session["usuarioSesionId"]"><i class="icon-cog"></i> Mis carpetas</a></li>
                                 <li><a href="/Tareas/Index/@Session["usuarioSesionId"]"><i class="icon-envelope"></i> Mis tareas</a></li>
                                 <li class="divider"></li>
@@ -52,9 +44,5 @@
     </footer>
 
     @Scripts.Render("~/bundles/jquery", "~/bundles/jqueryui", "~/bundles/jqueryValidate", "~/bundles/TaskieJS", "~/bundles/bootstrap", "~/bundles/modernizr")
-    <!--<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>-->
 </body>
 </html>
